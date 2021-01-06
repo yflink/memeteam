@@ -1,0 +1,14 @@
+.scroll-body {
+  width: 100%;
+  
+}
+
+.section-select-container {
+  margin: 0 auto;
+  max-width: 1000px;
+  padding-top: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+

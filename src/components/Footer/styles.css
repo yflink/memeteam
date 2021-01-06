@@ -1,0 +1,26 @@
+.footer {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  height: 55px;
+  z-index: 9999;
+  box-sizing: border-box;
+  padding-left: 35px;
+  padding-right: 35px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #d5d5d6;
+  transition: all 200ms ease-in 0s;
+  visibility: visible;
+}
+
+.hide {
+  visibility: hidden;
+  transition: all 200ms ease-out;
+  height: 0px;
+}
+
+.footer-social {
+  margin: 0 10px !important;
+}

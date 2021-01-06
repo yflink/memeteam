@@ -1,0 +1,19 @@
+.header {
+  top: 0px;
+  height: 75px;
+  z-index: 1000;
+  box-sizing: border-box;
+  padding-left: 35px;
+  padding-right: 35px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.header-button {
+  height: 36px;
+  margin: 10px !important;
+  border: 2px solid !important;
+  border-radius: 4px !important;
+}

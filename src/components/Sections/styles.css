@@ -1,0 +1,11 @@
+.content {
+  width: 100%;
+  display: flex;
+  padding: 20px 5%;
+  background: azure;
+}
+
+.overlay{
+  margin-top: -50px;
+  background: none;
+}
