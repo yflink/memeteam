@@ -2,6 +2,9 @@ import config from "../config";
 import async from 'async';
 import bigInt from 'big-integer';
 import Web3 from 'web3';
+import {
+  getVoterCount
+} from '../web3/etherscan';
 
 import {
   CLAIM,
@@ -42,7 +45,9 @@ import {
   POOL_INDEX_FOR_CHAIN,
   APPROVE,
   APPROVE_RETURNED,
-  NOW_TIMESTAMP_UPDATED
+  NOW_TIMESTAMP_UPDATED,
+  GET_LEADERBOARD,
+  GET_LEADERBOARD_RETURNED
 } from '../web3/constants';
 import { getTransactionsForContract } from '../web3/etherscan';
 
@@ -108,6 +113,9 @@ class Store {
         }
       ],
       proposals: [
+      ],
+      leaderboard: [
+
       ],
       // claimableAsset: {
       //   id: 'YFL',
@@ -310,6 +318,9 @@ class Store {
             break;
           case GET_PROPOSALS:
             this.getProposals(payload)
+            break;
+          case GET_LEADERBOARD:
+            this.getLeaderBoard(payload)
             break;
           case VOTE_FOR:
             this.voteFor(payload)
@@ -1020,6 +1031,76 @@ class Store {
     })
   }
 
+  getLeaderBoard = (_payload) => {
+    
+    const account = store.getStore('account')
+    const web3 = new Web3(store.getStore('web3context').library.provider);
+    const memes = this.getMemes();
+
+    async.map(memes, (meme, callback) => {
+        this._getLeaderBoardData(web3, meme, callback);
+    }, async(err, leaderboardData) => {
+      if(err) {
+        return emitter.emit(ERROR, err);
+      }
+      console.log(leaderboardData);
+      leaderboardData.sort(function(a, b) {
+        return a.score - b.score; 
+      })
+
+      leaderboardData.reverse();
+
+      
+      store.setStore({ leaderboard: leaderboardData })
+      emitter.emit(GET_LEADERBOARD_RETURNED);
+      console.log("Rank  Post ID          Poster                               Votes For   Votes Against          Adj. Factor   Score")
+      for(var i = 0; i < leaderboardData.length; i++) {
+        console.log(
+          i+1+"     ",
+          leaderboardData[i].id+"    ",
+          leaderboardData[i].poster+ "  ",
+          leaderboardData[i].votesFor+ "  ",
+          leaderboardData[i].votesAgainst+ "  ",
+          leaderboardData[i].voters+ "  ",
+          leaderboardData[i].factor+ "  ",
+          leaderboardData[i].score
+        )
+      }
+    })
+  }
+
+  
+  _getLeaderBoardData = async (web3, meme, callback) => {
+      let element = new Object();
+      element['id'] = meme.id;
+      element['votesFor'] = web3.utils.fromWei(meme.totalForVotes, 'ether');
+      element['votesAgainst'] = web3.utils.fromWei(meme.totalAgainstVotes, 'ether');
+      element['poster'] = meme.proposer;
+      element['voters'] = await getVoterCount(meme.id);
+      let memeScore = 0;
+      let voteAdjustmentFactor = 0;
+
+      if (Number(element['voters']) >= Number(element['votesFor'])) {
+        memeScore = Number(element['voters']) + Number(element['votesFor'])
+      }
+      else {
+        const score = this._calculateMemeScore(Number(element['voters']), Number(element['votesFor']))
+        memeScore = score.score;
+        voteAdjustmentFactor = score.voteAdjustmentFactor;
+      }
+
+      element['score'] = memeScore;
+      element['factor'] = voteAdjustmentFactor;
+      callback(null, element)
+  }
+
+  _calculateMemeScore = (voters, votes) => {
+    const voteAdjustmentFactor = ([ 2 * (votes * voters) / ( votes + voters) ] ^ 2 ) / ( votes * voters );
+    const score = voteAdjustmentFactor * votes + voters;
+
+    return {voteAdjustmentFactor, score};
+  }
+
   _getProposalCount = async (web3, account, callback) => {
     try {
       const governanceContract = new web3.eth.Contract(config.governanceABI, config.governanceAddress)
@@ -1089,6 +1170,7 @@ class Store {
         console.log(confirmationNumber, receipt);
         if(confirmationNumber === 2) {
           dispatcher.dispatch({ type: GET_PROPOSALS, content: {} })
+
         }
       })
       .on('receipt', function(receipt){
@@ -1139,6 +1221,7 @@ class Store {
         console.log(confirmationNumber, receipt);
         if(confirmationNumber === 2) {
           dispatcher.dispatch({ type: GET_PROPOSALS, content: {} })
+          dispatcher.dispatch({ type: GET_LEADERBOARD, content: {} })
         }
       })
       .on('receipt', function(receipt){

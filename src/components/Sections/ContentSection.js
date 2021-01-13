@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import ImageCard from '../ImageCard'
 import './styles.css';
 import Store from "../../stores";
-import { ERROR, GET_PROPOSALS, GET_PROPOSALS_RETURNED, CONFIGURE, CONNECTION_CONNECTED, GET_BALANCES } from "../../web3/constants";
+import { ERROR, GET_PROPOSALS, GET_PROPOSALS_RETURNED, CONFIGURE, CONNECTION_CONNECTED, GET_BALANCES, GET_LEADERBOARD } from "../../web3/constants";
 import Unlock from '../../containers/Unlock';
 import { getFilteredMemes } from '../../Utils/filters';
 import { NOW_TIMESTAMP_UPDATED } from '../../web3/constants';
@@ -27,6 +27,7 @@ class ContentSection extends PureComponent {
 
     if (account && account.address) {
       dispatcher.dispatch({ type: GET_PROPOSALS, content: {} })
+
     }
   }
 
@@ -82,6 +83,8 @@ class ContentSection extends PureComponent {
   proposalsReturned = () => {
     const memes = store.getMemes();
     this.setState({ memes })
+    dispatcher.dispatch({ type: GET_LEADERBOARD, content: {} })
+
   }
 
   render() {

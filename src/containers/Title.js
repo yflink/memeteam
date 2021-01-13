@@ -4,7 +4,7 @@ import {TextField} from '@material-ui/core';
 import * as _ from 'lodash';
 
 import Store from "../stores";
-import { ERROR, PROPOSE, PROPOSE_CONFIRMED, GET_PROPOSALS, GET_PROPOSALS_RETURNED } from '../web3/constants'
+import { ERROR, PROPOSE, PROPOSE_CONFIRMED, GET_PROPOSALS, GET_PROPOSALS_RETURNED, GET_LEADERBOARD } from '../web3/constants'
 import Spinner from "../components/Spinner";
 
 const pepeAmazeImg = require('../assets/images/200824_pepeAmaze.png');
@@ -85,6 +85,7 @@ class Title extends PureComponent {
 
   proposalsReturned = () => {
     emitter.removeListener(GET_PROPOSALS_RETURNED, this.proposalsReturned)
+    dispatcher.dispatch({ type: GET_LEADERBOARD, content: {} })
 
     const { history } = this.props;
 
