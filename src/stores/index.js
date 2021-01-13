@@ -1095,7 +1095,7 @@ class Store {
   }
 
   _calculateMemeScore = (voters, votes) => {
-    const voteAdjustmentFactor = ([ 2 * (votes * voters) / ( votes + voters) ] ^ 2 ) / ( votes * voters );
+    const voteAdjustmentFactor = (Math.pow(2 * (votes * voters) / ( votes + voters), 2)) / ( votes * voters );
     const score = voteAdjustmentFactor * votes + voters;
 
     return {voteAdjustmentFactor, score};
