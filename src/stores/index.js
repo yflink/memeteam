@@ -2,6 +2,9 @@ import config from "../config";
 import async from 'async';
 import bigInt from 'big-integer';
 import Web3 from 'web3';
+import {
+  getVoterCount
+} from '../web3/etherscan';
 
 import {
   CLAIM,
@@ -42,7 +45,9 @@ import {
   POOL_INDEX_FOR_CHAIN,
   APPROVE,
   APPROVE_RETURNED,
-  NOW_TIMESTAMP_UPDATED
+  NOW_TIMESTAMP_UPDATED,
+  GET_LEADERBOARD,
+  GET_LEADERBOARD_RETURNED
 } from '../web3/constants';
 import { getTransactionsForContract } from '../web3/etherscan';
 
@@ -107,8 +112,8 @@ class Store {
           code: 'zh'
         }
       ],
-      proposals: [
-      ],
+      proposals: [],
+      leaderboard: [],
       // claimableAsset: {
       //   id: 'YFL',
       //   name: 'YFLink',
@@ -310,6 +315,9 @@ class Store {
             break;
           case GET_PROPOSALS:
             this.getProposals(payload)
+            break;
+          case GET_LEADERBOARD:
+            this.getLeaderBoard(payload)
             break;
           case VOTE_FOR:
             this.voteFor(payload)
@@ -1020,6 +1028,93 @@ class Store {
     })
   }
 
+  getLeaderBoard = (_payload) => {
+    
+    const web3 = new Web3(store.getStore('web3context').library.provider);
+    const memes = this.getMemes();
+
+    async.map(memes, (meme, callback) => {
+        this._getLeaderBoardData(web3, meme, callback);
+    }, async(err, leaderboardData) => {
+      if(err) {
+        return emitter.emit(ERROR, err);
+      }
+      console.log(leaderboardData);
+      leaderboardData.sort(function(a, b) {
+        return b.score - a.score; 
+      })
+  
+      store.setStore({ leaderboard: leaderboardData })
+      emitter.emit(GET_LEADERBOARD_RETURNED);
+      
+    })
+  }
+
+  
+  _getLeaderBoardData = async (web3, meme, callback) => {
+      const id = meme.id;
+      const votesFor = web3.utils.fromWei(meme.totalForVotes, 'ether');
+      const votesAgainst = web3.utils.fromWei(meme.totalAgainstVotes, 'ether');
+      const poster = meme.proposer;
+      const voters = await getVoterCount(meme.id);
+      let memeScore = 0;
+      let voteAdjustmentFactor = 0;
+
+      if (Number(voters) >= Number(votesFor)) {
+        memeScore = Number(voters) + Number(votesFor)
+      }
+      else {
+        const score = this._calculateMemeScore(Number(voters), Number(votesFor))
+        memeScore = score.score;
+        voteAdjustmentFactor = score.voteAdjustmentFactor;
+      }
+
+      const prize = this._calculatePrize(Number(voters), Number(votesFor));
+
+      const element = {
+        id,
+        votesFor,
+        votesAgainst,
+        poster,
+        voters,
+        score: memeScore,
+        factor: voteAdjustmentFactor,
+        prizeTier: prize.totalPrize,
+        prizeToPoster: prize.priceToPoster,
+        prizePerYFLVote: prize.pricePerYFLVote
+      }
+
+      callback(null, element)
+  }
+
+  _calculateMemeScore = (voters, votes) => {
+    const voteAdjustmentFactor = (Math.pow(2 * (votes * voters) / ( votes + voters), 2)) / ( votes * voters );
+    const score = voteAdjustmentFactor * votes + voters;
+
+    return {voteAdjustmentFactor, score};
+  }
+
+  _calculatePrize = (voters, votes) => {
+    let totalPrize = 0;
+    let priceToPoster = 0;
+    let pricePerYFLVote = 0;
+
+    if (voters <= 21) {
+      totalPrize = 5;
+    }
+    else if (voters <= 34) {
+      totalPrize = 8
+    }
+    else {
+      totalPrize = 13
+    }
+
+    priceToPoster = totalPrize/2;
+    pricePerYFLVote = totalPrize/2/votes;
+
+    return {totalPrize, priceToPoster, pricePerYFLVote};
+  }
+
   _getProposalCount = async (web3, account, callback) => {
     try {
       const governanceContract = new web3.eth.Contract(config.governanceABI, config.governanceAddress)
@@ -1139,6 +1234,7 @@ class Store {
         console.log(confirmationNumber, receipt);
         if(confirmationNumber === 2) {
           dispatcher.dispatch({ type: GET_PROPOSALS, content: {} })
+          dispatcher.dispatch({ type: GET_LEADERBOARD, content: {} })
         }
       })
       .on('receipt', function(receipt){
