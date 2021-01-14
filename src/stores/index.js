@@ -1073,11 +1073,11 @@ class Store {
       element['score'] = memeScore;
       element['factor'] = voteAdjustmentFactor;
 
-      const price = this._calculatePrize(Number(element['voters']), Number(element['votesFor']));
+      const prize = this._calculatePrize(Number(element['voters']), Number(element['votesFor']));
 
-      element['priceTier'] = price.totalPrize
-      element['priceToPoster'] = price.priceToPoster
-      element['pricePerYFLVote'] = price.pricePerYFLVote
+      element['prizeTier'] = prize.totalPrize
+      element['prizeToPoster'] = prize.priceToPoster
+      element['prizePerYFLVote'] = prize.pricePerYFLVote
       callback(null, element)
   }
 
