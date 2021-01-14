@@ -112,11 +112,8 @@ class Store {
           code: 'zh'
         }
       ],
-      proposals: [
-      ],
-      leaderboard: [
-
-      ],
+      proposals: [],
+      leaderboard: [],
       // claimableAsset: {
       //   id: 'YFL',
       //   name: 'YFLink',
@@ -1033,7 +1030,6 @@ class Store {
 
   getLeaderBoard = (_payload) => {
     
-    const account = store.getStore('account')
     const web3 = new Web3(store.getStore('web3context').library.provider);
     const memes = this.getMemes();
 
@@ -1045,12 +1041,9 @@ class Store {
       }
       console.log(leaderboardData);
       leaderboardData.sort(function(a, b) {
-        return a.score - b.score; 
+        return b.score - a.score; 
       })
-
-      leaderboardData.reverse();
-
-      
+  
       store.setStore({ leaderboard: leaderboardData })
       emitter.emit(GET_LEADERBOARD_RETURNED);
       console.log("Rank  Post ID          Poster                               Votes For   Votes Against          Adj. Factor   Score")
@@ -1170,7 +1163,6 @@ class Store {
         console.log(confirmationNumber, receipt);
         if(confirmationNumber === 2) {
           dispatcher.dispatch({ type: GET_PROPOSALS, content: {} })
-
         }
       })
       .on('receipt', function(receipt){

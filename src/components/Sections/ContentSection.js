@@ -27,7 +27,6 @@ class ContentSection extends PureComponent {
 
     if (account && account.address) {
       dispatcher.dispatch({ type: GET_PROPOSALS, content: {} })
-
     }
   }
 
@@ -84,7 +83,6 @@ class ContentSection extends PureComponent {
     const memes = store.getMemes();
     this.setState({ memes })
     dispatcher.dispatch({ type: GET_LEADERBOARD, content: {} })
-
   }
 
   render() {
