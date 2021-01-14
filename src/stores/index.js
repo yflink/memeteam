@@ -1052,32 +1052,38 @@ class Store {
 
   
   _getLeaderBoardData = async (web3, meme, callback) => {
-      let element = new Object();
-      element['id'] = meme.id;
-      element['votesFor'] = web3.utils.fromWei(meme.totalForVotes, 'ether');
-      element['votesAgainst'] = web3.utils.fromWei(meme.totalAgainstVotes, 'ether');
-      element['poster'] = meme.proposer;
-      element['voters'] = await getVoterCount(meme.id);
+      const id = meme.id;
+      const votesFor = web3.utils.fromWei(meme.totalForVotes, 'ether');
+      const votesAgainst = web3.utils.fromWei(meme.totalAgainstVotes, 'ether');
+      const poster = meme.proposer;
+      const voters = await getVoterCount(meme.id);
       let memeScore = 0;
       let voteAdjustmentFactor = 0;
 
-      if (Number(element['voters']) >= Number(element['votesFor'])) {
-        memeScore = Number(element['voters']) + Number(element['votesFor'])
+      if (Number(voters) >= Number(votesFor)) {
+        memeScore = Number(voters) + Number(votesFor)
       }
       else {
-        const score = this._calculateMemeScore(Number(element['voters']), Number(element['votesFor']))
+        const score = this._calculateMemeScore(Number(voters), Number(votesFor))
         memeScore = score.score;
         voteAdjustmentFactor = score.voteAdjustmentFactor;
       }
 
-      element['score'] = memeScore;
-      element['factor'] = voteAdjustmentFactor;
+      const prize = this._calculatePrize(Number(voters), Number(votesFor));
 
-      const prize = this._calculatePrize(Number(element['voters']), Number(element['votesFor']));
+      const element = {
+        id,
+        votesFor,
+        votesAgainst,
+        poster,
+        voters,
+        score: memeScore,
+        factor: voteAdjustmentFactor,
+        prizeTier: prize.totalPrize,
+        prizeToPoster: prize.priceToPoster,
+        prizePerYFLVote: prize.pricePerYFLVote
+      }
 
-      element['prizeTier'] = prize.totalPrize
-      element['prizeToPoster'] = prize.priceToPoster
-      element['prizePerYFLVote'] = prize.pricePerYFLVote
       callback(null, element)
   }
 
