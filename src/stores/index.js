@@ -1046,19 +1046,7 @@ class Store {
   
       store.setStore({ leaderboard: leaderboardData })
       emitter.emit(GET_LEADERBOARD_RETURNED);
-      console.log("Rank  Post ID          Poster                               Votes For   Votes Against          Adj. Factor   Score")
-      for(var i = 0; i < leaderboardData.length; i++) {
-        console.log(
-          i+1+"     ",
-          leaderboardData[i].id+"    ",
-          leaderboardData[i].poster+ "  ",
-          leaderboardData[i].votesFor+ "  ",
-          leaderboardData[i].votesAgainst+ "  ",
-          leaderboardData[i].voters+ "  ",
-          leaderboardData[i].factor+ "  ",
-          leaderboardData[i].score
-        )
-      }
+      
     })
   }
 
@@ -1084,6 +1072,12 @@ class Store {
 
       element['score'] = memeScore;
       element['factor'] = voteAdjustmentFactor;
+
+      const price = this._calculatePrize(Number(element['voters']), Number(element['votesFor']));
+
+      element['priceTier'] = price.totalPrize
+      element['priceToPoster'] = price.priceToPoster
+      element['pricePerYFLVote'] = price.pricePerYFLVote
       callback(null, element)
   }
 
@@ -1092,6 +1086,27 @@ class Store {
     const score = voteAdjustmentFactor * votes + voters;
 
     return {voteAdjustmentFactor, score};
+  }
+
+  _calculatePrize = (voters, votes) => {
+    let totalPrize = 0;
+    let priceToPoster = 0;
+    let pricePerYFLVote = 0;
+
+    if (voters <= 21) {
+      totalPrize = 5;
+    }
+    else if (voters <= 34) {
+      totalPrize = 8
+    }
+    else {
+      totalPrize = 13
+    }
+
+    priceToPoster = totalPrize/2;
+    pricePerYFLVote = totalPrize/2/votes;
+
+    return {totalPrize, priceToPoster, pricePerYFLVote};
   }
 
   _getProposalCount = async (web3, account, callback) => {
