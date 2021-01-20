@@ -18,9 +18,8 @@ import CreateContainer from './containers/CreateContainer';
 import Header from './components/Header';
 
 import { getDisplayableAmountFromMinUnit } from './web3/utils';
-import Stake from './containers/Stake';
-import AllSet from './containers/AllSet';
 import StakeContainer from './containers/StakeContainer';
+import Leaderboards from './containers/Leaderboards';
 
 const dispatcher = Store.dispatcher
 const emitter = Store.emitter
@@ -97,6 +96,7 @@ class App extends PureComponent {
               <Route path="/details" component={DetailsContainer} />
               <Route path="/create" component={CreateContainer} />
               <Route path="/stake" component={StakeContainer} />
+              <Route path="/leaderboards" component={Leaderboards} />
               <Redirect to="/" />
             </Switch>
           </Router> 

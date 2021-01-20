@@ -8,5 +8,15 @@ export const campaignConfig = {
   includedCampaignDropdowns : [
     "Dry Run"
   ],
-  isTest: false //when true, this parameter a) adds parameter `isTest=true` to links uploaded, and b) displays memes whose `isTest` paramter is true. When false, this parameter c) removes the `isTest=true` parameter when submitting links and d) filters out all memes with `isTest=true` parameter 
+  isTest: false, //when true, this parameter a) adds parameter `isTest=true` to links uploaded, and b) displays memes whose `isTest` paramter is true. When false, this parameter c) removes the `isTest=true` parameter when submitting links and d) filters out all memes with `isTest=true` parameter ,
+  prizeThresholds: [{
+    threshold : 21,
+    prize : 5
+  } , {
+    threshold: 34,
+    prize : 8,
+  } , {
+    threshold : -1, // maximum
+    prize : 13,
+  }],
 };

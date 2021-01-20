@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, withRouter } from "react-router-dom";
 
 import './styles.css';
 
@@ -10,6 +11,9 @@ function Footer({isVisible}) {
       <a className="footer-social" href="https://twitter.com/yflinkio" target="_blank">Twitter</a>
       <a className="footer-social" href="https://t.me/YFLinkGroup" target="_blank">Telegram</a>
       <a className="footer-social" href="https://blog.yflink.io/" target="_blank">Blog</a>
+      <Link to="/leaderboards">
+        Leaderboards
+      </Link>
     </div>
   )
 }

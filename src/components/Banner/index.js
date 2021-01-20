@@ -60,7 +60,7 @@ function Banner({ }) {
                 variant="h6"
                 dangerouslySetInnerHTML={{ __html: "<b>Operation "+campaignConfig.currentCampaign+"<br> Starts at Block: </b>" }}
               />
-              <Typography className="green"
+              <Typography className="f-green"
                 variant="h5"
               >
                 <StartBlockLink startBlock={currentCampaignStartBlock} onclick="window.open(this.href,'_blank');return false;" href="https://etherscan.io/block/countdown/{currentCampaignStartBlock}" />
@@ -72,7 +72,7 @@ function Banner({ }) {
                 variant="h5"
                 dangerouslySetInnerHTML={{ __html: "<b>Operation "+campaignConfig.currentCampaign+" <br>Ends In:</b>" }}
               />
-              <Typography className="green"
+              <Typography className="f-green"
                 variant="h5"
                 dangerouslySetInnerHTML={{ __html: "<b>"+formatCountdown(currentCampaignEndBlock - now).toUpperCase()+"</b>" }}
               />

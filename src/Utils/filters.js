@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 import { campaignConfig } from '../campaign.config';
+import { getRoundedWei } from '../web3/utils';
 
 const diffFromToday = (start, now) => {
   return (now - start) * 13.8 * 1000
@@ -84,10 +85,10 @@ export const getFilteredMemes = ({ memes, filters, now, myAddress, myVotedPropos
       filteredMemes = _.orderBy(memes, 'start', 'asc');
       break;
     case 'most_to_least_votes':
-      filteredMemes = _.orderBy(memes, 'totalForVotes', 'desc');
+      filteredMemes = _.orderBy(memes, meme => getRoundedWei(meme.totalForVotes), 'desc');
       break;
     case 'least_to_most_votes':
-      filteredMemes = _.orderBy(memes, 'totalForVotes', 'asc');
+      filteredMemes = _.orderBy(memes, meme => getRoundedWei(meme.totalForVotes), 'asc');
       break;
   }
 

@@ -8,7 +8,7 @@ import './styles.css';
 export default function CardTimeRatingBar({ elapsed, rating }) {
   return (
     <div className="elapsed-bar f-w flex justify-space-between"  >
-      <div className={elapsed < 0 ? 'elapsed-closed' : 'elapsed-open'}>
+      <div className={elapsed < 0 ? 'elapsed-closed' : 'elapsed-open f-green'}>
         <div alt='elapsed' >
           <TimerIcon />
         </div>

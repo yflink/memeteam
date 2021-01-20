@@ -39,6 +39,7 @@ class ImageCard extends PureComponent {
       totalForVotes,
       end,
       isForBrowseMore,
+      leaderboardItem,
     } = this.props;
     const { now } = this.state;
 
@@ -67,7 +68,7 @@ class ImageCard extends PureComponent {
           </Grid>
           <CardTimeRatingBar
             elapsed={end - now}
-            rating={getRoundedWei(totalForVotes)}
+            rating={leaderboardItem?.score?.toFixed(2) || '--'}
           />
         </Grid>
       </Grid>

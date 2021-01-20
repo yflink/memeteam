@@ -1099,14 +1099,19 @@ class Store {
     let priceToPoster = 0;
     let pricePerYFLVote = 0;
 
-    if (voters <= 21) {
-      totalPrize = 5;
-    }
-    else if (voters <= 34) {
-      totalPrize = 8
-    }
-    else {
-      totalPrize = 13
+    const { prizeThresholds } = campaignConfig;
+
+    for (let index = 0; index < prizeThresholds.length - 1; index++) {
+      const item = prizeThresholds[index];
+      const { prize, threshold } = item;
+      if (voters <= threshold) {
+        totalPrize = prize;
+        break;
+      }
+
+      if (threshold === -1) {
+        totalPrize = prize
+      }
     }
 
     priceToPoster = totalPrize/2;

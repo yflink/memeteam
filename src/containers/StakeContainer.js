@@ -14,7 +14,7 @@ class StakeContainer extends PureComponent {
       <Grid container className="f-w detail-container">
         <BackButton shouldGoHome />
         <Grid className="f-w b-white detail-content" container direction='column' alignItems='center' justify='center'>
-          <Grid className='detail-box' item>
+          <Grid className="detail-box border-black" item>
             <Switch>
               <Route path="/stake" component={Stake} exact />
               <Route path="/stake/allset" component={AllSet} />
@@ -22,7 +22,7 @@ class StakeContainer extends PureComponent {
             </Switch>
           </Grid>
         </Grid>
-        <ContentSection isOverlay />
+        {/* <ContentSection isOverlay /> */}
       </Grid>
     );
   }

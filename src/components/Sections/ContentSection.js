@@ -5,7 +5,9 @@ import Typography from '@material-ui/core/Typography';
 import ImageCard from '../ImageCard'
 import './styles.css';
 import Store from "../../stores";
-import { ERROR, GET_PROPOSALS, GET_PROPOSALS_RETURNED, CONFIGURE, CONNECTION_CONNECTED, GET_BALANCES, GET_LEADERBOARD } from "../../web3/constants";
+import {
+  ERROR, GET_PROPOSALS, GET_PROPOSALS_RETURNED, CONFIGURE, CONNECTION_CONNECTED, GET_BALANCES, GET_LEADERBOARD, GET_LEADERBOARD_RETURNED,
+} from "../../web3/constants";
 import Unlock from '../../containers/Unlock';
 import { getFilteredMemes } from '../../Utils/filters';
 import { NOW_TIMESTAMP_UPDATED } from '../../web3/constants';
@@ -43,6 +45,11 @@ class ContentSection extends PureComponent {
     emitter.removeListener(GET_PROPOSALS_RETURNED, this.proposalsReturned)
     emitter.removeListener(NOW_TIMESTAMP_UPDATED, this.updateNow);
   };
+
+  leaderboardReturned = () => {
+    emitter.removeListener(GET_LEADERBOARD_RETURNED, this.leaderboardReturned)
+    this.setState({ redraw: true });
+  }
 
   async componentDidUpdate(prevProps) {
     const account = store.getStore('account')
@@ -83,6 +90,7 @@ class ContentSection extends PureComponent {
     const memes = store.getMemes();
     this.setState({ memes })
     dispatcher.dispatch({ type: GET_LEADERBOARD, content: {} })
+    emitter.on(GET_LEADERBOARD_RETURNED, this.leaderboardReturned)
   }
 
   render() {
@@ -92,6 +100,7 @@ class ContentSection extends PureComponent {
       sort: 'newest_to_oldest',
     } : this.props.filters;
     const { memes = [], now, myVotedProposalIds } = this.state;
+    const leaderboard = store.getStore('leaderboard') || []
 
     const account = store.getStore('account');
     const title = 'Memes Open For Voting';
@@ -125,9 +134,10 @@ class ContentSection extends PureComponent {
           />
         )}
         <Grid container className={`section content justify-center ${isOverlay && 'overlay'}`} id={'id'}>
-          {(isFromDetail ? [...filteredMemes, { isForBrowseMore: true }] : filteredMemes).map(meme=>
-            <ImageCard {...meme} />
-          )}
+          {(isFromDetail ? [...filteredMemes, { isForBrowseMore: true }] : filteredMemes).map(meme=> {
+            const leaderboardItem = leaderboard.find(item => item.id === meme.id);
+            return <ImageCard {...meme} leaderboardItem={leaderboardItem}/>
+          })}
         </Grid>
       </div>
     )

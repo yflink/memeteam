@@ -2,7 +2,6 @@ import React, { PureComponent } from "react";
 import Grid from '@material-ui/core/Grid';
 import { Route,  Switch,  Redirect } from "react-router-dom";
 
-import Header from '../components/Header';
 import { ContentSection } from '../components/Sections'
 
 import BackButton from "../components/BackButton";
@@ -25,7 +24,7 @@ class CreateContainer extends PureComponent {
       <Grid container className="f-w detail-container">
         <BackButton shouldGoHome />
         <Grid className="f-w b-white detail-content" container direction='column' alignItems='center' justify='center'>
-          <Grid className='detail-box' item>
+          <Grid className="detail-box border-black" item>
             <Switch>
               <Route path="/create" component={Create} exact />
               <Route path="/create/unlock" component={UnlockWrapperForCreate(Unlock)} />
@@ -40,7 +39,7 @@ class CreateContainer extends PureComponent {
             </Switch>
           </Grid>
         </Grid>
-        <ContentSection isOverlay />
+        {/* <ContentSection isOverlay /> */}
       </Grid>
     );
   }

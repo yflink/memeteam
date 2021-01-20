@@ -4,9 +4,10 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TimerIcon from '@material-ui/icons/AccessTime';
+import classnames from 'classnames';
 
 import './styles.css';
-import { formatCountdown, getFileFromImgurLink, getRootDomain, openTweet } from '../../Utils';
+import { formatCountdown, getFileFromImgurLink, openTweet } from '../../Utils';
 import { getRoundedWei, abbreviateAddress, titleCheck } from "../../web3/utils";
 import { NOW_TIMESTAMP_UPDATED } from '../../web3/constants';
 
@@ -46,17 +47,24 @@ class MemeDetail extends PureComponent {
       end,
       voterCount,
       myVoteCount,
-      posterLinkBalance,
       posterYFLBalance,
       posterYFLStakedBalance,
       onVote,
+      leaderboardItem,
     } = this.props;
-    const { now } = this.state;
 
+    const { now } = this.state;
     const countdown = end - now;
 
     return (
-      <Grid container className="section meme justify-center" direction='row' >
+      <Grid
+        container
+        className={classnames('section meme justify-center', {
+          'border-green': countdown > 0,
+          'border-black': !countdown || countdown <= 0,
+        })}
+        direction='row'
+      >
         <Grid className='detail-img-container'>
           <img className='detail-img' src={link} alt='meme detail' />
           <div className="link-overlay"><a href={link} target="_blank">{link}</a></div>
@@ -65,7 +73,7 @@ class MemeDetail extends PureComponent {
           <Grid  className='detail-desc-top' container direction='row' alignItems='center' justify='space-between'>
             <Typography
               variant="h6"
-              dangerouslySetInnerHTML={{ __html: `<b>${getRoundedWei(totalForVotes)} Votes for Meme #${id}</b><br><i><font size="-0.5">(by ${voterCount || '--'} voters)</font></i>` }}
+              dangerouslySetInnerHTML={{ __html: `Meme #${id}</b>` }}
             />
             <Button
               className="button-tween b-white"
@@ -75,14 +83,17 @@ class MemeDetail extends PureComponent {
               <Typography variant="p" dangerouslySetInnerHTML={{ __html: `Tweet<br>this Meme` }} />
             </Button>
           </Grid>
+
           <Typography 
             variant="h5" 
             dangerouslySetInnerHTML={{ __html: `<b>Title: <i>${titleCheck(title)}</i></b>`}}
             className='detail-desc-title'
           />
+
           <Typography 
             variant="h6" 
-            dangerouslySetInnerHTML={{ __html: `<b>Stats for Meme #${id}</b>`}} 
+            dangerouslySetInnerHTML={{ __html: `<b>About the poster</b>`}} 
+            className='detail-desc-subtitle'
           />
           <Typography 
             variant="subtitle1" 
@@ -90,25 +101,58 @@ class MemeDetail extends PureComponent {
           />
           <Typography 
             variant="subtitle1" 
-            dangerouslySetInnerHTML={{ __html: `Poster $Link Balance: ${posterLinkBalance || '--'}`}} 
+            dangerouslySetInnerHTML={{ __html: `$YFL Balance: ${posterYFLBalance || '--'}`}} 
           />
           <Typography 
             variant="subtitle1" 
-            dangerouslySetInnerHTML={{ __html: `Poster $YFL Balance: ${posterYFLBalance || '--'}`}} 
+            dangerouslySetInnerHTML={{ __html: `$YFL Staked: ${posterYFLStakedBalance || '--'}`}} 
+          />
+
+          <Typography 
+            variant="h6" 
+            dangerouslySetInnerHTML={{ __html: `<b>Stats for this Meme</b>`}} 
+            className='detail-desc-subtitle'
+          />
+          <Typography
+            variant="subtitle1"
+            dangerouslySetInnerHTML={{ __html: `Votes: ${getRoundedWei(totalForVotes)}` }}
+          />
+          <Typography
+            variant="subtitle1"
+            dangerouslySetInnerHTML={{ __html: `Voters: ${voterCount || '--'}` }}
           />
           <Typography 
             variant="subtitle1" 
-            dangerouslySetInnerHTML={{ __html: `Poster $YFL Staked in Gov Rewards: ${posterYFLStakedBalance || '--'}`}} 
+            dangerouslySetInnerHTML={{ __html: `My Votes: ${myVoteCount || '--'}`}} 
           />
           <Typography 
             variant="subtitle1" 
-            dangerouslySetInnerHTML={{ __html: `My Votes for this Meme: ${myVoteCount || '--'}`}} 
-          />                    
+            dangerouslySetInnerHTML={{ __html: `Adjustment Factor: ${leaderboardItem?.factor?.toFixed(2) || '--'}`}} 
+          />
+          <Typography 
+            variant="subtitle1" 
+            dangerouslySetInnerHTML={{ __html: `Score: ${leaderboardItem?.score.toFixed(2) || '--'}`}} 
+          />
+
+          <Typography 
+            variant="h6" 
+            dangerouslySetInnerHTML={{ __html: `<b>Prize info</b>`}} 
+            className='detail-desc-subtitle'
+          />
+          <Typography
+            variant="subtitle1"
+            dangerouslySetInnerHTML={{ __html: `Prize Tier: ${leaderboardItem?.prizeTier || '--'} YFL` }}
+          />
+          <Typography
+            variant="subtitle1"
+            dangerouslySetInnerHTML={{ __html: `Prize to poster: ${leaderboardItem?.prizeToPoster || '--'} YFL` }}
+          />
           <Grid className='detail-time justify-space-between' direction='row' alignItems='flex-end'>
             <Grid container direction='row' item xs={5} >
-              <TimerIcon />
+              <TimerIcon style={{ color: countdown > 0 ? 'green' : 'red'}} />
               <Typography 
                 variant="p" 
+                className={countdown > 0 ? 'f-green' : 'f-red'}
                 dangerouslySetInnerHTML={{ __html: formatCountdown(countdown)}}
               />
             </Grid>
@@ -121,12 +165,12 @@ class MemeDetail extends PureComponent {
                   />           
                 </Link>
               </Grid>
-              <Button
-                className="button-vote b-white"
-                variant="outlined"
-                onClick={() => onVote({ id })}
-              >
-                {countdown > 0 ? (
+              {countdown > 0 ? (
+                <Button
+                  className="button-vote b-white f-green"
+                  variant="outlined"
+                  onClick={() => onVote({ id })}
+                >
                   <Grid container direction='column' >
                     <Typography 
                       variant="body1" 
@@ -137,7 +181,12 @@ class MemeDetail extends PureComponent {
                       dangerouslySetInnerHTML={{ __html: `for Meme #${id}`}} 
                     />
                   </Grid>
-                ) : (
+                </Button>
+              ) : (
+                <Button
+                  className="button-vote b-white f-red"
+                  variant="outlined"
+                >
                   <Grid container direction='column' >
                     <Typography 
                       variant="body1" 
@@ -148,8 +197,8 @@ class MemeDetail extends PureComponent {
                       dangerouslySetInnerHTML={{ __html: 'Closed'}} 
                     />
                   </Grid>
-                )}
-              </Button>
+                </Button>
+              )}
             </Grid>
           </Grid>
   

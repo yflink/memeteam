@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Store from "../stores";
 import { GET_PROPOSALS_RETURNED } from '../web3/constants'
 import { getFileFromImgurLink, openTweet } from "../Utils";
-import { getDisplayableAmountFromMinUnit, pluralCheck } from "../web3/utils";
+import { getDisplayableAmountFromMinUnit } from "../web3/utils";
 
 const evilKermitImg = require('../assets/images/200824_evilKermit.jpg');
 

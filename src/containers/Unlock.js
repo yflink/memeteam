@@ -4,7 +4,6 @@ import {
   CircularProgress
 } from '@material-ui/core';
 import { Redirect } from "react-router-dom";
-import { getRootDomain } from '../Utils';
 
 import {
   useWeb3React,

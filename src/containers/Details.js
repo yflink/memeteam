@@ -8,7 +8,9 @@ import qs from 'query-string';
 import { Redirect } from "react-router-dom";
 
 import MemeDetail from '../components/MemeDetail';
-import { ERROR, GET_PROPOSALS_RETURNED, VOTE_FOR, VOTE_FOR_CONFIRMED, NOW_TIMESTAMP_UPDATED } from "../web3/constants";
+import {
+  ERROR, GET_PROPOSALS_RETURNED, VOTE_FOR, VOTE_FOR_CONFIRMED, NOW_TIMESTAMP_UPDATED,  GET_LEADERBOARD, GET_LEADERBOARD_RETURNED,
+} from "../web3/constants";
 import Store from "../stores";
 import {
   getVoterCount,
@@ -84,7 +86,7 @@ class Details extends PureComponent {
 
     this.handleSetCurrentMeme(parseInt(memeId));
 
-    const slickId = memes.findIndex(meme => '' + meme.id === memeId);
+    const slickId = memes.findIndex(meme => '' + meme?.id === memeId);
     if (slickId > -1 && this.slider) {
       this.slider.slickGoTo(slickId, true);
     }
@@ -126,6 +128,14 @@ class Details extends PureComponent {
   proposalsReturned = () => {
     this.setState({ redraw: true })
     this.slickToMeme()
+
+    emitter.on(GET_LEADERBOARD_RETURNED, this.leaderboardReturned)
+    dispatcher.dispatch({ type: GET_LEADERBOARD, content: {} })
+  }
+
+  leaderboardReturned = () => {
+    emitter.removeListener(GET_LEADERBOARD_RETURNED, this.leaderboardReturned)
+    this.setState({ redraw: true });
   }
 
   voteForConfirmed = ({ proposal }) => {
@@ -151,9 +161,10 @@ class Details extends PureComponent {
   }
 
   handleSlidedToIndex = async (slideIndex) => {
+    const { history } = this.props;
     const memes = this.getMemesToShow();
     const memeId = memes[slideIndex].id;
-    this.handleSetCurrentMeme(memeId);
+    history.push(`/details/${memeId}`);
   }
 
   handleSetCurrentMeme = async (memeId) => {
@@ -235,6 +246,7 @@ class Details extends PureComponent {
       now,
     } = this.state;
     const account = store.getStore('account')
+    const leaderboard = store.getStore('leaderboard') || []
 
     if (!(account && account.address)) {
       return <Redirect to={`/details/${this.getMemeId()}/unlock`} />
@@ -252,20 +264,27 @@ class Details extends PureComponent {
       <>
         {this.renderHelmet()}
         <Slider {...SLIDER_SETTINGS} ref={slider => this.slider = slider } afterChange={this.handleSlidedToIndex}>
-          {this.getMemesToShow().map((meme, key) => (
-            <div>
-              <MemeDetail
-                key={key}
-                {...meme}
-                onVote={this.handleVote}
-                voterCount={(meme.id === currentMemeId) && voterCount}
-                myVoteCount={getRoundedWei(myVoteCount)}
-                posterLinkBalance={getRoundedWei(posterLinkBalance)}
-                posterYFLBalance={getRoundedWei(posterYFLBalance)}
-                posterYFLStakedBalance={getRoundedWei(posterYFLStakedBalance)}
-              />
-            </div>
-          ))}
+          {this.getMemesToShow().map((meme, key) => {
+            if (!meme) {
+              return null;
+            }
+            const leaderboardItem = leaderboard.find(item => item.id === meme.id);
+            return (
+              <div>
+                <MemeDetail
+                  key={key}
+                  {...meme}
+                  onVote={this.handleVote}
+                  voterCount={(meme.id === currentMemeId) && voterCount}
+                  myVoteCount={getRoundedWei(myVoteCount)}
+                  posterLinkBalance={getRoundedWei(posterLinkBalance)}
+                  posterYFLBalance={getRoundedWei(posterYFLBalance)}
+                  posterYFLStakedBalance={getRoundedWei(posterYFLStakedBalance)}
+                  leaderboardItem={leaderboardItem}
+                />
+              </div>
+            )
+          })}
         </Slider>
       </>
     );
