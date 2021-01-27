@@ -16,12 +16,12 @@ export const SORTS = [
     label: 'Oldest to Newest',
   },
   {
-    id: 'most_to_least_votes',
-    label: 'Most Votes to Least Votes',
+    id: 'highest_to_lowest_score',
+    label: 'Highest Score to Lowest Score',
   },
   {
-    id: 'least_to_most_votes',
-    label: 'Least Votes to Most Votes',
+    id: 'lowest_to_highest_score',
+    label: 'Lowest Score to Highest Score',
   },
 ];
 
@@ -74,9 +74,20 @@ export const CAMPAIGN_FILTERS = [
   })))
 ]
 
-export const getFilteredMemes = ({ memes, filters, now, myAddress, myVotedProposalIds }) => {
+const refillWithLeaderboard = (memes, leaderboard) => {
+  return memes.map(meme => {
+    const leaderboardItem = leaderboard.find(item => item.id === meme.id);
+    return {
+      ...meme,
+      score: leaderboardItem.score,
+    };
+  });
+}
+
+export const getFilteredMemes = ({ memes, filters, now, myAddress, myVotedProposalIds, leaderboard }) => {
   const { sort, timeFilter, memeFilter, campaignFilter } = filters;
   let filteredMemes = memes;
+
   switch (sort) {
     case 'newest_to_oldest':
       filteredMemes = _.orderBy(memes, 'start', 'desc');
@@ -84,11 +95,19 @@ export const getFilteredMemes = ({ memes, filters, now, myAddress, myVotedPropos
     case 'oldest_to_newest':
       filteredMemes = _.orderBy(memes, 'start', 'asc');
       break;
-    case 'most_to_least_votes':
-      filteredMemes = _.orderBy(memes, meme => getRoundedWei(meme.totalForVotes), 'desc');
+    case 'highest_to_lowest_score':
+      if (leaderboard?.length) {
+        filteredMemes = _.orderBy(refillWithLeaderboard(memes, leaderboard), meme => meme.score, 'desc');
+      } else {
+        filteredMemes = _.orderBy(memes, meme => getRoundedWei(meme.totalForVotes), 'desc');
+      }
       break;
-    case 'least_to_most_votes':
-      filteredMemes = _.orderBy(memes, meme => getRoundedWei(meme.totalForVotes), 'asc');
+    case 'lowest_to_highest_score':
+      if (leaderboard?.length) {
+        filteredMemes = _.orderBy(refillWithLeaderboard(memes, leaderboard), meme => meme.score, 'asc');
+      } else {
+        filteredMemes = _.orderBy(memes, meme => getRoundedWei(meme.totalForVotes), 'asc');
+      }
       break;
   }
 

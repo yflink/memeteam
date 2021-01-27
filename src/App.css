@@ -149,3 +149,8 @@
 .leaderboards {
   margin-top: 120px;
 }
+
+.leaderboards-table {
+  text-align: center;
+  border-spacing: 64px 8px;
+}

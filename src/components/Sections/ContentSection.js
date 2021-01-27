@@ -119,6 +119,7 @@ class ContentSection extends PureComponent {
       now,
       myAddress: account && account.address,
       myVotedProposalIds,
+      leaderboard,
     }) : memes;
 
     return (

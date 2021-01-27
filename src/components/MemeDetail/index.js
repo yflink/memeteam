@@ -127,11 +127,11 @@ class MemeDetail extends PureComponent {
           />
           <Typography 
             variant="subtitle1" 
-            dangerouslySetInnerHTML={{ __html: `Adjustment Factor: ${leaderboardItem?.factor?.toFixed(2) || '--'}`}} 
+            dangerouslySetInnerHTML={{ __html: `Adjustment Factor: ${(leaderboardItem?.factor || 0).toFixed(2) || '--'}`}} 
           />
           <Typography 
             variant="subtitle1" 
-            dangerouslySetInnerHTML={{ __html: `Score: ${leaderboardItem?.score.toFixed(2) || '--'}`}} 
+            dangerouslySetInnerHTML={{ __html: `Score: ${(leaderboardItem?.score || 0).toFixed(2) || '--'}`}} 
           />
 
           <Typography 
