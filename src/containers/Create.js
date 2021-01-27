@@ -2,9 +2,10 @@ import React, { useEffect, useCallback, useState } from "react";
 import {useDropzone} from 'react-dropzone'
 import { withStyles } from '@material-ui/core/styles';
 import qs from 'query-string';
+import  ipfsClient from 'ipfs-http-client';
+
 
 import Store from "../stores";
-import config from "../config";
 import Spinner from "../components/Spinner";
 const store = Store.store
 
@@ -39,6 +40,7 @@ const styles = () => ({
 });
 
 function Create({ location, history, classes }) {
+
   const [uploading, setUploading] = useState(false);
   let params = qs.parse(location.search);
   const { isFromStake } = params || {};
@@ -59,27 +61,29 @@ function Create({ location, history, classes }) {
     }
   }, [])
 
-  const uploadImage = useCallback((image) => {
+  const uploadImage = useCallback(async(image) => {
     setUploading(true);
-    const req = new XMLHttpRequest()
-    const data = new FormData()
+    const ipfs = ipfsClient('https://ipfs.infura.io:5001');
+    
+    const fileDetails = {
+      path: image.name,
+      content: image
+    }
+    const options = {
+      wrapWithDirectory: true,
+      progress: (prog) => console.log(`received: ${prog}`)
+    }
 
-    data.append('image', image)
-
-    req.open('POST', 'https://api.imgur.com/3/image/')
-    req.setRequestHeader('Authorization', `Client-ID ${config.imgur.client}`)
-    req.onerror = () => {
+    try {
+      const res = await ipfs.add(fileDetails, options);
       setUploading(false);
+      const memeLink = `https://ipfs.io/ipfs/${res.cid.toString()}/${image.name}`;
+      store.setStore({ creatingMemeLink:  memeLink});
+      history.push('/create/title');
+    } catch (err) {
+      setUploading(false);
+      console.log(err);
     }
-    req.onreadystatechange = () => {
-      if(req.status === 200 && req.readyState === 4) {
-        setUploading(false);
-        let res = JSON.parse(req.responseText)
-        store.setStore({ creatingMemeLink: `https://i.imgur.com/${res.data.id}.png` });
-        history.push('/create/title');
-      }
-    }
-    req.send(data)
   }, [])
   
   const onDrop = useCallback((files) => {

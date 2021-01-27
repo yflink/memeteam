@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import { withStyles } from '@material-ui/core/styles';
 
 import Store from "../stores";
-import { getFileFromImgurLink, openTweet } from "../Utils";
+import { getFileFromLink, openTweet } from "../Utils";
 import { campaignConfig } from "../campaign.config";
 
 const pepeBrainImg = require('../assets/images/200824_pepeBrain.png');
@@ -57,7 +57,7 @@ class Tweet extends PureComponent {
   handleTweet = () => {
     const title = store.getStore('creatingMemeTitle');
     const creatingMemeLink = store.getStore('creatingMemeLink');
-    openTweet(this.getMemeId(), title, getFileFromImgurLink(creatingMemeLink));
+    openTweet(this.getMemeId(), title, getFileFromLink(creatingMemeLink));
   }
 
   handleGoToHome = () => {

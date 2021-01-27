@@ -109,13 +109,27 @@ class Title extends PureComponent {
     const { classes } = this.props;
     const { title, loading } = this.state;
     const creatingMemeLink = store.getStore('creatingMemeLink');
+    const extensionStartIndex = creatingMemeLink.lastIndexOf('.');
+    var isVideo = false;
+    var extension = creatingMemeLink.substring(extensionStartIndex + 1, creatingMemeLink.length);
+    extension = extension.toLowerCase();
+    if (extension === 'mp4' || extension === 'mp3' || extension === 'ogg' || extension === 'webm') {
+      isVideo = true;
+      extension = 'video/' + extension;
+    }
+
     return (
       <div className={ classes.root }>
         {loading ? (
           <Spinner />
         ) : (
           <>
-            <img className={classes.imgurImg} src={creatingMemeLink} alt='Meme' />
+            {
+              isVideo ? <video className={classes.imgurImg} width="320" height="150" controls>
+                          <source src={creatingMemeLink} type={extension}></source>
+                        </video> : <img className={classes.imgurImg} src={creatingMemeLink} alt='Meme' />
+            }
+            
             <div className={classes.container}>
               <div className={classes.bigTitle}>Meme Ready To Upload</div>
               <img className={classes.pepeAmazeImg} src={pepeAmazeImg} alt='Amaze' />

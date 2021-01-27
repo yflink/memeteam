@@ -43,6 +43,19 @@ class ImageCard extends PureComponent {
     } = this.props;
     const { now } = this.state;
 
+    var extension;
+    var isVideo = false;
+    if(link) {
+      const extensionStartIndex = link.lastIndexOf('.');
+      extension = link.substring(extensionStartIndex + 1, link.length);
+      extension = extension.toLowerCase();
+      if (extension === 'mp4' || extension === 'mp3' || extension === 'ogg' || extension === 'webm') {
+        isVideo = true;
+        extension = 'video/' + extension;
+      }
+
+    }
+
     if (isForBrowseMore) {
       return (
         <Grid container className={classnames('card')} id={id}>
@@ -58,7 +71,12 @@ class ImageCard extends PureComponent {
       <Grid container className={classnames('card', { 'card-open': end > now })} id={id}>
         <div>
           <Link to={`/details/${id}`} replace>
-            <img className="img card-image" src={link} alt='meme' />
+          {
+            isVideo ? <video className="img card-image" height="200" controls>
+                          <source src={link} type={extension}></source>
+                      </video> : <img className="img card-image" src={link} alt='meme' />
+
+          }
           </Link>
         </div>
         <Grid className="card-detail" container direction='column'>

@@ -7,7 +7,7 @@ import TimerIcon from '@material-ui/icons/AccessTime';
 import classnames from 'classnames';
 
 import './styles.css';
-import { formatCountdown, getFileFromImgurLink, openTweet } from '../../Utils';
+import { formatCountdown, getFileFromLink, openTweet } from '../../Utils';
 import { getRoundedWei, abbreviateAddress, titleCheck } from "../../web3/utils";
 import { NOW_TIMESTAMP_UPDATED } from '../../web3/constants';
 
@@ -33,7 +33,7 @@ class MemeDetail extends PureComponent {
 
   handleTweet = () => {
     const { id, title, link } = this.props;
-    openTweet(id, title, getFileFromImgurLink(link));
+    openTweet(id, title, getFileFromLink(link));
   }
 
   render() {
@@ -56,6 +56,15 @@ class MemeDetail extends PureComponent {
     const { now } = this.state;
     const countdown = end - now;
 
+    const extensionStartIndex = link.lastIndexOf('.');
+    var isVideo = false;
+    var extension = link.substring(extensionStartIndex + 1, link.length);
+    extension = extension.toLowerCase();
+    if (extension === 'mp4' || extension === 'mp3' || extension === 'ogg' || extension === 'webm') {
+      isVideo = true;
+      extension = 'video/' + extension;
+    }
+
     return (
       <Grid
         container
@@ -66,7 +75,11 @@ class MemeDetail extends PureComponent {
         direction='row'
       >
         <Grid className='detail-img-container'>
-          <img className='detail-img' src={link} alt='meme detail' />
+          {
+            isVideo ? <video className='detail-img' width="320" height="200" controls>
+                          <source src={link} type={extension}></source>
+                        </video> : <img className='detail-img' src={link} alt='meme detail' />
+          }
           <div className="link-overlay"><a href={link} target="_blank">{link}</a></div>
         </Grid>
         <Grid className='detail-desc' direction='column' justify='center' >

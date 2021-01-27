@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import Store from "../stores";
 import { GET_PROPOSALS_RETURNED } from '../web3/constants'
-import { getFileFromImgurLink, openTweet } from "../Utils";
+import { getFileFromLink, openTweet } from "../Utils";
 import { getDisplayableAmountFromMinUnit } from "../web3/utils";
 
 const evilKermitImg = require('../assets/images/200824_evilKermit.jpg');
@@ -88,7 +88,7 @@ class Voted extends PureComponent {
   handleTweet = () => {
     const memeId = this.getMemeId();
     const meme = store.getMemeForId(memeId);
-    openTweet(memeId, meme.title, getFileFromImgurLink(meme.link));
+    openTweet(memeId, meme.title, getFileFromLink(meme.link));
   }
 
   render() {
