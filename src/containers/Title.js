@@ -6,6 +6,7 @@ import * as _ from 'lodash';
 import Store from "../stores";
 import { ERROR, PROPOSE, PROPOSE_CONFIRMED, GET_PROPOSALS, GET_PROPOSALS_RETURNED, GET_LEADERBOARD } from '../web3/constants'
 import Spinner from "../components/Spinner";
+import Meme from "../components/Meme";
 
 const pepeAmazeImg = require('../assets/images/200824_pepeAmaze.png');
 
@@ -109,14 +110,6 @@ class Title extends PureComponent {
     const { classes } = this.props;
     const { title, loading } = this.state;
     const creatingMemeLink = store.getStore('creatingMemeLink');
-    const extensionStartIndex = creatingMemeLink.lastIndexOf('.');
-    var isVideo = false;
-    var extension = creatingMemeLink.substring(extensionStartIndex + 1, creatingMemeLink.length);
-    extension = extension.toLowerCase();
-    if (extension === 'mp4' || extension === 'mp3' || extension === 'ogg' || extension === 'webm') {
-      isVideo = true;
-      extension = 'video/' + extension;
-    }
 
     return (
       <div className={ classes.root }>
@@ -124,12 +117,7 @@ class Title extends PureComponent {
           <Spinner />
         ) : (
           <>
-            {
-              isVideo ? <video className={classes.imgurImg} width="320" height="150" controls>
-                          <source src={creatingMemeLink} type={extension}></source>
-                        </video> : <img className={classes.imgurImg} src={creatingMemeLink} alt='Meme' />
-            }
-            
+            <Meme link={creatingMemeLink} memeClass={classes.imgurImg}></Meme>
             <div className={classes.container}>
               <div className={classes.bigTitle}>Meme Ready To Upload</div>
               <img className={classes.pepeAmazeImg} src={pepeAmazeImg} alt='Amaze' />

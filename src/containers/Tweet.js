@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Store from "../stores";
 import { getFileFromLink, openTweet } from "../Utils";
 import { campaignConfig } from "../campaign.config";
+import Meme from "../components/Meme";
 
 const pepeBrainImg = require('../assets/images/200824_pepeBrain.png');
 
@@ -69,28 +70,9 @@ class Tweet extends PureComponent {
     const { classes } = this.props;
     const creatingMemeLink = store.getStore('creatingMemeLink');
 
-    var extension;
-    var isVideo = false;
-    if(creatingMemeLink) {
-      const extensionStartIndex = creatingMemeLink.lastIndexOf('.');
-      extension = creatingMemeLink.substring(extensionStartIndex + 1, creatingMemeLink.length);
-      extension = extension.toLowerCase();
-      if (extension === 'mp4' || extension === 'mp3' || extension === 'ogg' || extension === 'webm') {
-        isVideo = true;
-        extension = 'video/' + extension;
-      }
-
-    }
-
     return (
       <div className={ classes.root }>
-        {
-            isVideo ? <video className={classes.imgurImg} height="200" controls>
-                          <source src={creatingMemeLink} type={extension}></source>
-                      </video> : <img className={classes.imgurImg} src={creatingMemeLink} alt='Meme' />
-
-        }
-        
+        <Meme link={creatingMemeLink} memeClass={classes.imgurImg}></Meme> 
         <div className={classes.container}>
           <div className={classes.bigTitle}>Meme Submitted<br/>To Operation {campaignConfig.currentCampaign}!</div>
           <img className={classes.pepeBrainImg} src={pepeBrainImg} alt='Brain' />

@@ -12,6 +12,7 @@ import { getRoundedWei, abbreviateAddress, titleCheck } from "../../web3/utils";
 import { NOW_TIMESTAMP_UPDATED } from '../../web3/constants';
 
 import Store from "../../stores";
+import Meme from "../Meme";
 const emitter = Store.emitter
 const store = Store.store
 
@@ -56,15 +57,6 @@ class MemeDetail extends PureComponent {
     const { now } = this.state;
     const countdown = end - now;
 
-    const extensionStartIndex = link.lastIndexOf('.');
-    var isVideo = false;
-    var extension = link.substring(extensionStartIndex + 1, link.length);
-    extension = extension.toLowerCase();
-    if (extension === 'mp4' || extension === 'mp3' || extension === 'ogg' || extension === 'webm') {
-      isVideo = true;
-      extension = 'video/' + extension;
-    }
-
     return (
       <Grid
         container
@@ -75,11 +67,7 @@ class MemeDetail extends PureComponent {
         direction='row'
       >
         <Grid className='detail-img-container'>
-          {
-            isVideo ? <video className='detail-img' width="320" height="200" controls>
-                          <source src={link} type={extension}></source>
-                        </video> : <img className='detail-img' src={link} alt='meme detail' />
-          }
+          <Meme link={link} memeClass='detail-img'></Meme>
           <div className="link-overlay"><a href={link} target="_blank">{link}</a></div>
         </Grid>
         <Grid className='detail-desc' direction='column' justify='center' >

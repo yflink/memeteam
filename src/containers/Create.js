@@ -7,6 +7,7 @@ import  ipfsClient from 'ipfs-http-client';
 
 import Store from "../stores";
 import Spinner from "../components/Spinner";
+
 const store = Store.store
 
 export const SLIDER_SETTINGS = {
