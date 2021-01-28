@@ -22,7 +22,7 @@ class Meme extends PureComponent {
         <div>
             {isVideo ? (
                 <video className={memeClass} width="320" height="150" controls>
-                        <source src={link} type={extension}></source>
+                        <source src={link} type={extension}/>
                 </video>
             ) : (
                 <img className={memeClass} src={link} alt='Meme' />

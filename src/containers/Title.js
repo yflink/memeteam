@@ -117,7 +117,7 @@ class Title extends PureComponent {
           <Spinner />
         ) : (
           <>
-            <Meme link={creatingMemeLink} memeClass={classes.imgurImg}></Meme>
+            <Meme link={creatingMemeLink} memeClass={classes.imgurImg}/>
             <div className={classes.container}>
               <div className={classes.bigTitle}>Meme Ready To Upload</div>
               <img className={classes.pepeAmazeImg} src={pepeAmazeImg} alt='Amaze' />

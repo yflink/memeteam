@@ -72,7 +72,7 @@ class Tweet extends PureComponent {
 
     return (
       <div className={ classes.root }>
-        <Meme link={creatingMemeLink} memeClass={classes.imgurImg}></Meme> 
+        <Meme link={creatingMemeLink} memeClass={classes.imgurImg}/>
         <div className={classes.container}>
           <div className={classes.bigTitle}>Meme Submitted<br/>To Operation {campaignConfig.currentCampaign}!</div>
           <img className={classes.pepeBrainImg} src={pepeBrainImg} alt='Brain' />
