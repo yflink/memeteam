@@ -94,6 +94,7 @@ class Leaderboards extends PureComponent {
             <th>Poster</th>
             <th>Votes For</th>
             <th>Votes against</th>
+            <th>Voters</th>
             <th>Adj. Factor</th>
             <th>Score</th>
           </tr>
@@ -109,6 +110,7 @@ class Leaderboards extends PureComponent {
               </td>
               <td>{parseFloat(item.votesFor || '0').toFixed(2)}</td>
               <td>{parseFloat(item.votesAgainst || '0').toFixed(2)}</td>
+              <td>{item.voters || 0}</td>
               <td>{(item.factor || 0).toFixed(2)}</td>
               <td>{(item.score || 0).toFixed(2)}</td>
             </tr>
