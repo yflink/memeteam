@@ -1,17 +1,23 @@
-import React, { PureComponent } from 'react';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import React, { PureComponent } from 'react'
+import Typography from '@material-ui/core/Typography'
 
 import ImageCard from '../ImageCard'
-import './styles.css';
-import Store from "../../stores";
+import './styles.css'
+import Store from '../../stores'
 import {
-  ERROR, GET_PROPOSALS, GET_PROPOSALS_RETURNED, CONFIGURE, CONNECTION_CONNECTED, GET_BALANCES, GET_LEADERBOARD, GET_LEADERBOARD_RETURNED,
-} from "../../web3/constants";
-import Unlock from '../../containers/Unlock';
-import { getFilteredMemes } from '../../Utils/filters';
-import { NOW_TIMESTAMP_UPDATED } from '../../web3/constants';
-import { getMyVotedProposalIds } from '../../web3/etherscan';
+  ERROR,
+  GET_PROPOSALS,
+  GET_PROPOSALS_RETURNED,
+  CONFIGURE,
+  CONNECTION_CONNECTED,
+  GET_BALANCES,
+  GET_LEADERBOARD,
+  GET_LEADERBOARD_RETURNED,
+} from '../../web3/constants'
+import Unlock from '../../containers/Unlock'
+import { getFilteredMemes } from '../../Utils/filters'
+import { NOW_TIMESTAMP_UPDATED } from '../../web3/constants'
+import { getMyVotedProposalIds } from '../../web3/etherscan'
 
 const emitter = Store.emitter
 const dispatcher = Store.dispatcher
@@ -33,22 +39,22 @@ class ContentSection extends PureComponent {
   }
 
   componentDidMount() {
-    emitter.on(ERROR, this.errorReturned);
+    emitter.on(ERROR, this.errorReturned)
     emitter.on(CONNECTION_CONNECTED, this.connectionConnected)
     emitter.on(GET_PROPOSALS_RETURNED, this.proposalsReturned)
-    emitter.on(NOW_TIMESTAMP_UPDATED, this.updateNow);
+    emitter.on(NOW_TIMESTAMP_UPDATED, this.updateNow)
   }
 
   componentWillUnmount() {
-    emitter.removeListener(ERROR, this.errorReturned);
+    emitter.removeListener(ERROR, this.errorReturned)
     emitter.removeListener(CONNECTION_CONNECTED, this.connectionConnected)
     emitter.removeListener(GET_PROPOSALS_RETURNED, this.proposalsReturned)
-    emitter.removeListener(NOW_TIMESTAMP_UPDATED, this.updateNow);
-  };
+    emitter.removeListener(NOW_TIMESTAMP_UPDATED, this.updateNow)
+  }
 
   leaderboardReturned = () => {
     emitter.removeListener(GET_LEADERBOARD_RETURNED, this.leaderboardReturned)
-    this.setState({ redraw: true });
+    this.setState({ redraw: true })
   }
 
   async componentDidUpdate(prevProps) {
@@ -58,7 +64,7 @@ class ContentSection extends PureComponent {
     if (prevProps.filters && filters) {
       if (prevProps.filters.memeFilter !== 'my_votes' && filters.memeFilter === 'my_votes') {
         const myVotedProposalIds = await getMyVotedProposalIds(account && account.address)
-        this.setState({ myVotedProposalIds });
+        this.setState({ myVotedProposalIds })
       }
     }
   }
@@ -75,7 +81,7 @@ class ContentSection extends PureComponent {
       const snackbarObj = { snackbarMessage: error.toString(), snackbarType: 'Error' }
       that.setState(snackbarObj)
     })
-  };
+  }
 
   connectionConnected() {
     const account = store.getStore('account')
@@ -87,7 +93,7 @@ class ContentSection extends PureComponent {
   }
 
   proposalsReturned = () => {
-    const memes = store.getMemes();
+    const memes = store.getMemes()
     this.setState({ memes })
     dispatcher.dispatch({ type: GET_LEADERBOARD, content: {} })
     emitter.on(GET_LEADERBOARD_RETURNED, this.leaderboardReturned)
@@ -95,54 +101,60 @@ class ContentSection extends PureComponent {
 
   render() {
     const { isOverlay, isFromDetail } = this.props
-    const filters = isFromDetail ? {
-      memeFilter: 'votes_open',
-      sort: 'newest_to_oldest',
-    } : this.props.filters;
-    const { memes = [], now, myVotedProposalIds } = this.state;
+    const filters = isFromDetail
+      ? {
+          memeFilter: 'votes_open',
+          sort: 'newest_to_oldest',
+        }
+      : this.props.filters
+    const { memes = [], now, myVotedProposalIds } = this.state
     const leaderboard = store.getStore('leaderboard') || []
 
-    const account = store.getStore('account');
-    const title = 'Memes Open For Voting';
-    const connected = account && account.address;
+    const account = store.getStore('account')
+    const title = 'Memes Open For Voting'
+    const connected = account && account.address
     if (!connected && !isOverlay) {
       return (
         <div style={{ width: '100%', height: '480px' }}>
-          <Unlock redirectUrl="/" title='Welcome to The Meme Team' />
+          <Unlock redirectUrl="/" title="Welcome to The Meme Team" />
         </div>
-      );
+      )
     }
 
-    const filteredMemes = filters ? getFilteredMemes({
-      memes,
-      filters,
-      now,
-      myAddress: account && account.address,
-      myVotedProposalIds,
-      leaderboard,
-    }) : memes;
+    const filteredMemes = filters
+      ? getFilteredMemes({
+          memes,
+          filters,
+          now,
+          myAddress: account && account.address,
+          myVotedProposalIds,
+          leaderboard,
+        })
+      : memes
+
+    const contentHeight = filteredMemes.length * 200 + 40
 
     return (
       <div style={{ width: '100%' }}>
         {connected && isOverlay && (
-          <Typography 
-            variant="h4" 
+          <Typography
+            variant="h4"
             style={{
               textAlign: 'center',
               marginBottom: '50px',
             }}
-            dangerouslySetInnerHTML={{ __html: title}} 
+            dangerouslySetInnerHTML={{ __html: title }}
           />
         )}
-        <Grid container className={`section content justify-center ${isOverlay && 'overlay'}`} id={'id'}>
-          {(isFromDetail ? [...filteredMemes, { isForBrowseMore: true }] : filteredMemes).map(meme=> {
-            const leaderboardItem = leaderboard.find(item => item.id === meme.id);
-            return <ImageCard {...meme} leaderboardItem={leaderboardItem}/>
+        <div class="card-container" style={{ height: contentHeight }}>
+          {(isFromDetail ? [...filteredMemes, { isForBrowseMore: true }] : filteredMemes).map((meme) => {
+            const leaderboardItem = leaderboard.find((item) => item.id === meme.id)
+            return <ImageCard {...meme} leaderboardItem={leaderboardItem} />
           })}
-        </Grid>
+        </div>
       </div>
     )
   }
 }
 
-export default ContentSection;
+export default ContentSection

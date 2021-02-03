@@ -14,8 +14,6 @@ import Store from './stores'
 import DetailsContainer from './containers/DetailsContainer'
 import CreateContainer from './containers/CreateContainer'
 import Header from './components/Header'
-
-import { getDisplayableAmountFromMinUnit } from './web3/utils'
 import StakeContainer from './containers/StakeContainer'
 import Leaderboards from './containers/Leaderboards'
 
@@ -66,9 +64,6 @@ class App extends PureComponent {
   }
 
   render() {
-    const token = store.getYFLToken()
-    const balance = getDisplayableAmountFromMinUnit(token.balance, token.decimals, 1)
-    const stakedBalance = getDisplayableAmountFromMinUnit(token.stakedBalance, token.decimals, 1)
     return (
       <div className="app">
         <Web3ReactProvider getLibrary={getLibrary}>
@@ -80,12 +75,6 @@ class App extends PureComponent {
                 </div>
                 <div className="app-name">memeteam.io</div>
               </Link>
-              {token && (
-                <div className="footer-social">
-                  <b>{`$YFL: ${balance} wallet, ${stakedBalance} staked`}</b>
-                </div>
-              )}
-              <div style={{ flex: 1 }} />
               <Header />
             </header>
             <Switch>

@@ -1,0 +1,38 @@
+.time-bar {
+  width: auto;
+  display: flex;
+  flex: 0 0 auto;
+  border: 1px solid var(--black);
+  align-items: center;
+  justify-content: center;
+  padding: 5px 15px;
+  font-size: 16px;
+  font-weight: normal;
+  margin: 0 0 24px;
+}
+
+.time-bar-container {
+  display: inline-block;
+  width: auto;
+}
+
+.elapsed {
+  display: block;
+  font-size: 20px;
+}
+
+.counter-icon,
+.counter-icon > svg {
+  height: 20px;
+  width: 20px;
+}
+
+.elapsed-closed {
+  color: var(--red);
+  border-color: var(--red);
+}
+
+.counter {
+  margin: 0;
+  padding: 0 0 0 5px;
+}

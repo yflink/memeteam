@@ -1,0 +1,41 @@
+.rating-container {
+  display: flex;
+  align-items: center;
+}
+
+.posted {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+.posted p {
+  margin: 0 5px 0 0;
+  text-transform: uppercase;
+  color: var(--grey500);
+}
+
+.rate-icon {
+  border: 2px solid var(--black);
+  background-color: var(--white);
+  margin-right: 5px;
+  width: 24px;
+  height: 24px;
+  line-height: 26px;
+  text-align: center;
+}
+
+.rating {
+  display: flex;
+  flex-wrap: nowrap;
+  flex: 0 0 120px;
+  justify-content: flex-end;
+}
+
+.rating p {
+  margin: 0;
+  font-size: 24px;
+  line-height: 28px;
+  text-transform: uppercase;
+  font-weight: 700;
+}

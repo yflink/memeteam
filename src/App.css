@@ -1,7 +1,7 @@
 :root {
   --white: #FFF;
   --black: #08001A;
-  --red: #E40049;
+  --red: #EE0004;
   --green: #12c26a;
   --blue: #1797D2;
   --blue-light: #2B98CB;
@@ -12,7 +12,8 @@
   --grey200: #cecece;
   --grey300: #dddddd;
   --grey400: #d5d5d6;
-  --grey500: #5c5a5a;
+  --grey500: #949494;
+  --grey600: #5c5a5a;
   --light: #EFEFEF;
   --white-alpha2: rgba(255, 255, 255, 0.2);
   --black-alpha1: rgba(0, 0, 0, 0.1);
@@ -69,7 +70,8 @@ a:active {
   max-width: var(--max-width-body);
   margin: 0 auto;
   width: 100%;
-
+  padding: 0 40px;
+  box-sizing: border-box;
 }
 
 .app-logo-container {
@@ -99,7 +101,7 @@ a:active {
 header {
   z-index: 1001;
   top: 0;
-  padding: 0 40px;
+  padding: 0;
   display: flex;
   align-items: center;
   width: 100%;
