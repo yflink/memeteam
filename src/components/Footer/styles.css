@@ -10,7 +10,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: #d5d5d6;
   transition: all 200ms ease-in 0s;
   visibility: visible;
 }

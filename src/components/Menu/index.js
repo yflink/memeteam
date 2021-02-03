@@ -25,9 +25,9 @@ function Menu({ isFixed, changeHandlers, filters  }) {
   };
 
   return (
-    <div className={`menu ${isFixed? 'fixed': 'b-grey'}`}> 
+    <div className={`menu ${isFixed? 'fixed': ''}`}>
       <div syle={{ flex: 1 }}/>
-      <div className="b-grey menu-content">     
+      <div className="menu-content">
         <NativeSelect
           value={memeFilter}
           onChange={handleMemeFilterChange}
@@ -37,7 +37,7 @@ function Menu({ isFixed, changeHandlers, filters  }) {
           {MEME_FILTERS.map(({ id, label })=>
             <option value={id}>{label}</option>
           )}
-        </NativeSelect>      
+        </NativeSelect>
         <NativeSelect
           value={campaignFilter}
           onChange={handleCampaignFilterChange}
@@ -58,7 +58,7 @@ function Menu({ isFixed, changeHandlers, filters  }) {
           {TIME_FILTERS.map(({ id, label })=>
             <option value={id}>{label}</option>
           )}
-        </NativeSelect>        
+        </NativeSelect>
         <NativeSelect
           value={sort}
           onChange={handleSortChange}

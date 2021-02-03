@@ -43,7 +43,7 @@ function Banner({ }) {
   const { currentCampaignEndBlock, currentCampaignStartBlock } = campaignConfig;
 
   return (
-    <Grid container className="section hero-section b-grey justify-center">
+    <Grid container className="section hero-section justify-center">
       <p
         className="heading f-lg f-w flex justify-center"
         dangerouslySetInnerHTML={{
@@ -80,14 +80,14 @@ function Banner({ }) {
           )}
         </Grid>
         <Grid container item xs={6} direction='column' justify='center' alignItems='center'>
-          <Typography 
-            variant="h6" 
-            dangerouslySetInnerHTML={{ __html: `<b>Welcome to The Meme Team</b>` }} 
+          <Typography
+            variant="h6"
+            dangerouslySetInnerHTML={{ __html: `<b>Welcome to The Meme Team</b>` }}
           />
           <Link to="/create">
             <Button
               className="header-button b-white"
-              variant="outlined"    
+              variant="outlined"
               startIcon={<AddBoxIcon />}
             >
               upload meme
@@ -95,7 +95,7 @@ function Banner({ }) {
            </Link>
         </Grid>
         <Grid container className='img-container' item xs={3} direction='column' justify='center' alignItems='center'>
-          {images.map((image, index)=>            
+          {images.map((image, index)=>
             <img className={`img-main img${index}`} src={image} alt=""/>
           )}
         </Grid>

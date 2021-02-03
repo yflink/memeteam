@@ -49,11 +49,11 @@ class Header extends PureComponent {
     const { now } = this.state;
     const { currentCampaignEndBlock, currentCampaignStartBlock } = campaignConfig;
     return (
-      <div className="header b-grey">
+      <div className="header">
         <Link to="/create">
           <Button
             className="header-button b-white"
-            variant="outlined"    
+            variant="outlined"
             startIcon={<AddBoxIcon />}
           >
             Upload Meme
@@ -89,7 +89,7 @@ class Header extends PureComponent {
         </a>
         <Button
           className="header-button b-white"
-          variant="outlined"    
+          variant="outlined"
         >
           Wallet: {wallet}
         </Button>

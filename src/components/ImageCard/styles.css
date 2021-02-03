@@ -1,9 +1,11 @@
 .card {
   width: 220px !important;
   margin: 0px 10px 10px 10px !important;
-  border-radius: 4px;
-  background-color: #8e75bf42;
+  background-color: var(--white-alpha2);
   flex-direction: column;
+  border: 1px solid var(--grey300);
+  box-sizing: border-box;
+  box-shadow: 0 15px 50px var(--black-alpha1);
 }
 
 .card-open {
@@ -14,7 +16,7 @@
 .card-logo {
   width: 120px !important;
   height: 164px !important;
-  margin: 42px;  
+  margin: 42px;
   cursor: pointer;
   transition: .5s ease;
   object-fit: contain;
@@ -23,7 +25,7 @@
 
 .card-image {
   width: 220px !important;
-  height: 220px !important;  
+  height: 220px !important;
   cursor: pointer;
   transition: .5s ease;
   object-fit: contain;

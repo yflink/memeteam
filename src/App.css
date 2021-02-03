@@ -1,5 +1,6 @@
 :root {
-  --white: #FFFFFF;
+  --white: #FFF;
+  --black: #08001A;
   --red: #E40049;
   --green: #12c26a;
   --blue: #1797D2;
@@ -8,27 +9,102 @@
   --yellow: #FAB517;
   --yellow-light: #FFD370;
   --dark: #5c5a5a;
-  --grey: #d5d5d6;
+  --grey200: #cecece;
+  --grey300: #dddddd;
+  --grey400: #d5d5d6;
+  --grey500: #5c5a5a;
   --light: #EFEFEF;
+  --white-alpha2: rgba(255, 255, 255, 0.2);
+  --black-alpha1: rgba(0, 0, 0, 0.1);
   --box-shadow: 0px 6px 12px rgba(0, 0, 0, .16);
+  --font-size-default: 18px;
+  --font-family-body: "Work Sans", sans-serif;
+  --max-width-body: 1320px;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/assets/fonts/worksans-regular.woff2') format('woff2'),
+    url('/assets/fonts/worksans-regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/assets/fonts/worksans-semibold.woff2') format('woff2'),
+    url('/assets/fonts/worksans-semibold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/assets/fonts/worksans-bold.woff2') format('woff2'),
+    url('/assets/fonts/worksans-bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.696) 0%, rgba(166, 166, 166, 0) 21.91%), url("/assets/images/concrete-wall.png"), #C6C6C6;
+  font-family: var(--font-family-body);
+}
+
+a {
+  color: var(--black);
+}
+
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+}
+
+.app {
+  max-width: var(--max-width-body);
+  margin: 0 auto;
+  width: 100%;
+
 }
 
 .app-logo-container {
-  z-index: 1001;
-  top: 0px;
-  position: fixed;
-  padding: 0 16px;
   display: flex;
+  flex: 1 0 auto;
   align-items: center;
-  width: 100%;
-  background-color: var(--grey);
+  text-decoration: none;
 }
 
 .app-logo {
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
+  margin: 0 8px 0 0;
+}
+
+.app-name {
+  color: var(--white);
+  text-transform: uppercase;
+  display: flex;
+  font-size: var(--font-size-default);
+  font-weight: 600;
+}
+
+
+header {
+  z-index: 1001;
+  top: 0;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-wrap: nowrap;
+  flex: 0 0 auto;
 }
 
 .img {
