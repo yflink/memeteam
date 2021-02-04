@@ -26,6 +26,7 @@ const store = Store.store
 class ContentSection extends PureComponent {
   state = {
     loading: false,
+    width: window.outerWidth,
   }
 
   constructor(props) {
@@ -43,6 +44,7 @@ class ContentSection extends PureComponent {
     emitter.on(CONNECTION_CONNECTED, this.connectionConnected)
     emitter.on(GET_PROPOSALS_RETURNED, this.proposalsReturned)
     emitter.on(NOW_TIMESTAMP_UPDATED, this.updateNow)
+    window.addEventListener('resize', this.updateDimensions)
   }
 
   componentWillUnmount() {
@@ -50,6 +52,7 @@ class ContentSection extends PureComponent {
     emitter.removeListener(CONNECTION_CONNECTED, this.connectionConnected)
     emitter.removeListener(GET_PROPOSALS_RETURNED, this.proposalsReturned)
     emitter.removeListener(NOW_TIMESTAMP_UPDATED, this.updateNow)
+    window.removeEventListener('resize', this.updateDimensions)
   }
 
   leaderboardReturned = () => {
@@ -99,8 +102,12 @@ class ContentSection extends PureComponent {
     emitter.on(GET_LEADERBOARD_RETURNED, this.leaderboardReturned)
   }
 
+  updateDimensions = () => {
+    this.setState({ width: window.outerWidth })
+  }
+
   render() {
-    const { isOverlay, isFromDetail } = this.props
+    const { isOverlay, isFromDetail, updateMemes } = this.props
     const filters = isFromDetail
       ? {
           memeFilter: 'votes_open',
@@ -115,8 +122,8 @@ class ContentSection extends PureComponent {
     const connected = account && account.address
     if (!connected && !isOverlay) {
       return (
-        <div style={{ width: '100%', height: '480px' }}>
-          <Unlock redirectUrl="/" title="Welcome to The Meme Team" />
+        <div style={{ width: '100%', padding: '90px 0' }}>
+          <Unlock redirectUrl="/" title="Connect to Metamask to continue" />
         </div>
       )
     }
@@ -132,7 +139,17 @@ class ContentSection extends PureComponent {
         })
       : memes
 
-    const contentHeight = filteredMemes.length * 200 + 40
+    updateMemes(filteredMemes)
+
+    let contentHeight
+
+    if (this.state.width > 1424) {
+      contentHeight = filteredMemes.length * 200 + 40
+    } else if (this.state.width <= 1424 && this.state.width > 915) {
+      contentHeight = filteredMemes.length * 400 + 40
+    } else {
+      contentHeight = 'auto'
+    }
 
     return (
       <div style={{ width: '100%' }}>

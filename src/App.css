@@ -6,6 +6,8 @@
   --blue: #1797D2;
   --blue-light: #2B98CB;
   --blue-dark: #31326c;
+  --blue-gradient: linear-gradient(180deg, #2A5BDB 0%, #1F4AB8 100%);
+  --blue-gradient-invert: linear-gradient(180deg, #1F4AB8 0%, #2A5BDB 100%);
   --yellow: #FAB517;
   --yellow-light: #FFD370;
   --dark: #5c5a5a;
@@ -13,11 +15,14 @@
   --grey300: #dddddd;
   --grey400: #d5d5d6;
   --grey500: #949494;
-  --grey600: #5c5a5a;
+  --grey600: #818181;
+  --grey700: #686868;
+  --grey800: #575757;
   --light: #EFEFEF;
   --white-alpha2: rgba(255, 255, 255, 0.2);
   --black-alpha1: rgba(0, 0, 0, 0.1);
   --box-shadow: 0px 6px 12px rgba(0, 0, 0, .16);
+  --button-box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.25);;
   --font-size-default: 18px;
   --font-family-body: "Work Sans", sans-serif;
   --max-width-body: 1320px;
@@ -50,10 +55,20 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/assets/fonts/worksans-black.woff2') format('woff2'),
+    url('/assets/fonts/worksans-black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
   min-height: 100vh;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.696) 0%, rgba(166, 166, 166, 0) 21.91%), url("/assets/images/concrete-wall.png"), #C6C6C6;
   font-family: var(--font-family-body);
+  cursor: default;
 }
 
 a {
@@ -81,6 +96,13 @@ a:active {
   text-decoration: none;
 }
 
+.app-logo-link {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  text-decoration: none;
+}
+
 .app-logo {
   width: 40px;
   height: 40px;
@@ -102,6 +124,7 @@ header {
   z-index: 1001;
   top: 0;
   padding: 0;
+  margin: 32px 0 90px;
   display: flex;
   align-items: center;
   width: 100%;
@@ -231,4 +254,42 @@ header {
 .leaderboards-table {
   text-align: center;
   border-spacing: 64px 8px;
+}
+
+.button-main {
+  background: var(--blue-gradient);
+  padding: 8px 16px;
+  box-shadow: var(--box-shadow);
+}
+
+.button-main:hover {
+  background: var(--blue-gradient-invert);
+}
+
+.button-main .MuiButton-label {
+  color: var(--white);
+  font-size: 15px;
+  line-height: 21px;
+  font-weight: 700;
+}
+
+.app .unconnected {
+  padding: 0;
+  border-radius: 4px;
+  margin: 0;
+  background: var(--grey600);
+  box-shadow: var(--box-shadow);
+}
+
+.app .unconnected:hover {
+  cursor: pointer;
+  background: var(--grey800);
+}
+
+.app .unconnected .MuiButton-label {
+  padding: 8px 20px;
+  color: var(--white);
+  font-size: 14px;
+  line-height: 16px;
+  text-transform: uppercase;
 }

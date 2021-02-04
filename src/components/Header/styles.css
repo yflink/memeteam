@@ -1,19 +1,33 @@
 .header {
-  top: 0px;
-  height: 75px;
-  z-index: 1000;
   box-sizing: border-box;
-  padding-left: 35px;
-  padding-right: 35px;
+  padding: 0;
   display: flex;
-  flex-direction: row;
   justify-content: flex-end;
   align-items: center;
 }
 
-.header-button {
-  height: 36px;
-  margin: 10px !important;
-  border: 2px solid !important;
-  border-radius: 4px !important;
+.account {
+  display: flex;
+  color: var(--white);
+  font-size: 14px;
+  line-height: 16px;
+  text-transform: uppercase;
+  box-shadow: var(--button-box-shadow);
+}
+
+.balance {
+  border-radius: 4px 0 0 4px;
+  padding: 8px 20px 8px 16px;
+  margin: 0 -10px 0 0;
+  background-color: var(--grey600);
+}
+
+.address {
+  border-radius: 4px;
+  padding: 8px 20px 8px 16px;
+  background-color: var(--grey800);
+}
+
+.submit-button {
+  margin: 0 16px 0 0;
 }

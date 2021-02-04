@@ -1,0 +1,41 @@
+.hero {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.hero-intro {
+  text-align: center;
+  font-size: 24px;
+  line-height: 28px;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+}
+
+.hero-headline-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 32px;
+}
+
+.hero-headline {
+  text-align: center;
+  padding: 8px 32px;
+  background-color: var(--white);
+  border: 4px solid var(--black);
+  width: auto;
+  margin: 0;
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 54px;
+  line-height: 63px;
+}
+
+.hero-subline {
+  text-align: center;
+  font-size: 24px;
+  line-height: 28px;
+  margin: 0 0 32px;
+}

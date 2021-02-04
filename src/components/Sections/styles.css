@@ -4,7 +4,7 @@
   padding: 0;
 }
 
-.overlay{
+.overlay {
   margin-top: -50px;
   background: none;
 }
@@ -13,19 +13,48 @@
   display: flex;
   flex-flow: column wrap;
   align-content: space-between;
-  height: 2500px;
   width: 100%;
   flex: 0 0 100%;
 }
 
-.card:nth-child(3n+1) { order: 1; }
-.card:nth-child(3n+2) { order: 2; }
-.card:nth-child(3n)   { order: 3; }
+@media (min-width: 1409px) {
+  .card-container {
+    display: flex;
+    flex-flow: column wrap;
+    align-content: space-between;
+    width: 100%;
+    flex: 0 0 100%;
+  }
 
-.card-container::before,
-.card-container::after {
-  content: "";
-  flex-basis: 100%;
-  width: 0;
-  order: 2;
+  .card:nth-child(3n+1) { order: 1; }
+  .card:nth-child(3n+2) { order: 2; }
+  .card:nth-child(3n)   { order: 3; }
+
+  .card-container::before,
+  .card-container::after {
+    content: "";
+    flex-basis: 100%;
+    width: 0;
+    order: 2;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1408px) {
+  .card-container {
+    display: flex;
+    flex-flow: column wrap;
+    align-content: space-between;
+    width: 100%;
+    flex: 0 0 100%;
+  }
+
+  .card:nth-child(2n+1) { order: 1; }
+  .card:nth-child(2n+2) { order: 2; }
+
+  .card-container::before {
+    content: "";
+    flex-basis: 100%;
+    width: 0;
+    order: 2;
+  }
 }

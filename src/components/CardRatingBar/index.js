@@ -1,9 +1,10 @@
 import React from 'react'
 import './styles.css'
 import { Link } from 'react-router-dom'
+import { abbreviateAddress } from '../../web3/utils'
 
 export default function CardRatingBar({ rating, proposer }) {
-  const proposerShorthand = `${proposer.slice(0, 6)}...${proposer.slice(-4)}`
+  const proposerShorthand = abbreviateAddress(proposer)
   return (
     <div className="rating-container">
       <div className="posted">

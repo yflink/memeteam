@@ -69,12 +69,14 @@ class App extends PureComponent {
         <Web3ReactProvider getLibrary={getLibrary}>
           <Router basename={`${process.env.PUBLIC_URL}/`}>
             <header>
-              <Link className="app-logo-container" to="/">
-                <div className="app-logo">
-                  <img className="img" src={logo} alt="logo" />
-                </div>
-                <div className="app-name">memeteam.io</div>
-              </Link>
+              <div className="app-logo-container">
+                <Link className="app-logo-link" to="/">
+                  <div className="app-logo">
+                    <img className="img" src={logo} alt="logo" />
+                  </div>
+                  <div className="app-name">memeteam.io</div>
+                </Link>
+              </div>
               <Header />
             </header>
             <Switch>

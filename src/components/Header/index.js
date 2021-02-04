@@ -7,6 +7,9 @@ import { abbreviateAddress, getDisplayableAmountFromMinUnit } from '../../web3/u
 import { campaignConfig } from '../../campaign.config'
 
 import './styles.css'
+import { Link } from '@material-ui/core'
+import Button from '@material-ui/core/Button'
+import Unlock from '../../containers/Unlock'
 
 const store = Store.store
 const emitter = Store.emitter
@@ -49,9 +52,21 @@ class Header extends PureComponent {
     const { currentCampaignEndBlock, currentCampaignStartBlock } = campaignConfig
     return (
       <div className="header">
-        {token && (
-          <div className="footer-social">
-            <b>{`$YFL: ${balance} wallet, ${stakedBalance} staked`}</b>
+        <div className="submit-button">
+          <Button className="button-main" href="/#/create">
+            submit your meme
+          </Button>
+        </div>
+        {token && account && account.address ? (
+          <div className="account">
+            <div className="balance">
+              YFL: {balance}, {stakedBalance} staked
+            </div>
+            <div className="address">{wallet}</div>
+          </div>
+        ) : (
+          <div className="account">
+            <Unlock redirectUrl="/" title="Unconnected" />
           </div>
         )}
       </div>

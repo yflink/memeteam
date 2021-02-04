@@ -1,20 +1,23 @@
 .menu {
-  top: 0px;
   width: 100%;
-  height: 75px;
   z-index: 1000;
   box-sizing: border-box;
-  padding-right: 20px;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+  margin: 0 0 20px;
 }
 
 .menu-content {
-  height: 100%;
   display: flex;
-  align-items: center;
+  flex: 0 0 400px;
+  justify-content: flex-end;
+}
+
+.meme-meta {
+  display: flex;
+  flex: 1;
 }
 
 .fixed {
@@ -24,10 +27,42 @@
   background-color: transparent;
 }
 
-.select {
-  margin: 0px 10px;
-  padding-left: 5px;
-  background-color: white;
-  border: 2px solid;
-  border-radius: 4px;
+.menu .select {
+  margin: 0 0 0 20px;
+  padding: 0;
+  background-color: transparent;
+  border: 2px solid var(--black);
+
+}
+
+.menu .MuiInput-underline:before,
+.menu .select:hover:before,
+.menu .Mui-focused.MuiInput-underline:after {
+  content: none;
+}
+
+.menu .select .MuiInputBase-input {
+  font-size: 18px;
+  line-height: 21px;
+  text-transform: uppercase;
+  font-family: var(--font-family-body);
+  padding-left: 16px;
+}
+
+.meme-meta {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  line-height: 21px;
+  color: var(--grey800);
+}
+
+.meme-count {
+  margin: 0;
+  padding: 0 10px 0 0;
+}
+
+.meme-voting {
+  margin: 0;
+  padding: 0 0 0 10px;
 }
