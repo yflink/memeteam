@@ -8,8 +8,8 @@
 
 .hero-intro {
   text-align: center;
-  font-size: 24px;
-  line-height: 28px;
+  font-size: 16px;
+  line-height: 18px;
   text-transform: uppercase;
   margin: 0 0 16px;
 }
@@ -29,13 +29,31 @@
   margin: 0;
   text-transform: uppercase;
   font-weight: 900;
-  font-size: 54px;
-  line-height: 63px;
+  font-size: 35px;
+  line-height: 44px;
 }
 
 .hero-subline {
   text-align: center;
-  font-size: 24px;
-  line-height: 28px;
+  font-size: 16px;
+  line-height: 18px;
   margin: 0 0 32px;
+}
+
+
+@media (min-width: 900px) {
+  .hero-intro {
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  .hero-headline {
+    font-size: 54px;
+    line-height: 63px;
+  }
+
+  .hero-subline {
+    font-size: 24px;
+    line-height: 28px;
+  }
 }

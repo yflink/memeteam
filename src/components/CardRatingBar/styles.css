@@ -1,6 +1,7 @@
 .rating-container {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .posted {
@@ -28,7 +29,8 @@
 .rating {
   display: flex;
   flex-wrap: nowrap;
-  flex: 0 0 120px;
+  flex: 0 0 100%;
+  margin: 16px 0 0 0;
   justify-content: flex-end;
 }
 
@@ -38,4 +40,17 @@
   line-height: 28px;
   text-transform: uppercase;
   font-weight: 900;
+}
+
+
+@media (min-width: 900px) {
+  .rating-container {
+    flex-wrap: nowrap;
+  }
+
+
+  .rating {
+    flex: 0 0 120px;
+    margin: 0;
+  }
 }

@@ -85,7 +85,7 @@ a:active {
   max-width: var(--max-width-body);
   margin: 0 auto;
   width: 100%;
-  padding: 0 40px;
+  padding: 0 10px;
   box-sizing: border-box;
 }
 
@@ -94,6 +94,7 @@ a:active {
   flex: 1 0 auto;
   align-items: center;
   text-decoration: none;
+  margin: 0 0 20px;
 }
 
 .app-logo-link {
@@ -124,11 +125,11 @@ header {
   z-index: 1001;
   top: 0;
   padding: 0;
-  margin: 32px 0 90px;
+  margin: 10px 0 30px;
   display: flex;
   align-items: center;
   width: 100%;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   flex: 0 0 auto;
 }
 
@@ -292,4 +293,19 @@ header {
   font-size: 14px;
   line-height: 16px;
   text-transform: uppercase;
+}
+
+@media (min-width: 900px) {
+  .app {
+    padding: 0 40px;
+  }
+
+  .app-logo-container {
+    margin: 0;
+  }
+
+  header {
+    flex-wrap: nowrap;
+    margin: 32px 0 90px;
+  }
 }

@@ -2,8 +2,9 @@
   box-sizing: border-box;
   padding: 0;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .account {
@@ -29,5 +30,19 @@
 }
 
 .submit-button {
-  margin: 0 16px 0 0;
+  margin: 16px 0 0;
+  order: 2;
+}
+
+
+@media (min-width: 900px) {
+  .header {
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+  }
+
+  .submit-button {
+    margin: 0 16px 0 0;
+    order: 1;
+  }
 }
