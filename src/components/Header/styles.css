@@ -48,8 +48,11 @@
   .account {
     order: 2;
     margin: 0;
-    box-shadow: var(--button-box-shadow);
     flex: 0 0 auto;
+  }
+
+  .account:not(.connect) {
+    box-shadow: var(--button-box-shadow);
   }
 
   .submit-button {

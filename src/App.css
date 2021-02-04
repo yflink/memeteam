@@ -82,11 +82,17 @@ a:active {
 }
 
 .app {
+  width: 100%;
+  min-height: calc(100vh - 184px);
+}
+
+.app-body {
   max-width: var(--max-width-body);
   margin: 0 auto;
   width: 100%;
-  padding: 0 10px;
+  padding: 10px 10px 30px;
   box-sizing: border-box;
+  min-height: calc(100vh - 184px);
 }
 
 .app-logo-container {
@@ -120,12 +126,11 @@ a:active {
   font-weight: 600;
 }
 
-
 header {
   z-index: 1001;
   top: 0;
   padding: 0;
-  margin: 10px 0 30px;
+  margin: 0 0 30px;
   display: flex;
   align-items: center;
   width: 100%;
@@ -257,24 +262,24 @@ header {
   border-spacing: 64px 8px;
 }
 
-.button-main {
+.app .button-main {
   background: var(--blue-gradient);
   padding: 8px 16px;
   box-shadow: var(--box-shadow);
 }
 
-.button-main:hover {
+.app .button-main:hover {
   background: var(--blue-gradient-invert);
 }
 
-.button-main .MuiButton-label {
+.app .button-main .MuiButton-label {
   color: var(--white);
   font-size: 15px;
   line-height: 21px;
   font-weight: 700;
 }
 
-.app .unconnected {
+.app .button-secondary {
   padding: 0;
   border-radius: 4px;
   margin: 0;
@@ -282,12 +287,12 @@ header {
   box-shadow: var(--box-shadow);
 }
 
-.app .unconnected:hover {
+.app .button-secondary:hover {
   cursor: pointer;
   background: var(--grey800);
 }
 
-.app .unconnected .MuiButton-label {
+.app .button-secondary .MuiButton-label {
   padding: 8px 20px;
   color: var(--white);
   font-size: 14px;
@@ -297,7 +302,12 @@ header {
 
 @media (min-width: 900px) {
   .app {
-    padding: 0 40px;
+    min-height: calc(100vh - 115px);
+  }
+
+  .app-body {
+    padding: 32px 40px 65px;
+    min-height: calc(100vh - 115px);
   }
 
   .app-logo-container {
@@ -306,6 +316,6 @@ header {
 
   header {
     flex-wrap: nowrap;
-    margin: 32px 0 90px;
+    margin: 0 0 90px;
   }
 }

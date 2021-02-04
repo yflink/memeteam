@@ -16,6 +16,9 @@ import CreateContainer from './containers/CreateContainer'
 import Header from './components/Header'
 import StakeContainer from './containers/StakeContainer'
 import Leaderboards from './containers/Leaderboards'
+import Content from './containers/Content'
+import Footer from './components/Footer'
+import Grid from '@material-ui/core/Grid'
 
 const dispatcher = Store.dispatcher
 const emitter = Store.emitter
@@ -68,25 +71,28 @@ class App extends PureComponent {
       <div className="app">
         <Web3ReactProvider getLibrary={getLibrary}>
           <Router basename={`${process.env.PUBLIC_URL}/`}>
-            <header>
-              <div className="app-logo-container">
-                <Link className="app-logo-link" to="/">
-                  <div className="app-logo">
-                    <img className="img" src={logo} alt="logo" />
-                  </div>
-                  <div className="app-name">memeteam.io</div>
-                </Link>
-              </div>
-              <Header />
-            </header>
-            <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/details" component={DetailsContainer} />
-              <Route path="/create" component={CreateContainer} />
-              <Route path="/stake" component={StakeContainer} />
-              <Route path="/leaderboards" component={Leaderboards} />
-              <Redirect to="/" />
-            </Switch>
+            <div className="app-body">
+              <header>
+                <div className="app-logo-container">
+                  <Link className="app-logo-link" to="/">
+                    <div className="app-logo">
+                      <img className="img" src={logo} alt="logo" />
+                    </div>
+                    <div className="app-name">memeteam.io</div>
+                  </Link>
+                </div>
+                <Header />
+              </header>
+              <Switch>
+                <Route path="/" exact component={Home} />
+                <Route path="/details" component={DetailsContainer} />
+                <Route path="/create" component={CreateContainer} />
+                <Route path="/stake" component={StakeContainer} />
+                <Route path="/leaderboards" component={Leaderboards} />
+                <Redirect to="/" />
+              </Switch>
+            </div>
+            <Footer />
           </Router>
         </Web3ReactProvider>
       </div>

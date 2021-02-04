@@ -14,7 +14,7 @@ import {
   GET_LEADERBOARD,
   GET_LEADERBOARD_RETURNED,
 } from '../../web3/constants'
-import Unlock from '../../containers/Unlock'
+
 import { getFilteredMemes } from '../../Utils/filters'
 import { NOW_TIMESTAMP_UPDATED } from '../../web3/constants'
 import { getMyVotedProposalIds } from '../../web3/etherscan'
@@ -120,13 +120,6 @@ class ContentSection extends PureComponent {
     const account = store.getStore('account')
     const title = 'Memes Open For Voting'
     const connected = account && account.address
-    if (!connected && !isOverlay) {
-      return (
-        <div style={{ width: '100%', padding: '90px 0' }}>
-          <Unlock redirectUrl="/" title="Connect to Metamask to continue" />
-        </div>
-      )
-    }
 
     const filteredMemes = filters
       ? getFilteredMemes({

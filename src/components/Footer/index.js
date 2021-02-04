@@ -1,21 +1,23 @@
-import React from 'react';
-import { Link, withRouter } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 
-import './styles.css';
+import './styles.css'
 
-function Footer({isVisible}) {
+function Footer() {
   return (
-    <div className={`footer ${isVisible? '':'hide'}`} >
-      <a className="footer-social" href="https://yflink.io" target="_blank">YFLINK Home</a>
-      <a className="footer-social" href="https://discord.gg/dM6MJWm" target="_blank">Discord</a>
-      <a className="footer-social" href="https://twitter.com/yflinkio" target="_blank">Twitter</a>
-      <a className="footer-social" href="https://t.me/YFLinkGroup" target="_blank">Telegram</a>
-      <a className="footer-social" href="https://blog.yflink.io/" target="_blank">Blog</a>
-      <Link to="/leaderboards">
-        Leaderboards
-      </Link>
+    <div className="footer">
+      <div className="footer-container">
+        <div className="footer-social">
+          <a className="github" href="https://twitter.com/yflinkio" target="_blank" />
+          <a className="twitter" href="https://twitter.com/yflinkio" target="_blank" />
+          <a className="telegram" href="https://t.me/YFLinkGroup" target="_blank" />
+          <a className="medium" href="https://blog.yflink.io/" target="_blank" />
+          <a className="discord" href="https://discord.gg/dM6MJWm" target="_blank" />
+        </div>
+        <div className="footer-copyright">© 2020, YFLink Team01</div>
+      </div>
     </div>
   )
 }
 
-export default Footer;
+export default Footer

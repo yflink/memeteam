@@ -56,7 +56,7 @@
   align-items: center;
   font-size: 18px;
   line-height: 21px;
-  color: var(--grey800);
+  color: var(--white);
 }
 
 .meme-count {
@@ -81,5 +81,9 @@
 
   .menu .select {
     margin: 0 0 0 20px;
+  }
+
+  .meme-meta {
+    color: var(--grey800);
   }
 }

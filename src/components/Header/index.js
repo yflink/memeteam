@@ -65,7 +65,7 @@ class Header extends PureComponent {
             <div className="address">{wallet}</div>
           </div>
         ) : (
-          <div className="account">
+          <div className="account connect">
             <Unlock redirectUrl="/" title="Unconnected" />
           </div>
         )}
