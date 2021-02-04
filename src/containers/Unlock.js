@@ -3,6 +3,7 @@ import { useWeb3React } from '@web3-react/core'
 import { CONNECTION_CONNECTED } from '../web3/constants'
 import Store from '../stores'
 import Button from '@material-ui/core/Button'
+import { withStyles } from '@material-ui/core'
 
 const emitter = Store.emitter
 const store = Store.store
