@@ -13,7 +13,7 @@
 .posted p {
   margin: 0 5px 0 0;
   text-transform: uppercase;
-  color: var(--grey500);
+  color: var(--white);
 }
 
 .rate-icon {
@@ -48,6 +48,9 @@
     flex-wrap: nowrap;
   }
 
+  .posted p {
+    color: var(--grey500);
+  }
 
   .rating {
     flex: 0 0 120px;
