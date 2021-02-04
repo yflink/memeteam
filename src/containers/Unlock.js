@@ -3,6 +3,7 @@ import { useWeb3React } from '@web3-react/core'
 import { CONNECTION_CONNECTED } from '../web3/constants'
 import Store from '../stores'
 import Button from '@material-ui/core/Button'
+import { Redirect } from 'react-router-dom'
 
 const emitter = Store.emitter
 const store = Store.store
@@ -23,8 +24,13 @@ function onConnectionClicked(currentConnector, setActivatingConnector, activate)
   activate(currentConnector)
 }
 
-function MyComponent({ type, title }) {
+function MyComponent({ redirectUrl, type, title }) {
   const context = useWeb3React()
+  const localContext = store.getStore('web3context')
+  var localConnector = null
+  if (localContext) {
+    localConnector = localContext.connector
+  }
   const { connector, library, account, activate, active, error } = context
   var connectorsByName = store.getStore('connectorsByName')
 
@@ -48,17 +54,22 @@ function MyComponent({ type, title }) {
     <>
       {['MetaMask'].map((name) => {
         const currentConnector = connectorsByName[name]
+        const activating = currentConnector === activatingConnector
+        const connected = currentConnector === connector || currentConnector === localConnector
         const disabled = !!activatingConnector || !!error
         return (
-          <Button
-            className={classname}
-            onClick={() => {
-              onConnectionClicked(currentConnector, setActivatingConnector, activate)
-            }}
-            disabled={disabled}
-          >
-            {title}
-          </Button>
+          <>
+            {!activating && connected && <Redirect to={redirectUrl} />}
+            <Button
+              className={classname}
+              onClick={() => {
+                onConnectionClicked(currentConnector, setActivatingConnector, activate)
+              }}
+              disabled={disabled}
+            >
+              {title}
+            </Button>
+          </>
         )
       })}
     </>
