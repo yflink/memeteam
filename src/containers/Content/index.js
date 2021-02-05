@@ -5,7 +5,7 @@ import { SORTS, MEME_FILTERS } from '../../Utils/filters'
 import Unlock from '../Unlock'
 import Store from '../../stores'
 
-function Home() {
+export default function Content() {
   const [filteredMemes, setFilteredMemes] = useState([])
   const [sort, setSort] = useState(SORTS[0].id)
   const [memeFilter, setMemeFilter] = useState(MEME_FILTERS[MEME_FILTERS.length - 1].id)
@@ -13,7 +13,7 @@ function Home() {
   const changeHandlers = { setSort, setMemeFilter }
 
   const memeUpdate = function (memes) {
-    if (memes.length !== filteredMemes.length) {
+    if (connected && memes.length !== filteredMemes.length) {
       setFilteredMemes(memes)
     }
   }
@@ -37,5 +37,3 @@ function Home() {
     </>
   )
 }
-
-export default Home

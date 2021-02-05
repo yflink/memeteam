@@ -16,9 +16,10 @@
   position: relative;
   display: flex;
   flex-wrap: wrap;
+  box-sizing: border-box;
 }
 
-.footer-container:before {
+.footer-container::before {
   content: '';
   position: absolute;
   top: -70px;
@@ -120,7 +121,7 @@
     flex-wrap: nowrap;
   }
 
-  .footer-container:before {
+  .footer-container::before {
     top: -90px;
     height: 100px;
     width: 100px;
@@ -135,7 +136,6 @@
   .footer-social a {
     margin: 0 16px 0 0;
   }
-
 
   .footer-copyright {
     margin: 0;

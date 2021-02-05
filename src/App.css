@@ -87,7 +87,7 @@ a:active {
 
 .app {
   width: 100%;
-  min-height: calc(100vh - 184px);
+  min-height: calc(100vh - 115px);
 }
 
 .app-body {
@@ -285,11 +285,7 @@ header {
   }
 }
 
-@media (min-width: 900px) and (max-width: 1408px) {
-  body {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.696) 0%, rgba(166, 166, 166, 0) 8%), url("/assets/images/concrete-wall.png"), #c6c6c6;
-  }
-
+@media (min-width: 900px) {
   .app {
     min-height: calc(100vh - 115px);
   }
@@ -305,5 +301,11 @@ header {
 
   header {
     flex-wrap: nowrap;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1408px) {
+  body {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.696) 0%, rgba(166, 166, 166, 0) 8%), url("/assets/images/concrete-wall.png"), #c6c6c6;
   }
 }

@@ -27,6 +27,8 @@ class ContentSection extends PureComponent {
   state = {
     loading: false,
     width: window.outerWidth,
+    filteredMemes: [],
+    filtered: false,
   }
 
   constructor(props) {
@@ -62,13 +64,34 @@ class ContentSection extends PureComponent {
 
   async componentDidUpdate(prevProps) {
     const account = store.getStore('account')
-    const { filters } = this.props
+    const { filters, updateMemes } = this.props
 
     if (prevProps.filters && filters) {
       if (prevProps.filters.memeFilter !== 'my_votes' && filters.memeFilter === 'my_votes') {
         const myVotedProposalIds = await getMyVotedProposalIds(account && account.address)
         this.setState({ myVotedProposalIds })
       }
+    }
+
+    const { memes = [], now, myVotedProposalIds, filtered } = this.state
+    const leaderboard = store.getStore('leaderboard') || []
+    const filteredMemes = filters
+      ? getFilteredMemes({
+          memes,
+          filters,
+          now,
+          myAddress: account && account.address,
+          myVotedProposalIds,
+          leaderboard,
+        })
+      : memes
+
+    if (filtered !== filters && leaderboard.length) {
+      this.setState({ filtered: filters, filteredMemes: filteredMemes })
+    }
+
+    if (updateMemes) {
+      updateMemes(filteredMemes)
     }
   }
 
@@ -107,39 +130,22 @@ class ContentSection extends PureComponent {
   }
 
   render() {
-    const { isFromDetail, filters, updateMemes } = this.props
-    const { memes = [], now, myVotedProposalIds } = this.state
     const leaderboard = store.getStore('leaderboard') || []
-
-    const account = store.getStore('account')
-    const filteredMemes = filters
-      ? getFilteredMemes({
-          memes,
-          filters,
-          now,
-          myAddress: account && account.address,
-          myVotedProposalIds,
-          leaderboard,
-        })
-      : memes
-
-    let contentHeight
+    const { isFromDetail } = this.props
+    const { filteredMemes } = this.state
+    let contentheight
 
     if (this.state.width > 1424) {
-      contentHeight = filteredMemes.length * 210 + 40
+      contentheight = `${filteredMemes.length * 210 + 40}px`
     } else if (this.state.width <= 1424 && this.state.width > 915) {
-      contentHeight = filteredMemes.length * 400 + 40
+      contentheight = `${filteredMemes.length * 400 + 40}px`
     } else {
-      contentHeight = 'auto'
-    }
-
-    if (updateMemes) {
-      updateMemes(filteredMemes)
+      contentheight = 'auto'
     }
 
     return (
       <div style={{ width: '100%', marginTop: 18 }}>
-        <div className="card-container" style={{ height: contentHeight }}>
+        <div className="card-container" style={{ height: contentheight }}>
           {(isFromDetail ? [...filteredMemes, { isForBrowseMore: true }] : filteredMemes).map((meme) => {
             const leaderboardItem = leaderboard.find((item) => item.id === meme.id)
             if (leaderboardItem) {
