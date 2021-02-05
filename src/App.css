@@ -1,28 +1,28 @@
 :root {
-  --white: #FFF;
-  --black: #08001A;
-  --red: #EE0004;
+  --white: #fff;
+  --black: #08001a;
+  --red: #ee0004;
   --green: #12c26a;
-  --blue: #1797D2;
-  --blue-light: #2B98CB;
+  --blue: #1797d2;
+  --blue-light: #2b98cb;
   --blue-dark: #31326c;
-  --blue-gradient: linear-gradient(180deg, #2A5BDB 0%, #1F4AB8 100%);
-  --blue-gradient-invert: linear-gradient(180deg, #1F4AB8 0%, #2A5BDB 100%);
-  --yellow: #FAB517;
-  --yellow-light: #FFD370;
+  --blue-gradient: linear-gradient(180deg, #2a5bdb 0%, #1f4ab8 100%);
+  --blue-gradient-invert: linear-gradient(180deg, #1f4ab8 0%, #2a5bdb 100%);
+  --yellow: #fab517;
+  --yellow-light: #ffd370;
   --dark: #5c5a5a;
   --grey200: #cecece;
-  --grey300: #dddddd;
+  --grey300: #ddd;
   --grey400: #d5d5d6;
   --grey500: #949494;
   --grey600: #818181;
   --grey700: #686868;
   --grey800: #575757;
-  --light: #EFEFEF;
+  --light: #efefef;
   --white-alpha2: rgba(255, 255, 255, 0.2);
   --black-alpha1: rgba(0, 0, 0, 0.1);
-  --box-shadow: 0px 6px 12px rgba(0, 0, 0, .16);
-  --button-box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.25);;
+  --box-shadow: 0 6px 12px rgba(0, 0, 0, 0.16);
+  --button-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
   --font-size-default: 18px;
   --font-family-body: "Work Sans", sans-serif;
   --max-width-body: 1320px;
@@ -30,7 +30,8 @@
 
 @font-face {
   font-family: 'Work Sans';
-  src: url('/assets/fonts/worksans-regular.woff2') format('woff2'),
+  src:
+    url('/assets/fonts/worksans-regular.woff2') format('woff2'),
     url('/assets/fonts/worksans-regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
@@ -39,7 +40,8 @@
 
 @font-face {
   font-family: 'Work Sans';
-  src: url('/assets/fonts/worksans-semibold.woff2') format('woff2'),
+  src:
+    url('/assets/fonts/worksans-semibold.woff2') format('woff2'),
     url('/assets/fonts/worksans-semibold.woff') format('woff');
   font-weight: 600;
   font-style: normal;
@@ -48,7 +50,8 @@
 
 @font-face {
   font-family: 'Work Sans';
-  src: url('/assets/fonts/worksans-bold.woff2') format('woff2'),
+  src:
+    url('/assets/fonts/worksans-bold.woff2') format('woff2'),
     url('/assets/fonts/worksans-bold.woff') format('woff');
   font-weight: 700;
   font-style: normal;
@@ -57,7 +60,8 @@
 
 @font-face {
   font-family: 'Work Sans';
-  src: url('/assets/fonts/worksans-black.woff2') format('woff2'),
+  src:
+    url('/assets/fonts/worksans-black.woff2') format('woff2'),
     url('/assets/fonts/worksans-black.woff') format('woff');
   font-weight: 900;
   font-style: normal;
@@ -66,7 +70,7 @@
 
 body {
   min-height: 100vh;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.696) 0%, rgba(166, 166, 166, 0) 21.91%), url("/assets/images/concrete-wall.png"), #C6C6C6;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.696) 0%, rgba(166, 166, 166, 0) 4%), url("/assets/images/concrete-wall.png"), #c6c6c6;
   font-family: var(--font-family-body);
   cursor: default;
 }
@@ -130,38 +134,12 @@ header {
   z-index: 1001;
   top: 0;
   padding: 0;
-  margin: 0 0 30px;
+  margin: 0 0 20px;
   display: flex;
   align-items: center;
   width: 100%;
   flex-wrap: wrap;
   flex: 0 0 auto;
-}
-
-.img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.f-green {
-  color:green !important;
-}
-
-.f-red {
-  color:red !important;
-}
-
-.f-lg {
-  font-size: 1.125em;
-}
-
-.b-white {
-  background-color: var(--white) !important;
-}
-
-.b-grey {
-  background-color: var(--grey);
 }
 
 /* size */
@@ -201,7 +179,7 @@ header {
 }
 
 .round-button-text {
-  margin: 0px 12px;
+  margin: 0 12px;
   color: black;
   font-weight: 500;
   font-size: 24px;
@@ -214,7 +192,7 @@ header {
 }
 
 .skip-button-text {
-  margin: 0px 12px;
+  margin: 0 12px;
   color: blue;
   font-weight: 500;
   font-size: 24px;
@@ -232,7 +210,7 @@ header {
 .detail-box {
   width: 60%;
   height: 760px;
-  margin: 50px  0px 20px !important;
+  margin: 50px  0 20px !important;
 }
 
 .border-black {
@@ -249,7 +227,8 @@ header {
   width: 100%;
 }
 
-.slick-prev:before, .slick-next:before {
+.slick-prev::before,
+.slick-next::before {
   color: black !important;
 }
 
@@ -300,7 +279,17 @@ header {
   text-transform: uppercase;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1409px) {
+  body {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.696) 0%, rgba(166, 166, 166, 0) 12%), url("/assets/images/concrete-wall.png"), #c6c6c6;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1408px) {
+  body {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.696) 0%, rgba(166, 166, 166, 0) 8%), url("/assets/images/concrete-wall.png"), #c6c6c6;
+  }
+
   .app {
     min-height: calc(100vh - 115px);
   }
@@ -316,6 +305,5 @@ header {
 
   header {
     flex-wrap: nowrap;
-    margin: 0 0 90px;
   }
 }

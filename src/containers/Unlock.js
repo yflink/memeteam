@@ -8,7 +8,7 @@ import { Redirect } from 'react-router-dom'
 const emitter = Store.emitter
 const store = Store.store
 
-class Unlock extends PureComponent {
+export default class Unlock extends PureComponent {
   render() {
     const { redirectUrl, title, type } = this.props
     return (
@@ -58,7 +58,7 @@ function MyComponent({ redirectUrl, type, title }) {
         const connected = currentConnector === connector || currentConnector === localConnector
         const disabled = !!activatingConnector || !!error
         return (
-          <>
+          <div key={name}>
             {!activating && connected && <Redirect to={redirectUrl} />}
             <Button
               className={classname}
@@ -69,11 +69,9 @@ function MyComponent({ redirectUrl, type, title }) {
             >
               {title}
             </Button>
-          </>
+          </div>
         )
       })}
     </>
   )
 }
-
-export default Unlock

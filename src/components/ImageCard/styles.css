@@ -20,7 +20,7 @@
   height: 164px !important;
   margin: 42px;
   cursor: pointer;
-  transition: .5s ease;
+  transition: 0.5s ease;
   object-fit: contain;
   object-position: top;
 }
@@ -74,6 +74,7 @@
   display: block;
   font-weight: 700;
 }
+
 .card-title {
   width: 100%;
   margin: 0 0 24px;
@@ -114,6 +115,6 @@
 
   .card-image,
   .card-video {
-    max-height: 600px;
+    max-height: 630px;
   }
 }

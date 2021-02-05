@@ -31,12 +31,16 @@ class Menu extends PureComponent {
         <div className="menu-content">
           <NativeSelect value={memeFilter} onChange={handleMemeFilterChange} className="select" variant="outlined">
             {MEME_FILTERS.map(({ id, label }) => (
-              <option value={id}>{label}</option>
+              <option key={id} value={id}>
+                {label}
+              </option>
             ))}
           </NativeSelect>
           <NativeSelect value={sort} onChange={handleSortChange} className="select" variant="outlined">
             {SORTS.map(({ id, label }) => (
-              <option value={id}>{label}</option>
+              <option key={id} value={id}>
+                {label}
+              </option>
             ))}
           </NativeSelect>
         </div>

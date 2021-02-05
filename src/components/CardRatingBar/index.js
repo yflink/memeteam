@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { abbreviateAddress } from '../../web3/utils'
 
 export default function CardRatingBar({ rating, proposer }) {
-  const proposerShorthand = abbreviateAddress(proposer)
+  const proposerShorthand = proposer ? abbreviateAddress(proposer) : 'Unknown'
   return (
     <div className="rating-container">
       <div className="posted">

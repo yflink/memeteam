@@ -6,7 +6,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 0 0 20px;
+  margin: 0;
   flex-wrap: wrap;
 }
 
@@ -15,11 +15,6 @@
   flex: 0 0 100%;
   flex-wrap: wrap;
   justify-content: flex-end;
-}
-
-.meme-meta {
-  display: flex;
-  flex: 1;
 }
 
 .fixed {
@@ -34,12 +29,11 @@
   padding: 0;
   background-color: transparent;
   border: 2px solid var(--black);
-
 }
 
-.menu .MuiInput-underline:before,
-.menu .select:hover:before,
-.menu .Mui-focused.MuiInput-underline:after {
+.menu .MuiInput-underline::before,
+.menu .select:hover::before,
+.menu .Mui-focused.MuiInput-underline::after {
   content: none;
 }
 
@@ -57,6 +51,7 @@
   font-size: 18px;
   line-height: 21px;
   color: var(--white);
+  flex: 1;
 }
 
 .meme-count {

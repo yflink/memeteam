@@ -1,11 +1,8 @@
 import React, { PureComponent } from 'react'
-import Grid from '@material-ui/core/Grid'
 import { Link } from 'react-router-dom'
-import classnames from 'classnames'
 
 import CardRatingBar from '../CardRatingBar'
 import CardTimeBar from '../CardTimeBar'
-import { getRoundedWei } from '../../web3/utils'
 import ReactPlayer from 'react-player'
 import { NOW_TIMESTAMP_UPDATED } from '../../web3/constants'
 import Store from '../../stores'
@@ -38,28 +35,15 @@ class ImageCard extends PureComponent {
     const { now } = this.state
     const isVideo = ReactPlayer.canPlay(link)
 
-    if (isForBrowseMore) {
-      return (
-        <Grid container className={classnames('card')} id={id}>
-          <div>
-            <Link to="/" replace>
-              <img className="img card-logo" src={logo} alt="meme" />
-            </Link>
-          </div>
-          <p className="card-title card-logo-title">Browse More Memes</p>
-        </Grid>
-      )
-    }
-
     return (
       <div className="card">
         <CardTimeBar elapsed={end - now} />
-        <div class="card-id">
+        <div className="card-id">
           <span>#{id}</span>
         </div>
         <h3 className="card-title">{title ? title : 'untitled'}</h3>
         {isVideo ? (
-          <div class="card-video">
+          <div className="card-video">
             <ReactPlayer url={link} width="100%" controls={true} />
           </div>
         ) : (

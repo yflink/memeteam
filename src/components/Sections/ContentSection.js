@@ -107,20 +107,11 @@ class ContentSection extends PureComponent {
   }
 
   render() {
-    const { isOverlay, isFromDetail, updateMemes } = this.props
-    const filters = isFromDetail
-      ? {
-          memeFilter: 'votes_open',
-          sort: 'newest_to_oldest',
-        }
-      : this.props.filters
+    const { isFromDetail, filters, updateMemes } = this.props
     const { memes = [], now, myVotedProposalIds } = this.state
     const leaderboard = store.getStore('leaderboard') || []
 
     const account = store.getStore('account')
-    const title = 'Memes Open For Voting'
-    const connected = account && account.address
-
     const filteredMemes = filters
       ? getFilteredMemes({
           memes,
@@ -132,34 +123,30 @@ class ContentSection extends PureComponent {
         })
       : memes
 
-    updateMemes(filteredMemes)
-
     let contentHeight
 
     if (this.state.width > 1424) {
-      contentHeight = filteredMemes.length * 200 + 40
+      contentHeight = filteredMemes.length * 210 + 40
     } else if (this.state.width <= 1424 && this.state.width > 915) {
       contentHeight = filteredMemes.length * 400 + 40
     } else {
       contentHeight = 'auto'
     }
 
+    if (updateMemes) {
+      updateMemes(filteredMemes)
+    }
+
     return (
-      <div style={{ width: '100%' }}>
-        {connected && isOverlay && (
-          <Typography
-            variant="h4"
-            style={{
-              textAlign: 'center',
-              marginBottom: '50px',
-            }}
-            dangerouslySetInnerHTML={{ __html: title }}
-          />
-        )}
-        <div class="card-container" style={{ height: contentHeight }}>
+      <div style={{ width: '100%', marginTop: 18 }}>
+        <div className="card-container" style={{ height: contentHeight }}>
           {(isFromDetail ? [...filteredMemes, { isForBrowseMore: true }] : filteredMemes).map((meme) => {
             const leaderboardItem = leaderboard.find((item) => item.id === meme.id)
-            return <ImageCard {...meme} leaderboardItem={leaderboardItem} />
+            if (leaderboardItem) {
+              return <ImageCard {...meme} leaderboardItem={leaderboardItem} key={meme.id} />
+            } else {
+              return null
+            }
           })}
         </div>
       </div>
