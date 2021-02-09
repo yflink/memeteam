@@ -1,9 +1,8 @@
 import React, { PureComponent } from "react";
 
 class Meme extends PureComponent {
-
   render() {
-    const { memeClass, link } = this.props;
+    const { memeClass, link, noOverlay } = this.props;
 
     var extension;
     var isVideo = false;
@@ -15,21 +14,24 @@ class Meme extends PureComponent {
         isVideo = true;
         extension = 'video/' + extension;
       }
+    }
 
+    if (isVideo) {
+      return (
+        <video className={memeClass} width="320" height="150" controls>
+          <source src={link} type={extension}/>
+        </video>
+      );
     }
 
     return (
-        <div>
-            {isVideo ? (
-                <video className={memeClass} width="320" height="150" controls>
-                        <source src={link} type={extension}/>
-                </video>
-            ) : (
-                <img className={memeClass} src={link} alt='Meme' />
-            )}
-        </div>
-      
-    )
+      <>
+        <img className={memeClass} src={link} alt='Meme' />
+        {!noOverlay && (
+          <div className="link-overlay"><a href={link} target="_blank">{link}</a></div>
+        )}
+      </>
+    );
   };
 }
 

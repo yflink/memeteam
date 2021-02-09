@@ -68,7 +68,6 @@ class MemeDetail extends PureComponent {
       >
         <Grid className='detail-img-container'>
           <Meme link={link} memeClass='detail-img'/>
-          <div className="link-overlay"><a href={link} target="_blank">{link}</a></div>
         </Grid>
         <Grid className='detail-desc' direction='column' justify='center' >
           <Grid  className='detail-desc-top' container direction='row' alignItems='center' justify='space-between'>

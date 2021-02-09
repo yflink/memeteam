@@ -5,6 +5,7 @@ import Store from "../stores";
 import { GET_PROPOSALS_RETURNED } from '../web3/constants'
 import { getFileFromLink, openTweet } from "../Utils";
 import { getDisplayableAmountFromMinUnit } from "../web3/utils";
+import Meme from "../components/Meme";
 
 const evilKermitImg = require('../assets/images/200824_evilKermit.jpg');
 
@@ -102,7 +103,7 @@ class Voted extends PureComponent {
 
     return (
       <div className={ classes.root }>
-        <img className={classes.imgurImg} src={meme.link} alt='Meme' />
+        <Meme link={meme.link} memeClass={classes.imgurImg} />
         <div className={classes.container}>
           {/* <div className={classes.bigTitle}>✅ *{getRoundedWei(meme.totalForVotes)} Votes!* ✅</div> */}
           <div className={classes.bigTitle}>

@@ -59,7 +59,7 @@ class ImageCard extends PureComponent {
       <Grid container className={classnames('card', { 'card-open': end > now })} id={id}>
         <div>
           <Link to={`/details/${id}`} replace>
-          <Meme link={link} memeClass='img card-image'/>
+          <Meme link={link} memeClass='img card-image' noOverlay />
           </Link>
         </div>
         <Grid className="card-detail" container direction='column'>
