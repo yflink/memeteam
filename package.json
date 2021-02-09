@@ -46,7 +46,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "buildeploy": "react-scripts build && gh-pages -d build"
+    "buildeploy": "react-scripts build && gh-pages -d build -o origin",
+    "buildeploystaging": "react-scripts build && gh-pages -d build -o staging"
   },
   "homepage": "https://yflink.github.io",
   "eslintConfig": {
