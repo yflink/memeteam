@@ -40,3 +40,13 @@ export const openTweet = (memeId, title, image) => {
 
 export const getFileFromImgurLink = (link) => link.slice(IMGUR_PREFIX.length);
 export const getImgurLinkFromFile = (fileName) => IMGUR_PREFIX + fileName;
+
+export const getFileFromLink = (link) => {
+    if(link.includes(IMGUR_PREFIX)) {
+      return getFileFromImgurLink(link);
+    }
+    else {
+      const startIndex = link.lastIndexOf("/");
+      return link.substring(startIndex + 1, link.length);
+    }
+}

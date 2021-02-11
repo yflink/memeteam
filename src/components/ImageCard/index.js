@@ -7,6 +7,7 @@ import CardTimeRatingBar from '../CardTimeRatingBar'
 import { getRoundedWei } from '../../web3/utils';
 import { NOW_TIMESTAMP_UPDATED } from '../../web3/constants';
 import Store from "../../stores";
+import Meme from "../Meme";
 
 import './styles.css';
 
@@ -58,7 +59,7 @@ class ImageCard extends PureComponent {
       <Grid container className={classnames('card', { 'card-open': end > now })} id={id}>
         <div>
           <Link to={`/details/${id}`} replace>
-            <img className="img card-image" src={link} alt='meme' />
+          <Meme link={link} memeClass='img card-image' noOverlay />
           </Link>
         </div>
         <Grid className="card-detail" container direction='column'>

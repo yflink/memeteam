@@ -7,11 +7,12 @@ import TimerIcon from '@material-ui/icons/AccessTime';
 import classnames from 'classnames';
 
 import './styles.css';
-import { formatCountdown, getFileFromImgurLink, openTweet } from '../../Utils';
+import { formatCountdown, getFileFromLink, openTweet } from '../../Utils';
 import { getRoundedWei, abbreviateAddress, titleCheck } from "../../web3/utils";
 import { NOW_TIMESTAMP_UPDATED } from '../../web3/constants';
 
 import Store from "../../stores";
+import Meme from "../Meme";
 const emitter = Store.emitter
 const store = Store.store
 
@@ -33,7 +34,7 @@ class MemeDetail extends PureComponent {
 
   handleTweet = () => {
     const { id, title, link } = this.props;
-    openTweet(id, title, getFileFromImgurLink(link));
+    openTweet(id, title, getFileFromLink(link));
   }
 
   render() {
@@ -66,8 +67,7 @@ class MemeDetail extends PureComponent {
         direction='row'
       >
         <Grid className='detail-img-container'>
-          <img className='detail-img' src={link} alt='meme detail' />
-          <div className="link-overlay"><a href={link} target="_blank">{link}</a></div>
+          <Meme link={link} memeClass='detail-img'/>
         </Grid>
         <Grid className='detail-desc' direction='column' justify='center' >
           <Grid  className='detail-desc-top' container direction='row' alignItems='center' justify='space-between'>

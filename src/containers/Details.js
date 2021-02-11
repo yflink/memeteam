@@ -21,7 +21,7 @@ import {
 } from '../web3/etherscan';
 
 import { getRoundedWei } from '../web3/utils';
-import { getImgurLinkFromFile } from '../Utils';
+//import { getImgurLinkFromFile } from '../Utils';
 import Spinner from "../components/Spinner";
 import { getFilteredMemes } from '../Utils/filters';
 
@@ -226,7 +226,8 @@ class Details extends PureComponent {
       <Helmet>
         <title>{title}</title>
         <meta name="twitter:title" content={title} />
-        <meta name="twitter:image" content={getImgurLinkFromFile(image)} />
+        {/** commenting as its not used anywhere
+        <meta name="twitter:image" content={getImgurLinkFromFile(image)} />*/}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="og:type" content="website" />
       </Helmet>
