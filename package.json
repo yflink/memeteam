@@ -46,7 +46,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "buildeploy": "react-scripts --expose-gc --max_old_space_size=8192 build && gh-pages -d build -o origin",
+    "buildeploy": "react-scripts --expose-gc --max_old_space_size=8192 build && gh-pages -d build",
     "buildeploystaging": "react-scripts build && gh-pages -d build -o staging"
   },
   "homepage": "https://yflink.github.io",
