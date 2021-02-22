@@ -6,6 +6,7 @@ import * as _ from 'lodash';
 import Store from "../stores";
 import { ERROR, PROPOSE, PROPOSE_CONFIRMED, GET_PROPOSALS, GET_PROPOSALS_RETURNED, GET_LEADERBOARD } from '../web3/constants'
 import Spinner from "../components/Spinner";
+import Meme from "../components/Meme";
 
 const pepeAmazeImg = require('../assets/images/200824_pepeAmaze.png');
 
@@ -109,13 +110,14 @@ class Title extends PureComponent {
     const { classes } = this.props;
     const { title, loading } = this.state;
     const creatingMemeLink = store.getStore('creatingMemeLink');
+
     return (
       <div className={ classes.root }>
         {loading ? (
           <Spinner />
         ) : (
           <>
-            <img className={classes.imgurImg} src={creatingMemeLink} alt='Meme' />
+            <Meme link={creatingMemeLink} memeClass={classes.imgurImg}/>
             <div className={classes.container}>
               <div className={classes.bigTitle}>Meme Ready To Upload</div>
               <img className={classes.pepeAmazeImg} src={pepeAmazeImg} alt='Amaze' />

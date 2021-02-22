@@ -2,8 +2,9 @@ import React, { PureComponent } from "react";
 import { withStyles } from '@material-ui/core/styles';
 
 import Store from "../stores";
-import { getFileFromImgurLink, openTweet } from "../Utils";
+import { getFileFromLink, openTweet } from "../Utils";
 import { campaignConfig } from "../campaign.config";
+import Meme from "../components/Meme";
 
 const pepeBrainImg = require('../assets/images/200824_pepeBrain.png');
 
@@ -57,7 +58,7 @@ class Tweet extends PureComponent {
   handleTweet = () => {
     const title = store.getStore('creatingMemeTitle');
     const creatingMemeLink = store.getStore('creatingMemeLink');
-    openTweet(this.getMemeId(), title, getFileFromImgurLink(creatingMemeLink));
+    openTweet(this.getMemeId(), title, getFileFromLink(creatingMemeLink));
   }
 
   handleGoToHome = () => {
@@ -68,9 +69,10 @@ class Tweet extends PureComponent {
   render() {
     const { classes } = this.props;
     const creatingMemeLink = store.getStore('creatingMemeLink');
+
     return (
       <div className={ classes.root }>
-        <img className={classes.imgurImg} src={creatingMemeLink} alt='Meme' />
+        <Meme link={creatingMemeLink} memeClass={classes.imgurImg}/>
         <div className={classes.container}>
           <div className={classes.bigTitle}>Meme Submitted<br/>To Operation {campaignConfig.currentCampaign}!</div>
           <img className={classes.pepeBrainImg} src={pepeBrainImg} alt='Brain' />
