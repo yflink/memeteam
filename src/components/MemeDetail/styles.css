@@ -162,6 +162,12 @@
   flex: 0 0 100%;
 }
 
+.meme-detail-spinner {
+  width: 50px;
+  height: 50px;
+  margin: 190px auto;
+}
+
 @media (min-width: 900px) {
   .meme-detail-image {
     min-width: 100%;

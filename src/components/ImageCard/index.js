@@ -29,7 +29,7 @@ class ImageCard extends PureComponent {
   }
 
   render() {
-    const { id, link, title, totalForVotes, end, isForBrowseMore, leaderboardItem, proposer } = this.props
+    const { id, link, title, end, leaderboardItem, proposer } = this.props
     const { now } = this.state
     const isVideo = ReactPlayer.canPlay(link)
 
@@ -53,7 +53,7 @@ class ImageCard extends PureComponent {
             <img className="img card-image" src={link} alt="meme" />
           </Link>
         )}
-        <CardRatingBar proposer={proposer} rating={leaderboardItem?.score?.toFixed(2) || '--'} />
+        <CardRatingBar proposer={proposer} rating={parseFloat(leaderboardItem?.votesFor).toFixed(0) || '--'} />
       </div>
     )
   }

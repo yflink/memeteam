@@ -13,7 +13,9 @@ const emitter = Store.emitter
 const store = Store.store
 
 class MemeDetail extends PureComponent {
-  state = {}
+  state = {
+    leaderboard: this.props.leaderboard,
+  }
 
   async componentDidMount() {
     emitter.on(NOW_TIMESTAMP_UPDATED, this.updateNow)
@@ -34,16 +36,24 @@ class MemeDetail extends PureComponent {
   }
 
   handleNav = (direction) => {
+    const { currentIndex, maxIndex, changeToIndex } = this.props
     if (direction === 'next') {
-      console.log('next')
+      if (currentIndex + 1 > maxIndex) {
+        changeToIndex(0)
+      } else {
+        changeToIndex(currentIndex + 1)
+      }
     } else {
-      console.log('prev')
+      if (currentIndex === 0) {
+        changeToIndex(maxIndex)
+      } else {
+        changeToIndex(currentIndex - 1)
+      }
     }
   }
 
   render() {
-    const { id, link, title, end, voterCount, displayName, proposer, onVote, leaderboardItem } = this.props
-
+    const { id, link, title, end, displayName, proposer, onVote, leaderboardItem } = this.props
     const { now } = this.state
     const countdown = end - now
 
@@ -75,7 +85,7 @@ class MemeDetail extends PureComponent {
                 {abbreviateAddress(proposer).toUpperCase()}
               </a>
             </div>
-            <CardAdvancedRatingBar score={leaderboardItem?.score} voters={voterCount} shares={10} />
+            <CardAdvancedRatingBar score={leaderboardItem?.votesFor} shares={10} />
           </div>
           <div className="meme-detail-action">
             <Button className="button-white fixed" onClick={this.handleTweet}>

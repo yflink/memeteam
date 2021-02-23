@@ -1,7 +1,6 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import { Route, Switch, Redirect, useRouteMatch } from 'react-router-dom'
-import classnames from 'classnames'
 
 import { ContentSection } from '../components/Sections'
 
@@ -28,8 +27,6 @@ const UnlockDetailsWithMemeStatusCB = (Component, onMemeStatusChanged) => (props
 }
 
 const DetailsContainer = () => {
-  let match = useRouteMatch('/details/:id')
-  const isDetailPage = match.isExact
   return (
     <Grid container className="f-w detail-container">
       <BackButton shouldGoHome />
