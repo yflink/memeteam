@@ -8,9 +8,11 @@
   --blue-dark: #31326c;
   --blue-gradient: linear-gradient(180deg, #2a5bdb 0%, #1f4ab8 100%);
   --blue-gradient-invert: linear-gradient(180deg, #1f4ab8 0%, #2a5bdb 100%);
+  --grey-gradient: linear-gradient(180deg, #949494 0%, #818181 100%);
   --yellow: #fab517;
   --yellow-light: #ffd370;
   --dark: #5c5a5a;
+  --grey100: #f6f6f6;
   --grey200: #cecece;
   --grey300: #ddd;
   --grey400: #d5d5d6;
@@ -241,6 +243,47 @@ header {
   border-spacing: 64px 8px;
 }
 
+.app .button-back {
+  height: 44px;
+  background: var(--grey100);
+  padding: 10px 16px;
+  box-shadow: var(--box-shadow);
+  position: absolute;
+}
+
+.app .button-back:hover {
+  background: var(--grey800);
+}
+
+.app .button-back .MuiButton-label svg {
+  stroke: var(--grey800);
+  display: inline-block;
+  margin: -1px 5px 0 0;
+  height: 21px;
+  width: auto;
+  transition: stroke 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.app .button-back:hover .MuiButton-label svg {
+  stroke: var(--grey100);
+}
+
+.app .button-back:disabled {
+  background: var(--grey-gradient);
+}
+
+.app .button-back .MuiButton-label {
+  color: var(--grey800);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.app .button-back:hover .MuiButton-label {
+  color: var(--grey100);
+}
+
 .app .button-main {
   background: var(--blue-gradient);
   padding: 8px 16px;
@@ -251,11 +294,24 @@ header {
   background: var(--blue-gradient-invert);
 }
 
+.app .button-main:disabled {
+  background: var(--grey-gradient);
+}
+
 .app .button-main .MuiButton-label {
   color: var(--white);
   font-size: 15px;
   line-height: 21px;
   font-weight: 700;
+}
+
+.app .button-main .MuiButton-label svg {
+  fill: var(--white);
+  stroke: var(--white);
+  display: inline-block;
+  margin: 0 0 0 10px;
+  height: 15px;
+  width: auto;
 }
 
 .app .button-secondary {
@@ -277,6 +333,69 @@ header {
   font-size: 14px;
   line-height: 16px;
   text-transform: uppercase;
+}
+
+.app .button-white {
+  background: var(--white);
+  padding: 8px 16px;
+  border: 1px solid var(--black);
+}
+
+.app .button-white:hover {
+  background: var(--grey200);
+}
+
+.app .button-white .MuiButton-label {
+  color: var(--black);
+  font-size: 15px;
+  line-height: 21px;
+  font-weight: 700;
+}
+
+.app .button-white .MuiButton-label svg {
+  fill: var(--black);
+  stroke: var(--black);
+  display: inline-block;
+  margin: 0 0 0 10px;
+  height: 18px;
+  width: auto;
+}
+
+.app .button-secondary.fixed,
+.app .button-main.fixed,
+.app .button-white.fixed {
+  flex: 0 0 270px;
+  display: flex;
+}
+
+.app .button-secondary.expand,
+.app .button-main.expand,
+.app .button-white.expand {
+  flex: 1;
+  display: flex;
+}
+
+.app .button-control {
+  background: var(--grey100);
+  padding: 16px 10px;
+  box-shadow: var(--box-shadow);
+}
+
+.app .button-control:hover {
+  background: var(--grey800);
+}
+
+.app .button-control .MuiButton-label svg {
+  stroke: var(--grey800);
+  display: inline-block;
+  margin: 0;
+  height: 30px;
+  width: auto;
+  transition: stroke 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.app .button-control:hover .MuiButton-label svg {
+  stroke: var(--grey100);
 }
 
 @media (min-width: 1409px) {

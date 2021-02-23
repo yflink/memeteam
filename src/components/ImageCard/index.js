@@ -9,8 +9,6 @@ import Store from '../../stores'
 
 import './styles.css'
 
-export const logo = require('../../assets/images/YFLink_blue_round.svg')
-
 const emitter = Store.emitter
 const store = Store.store
 
@@ -38,10 +36,14 @@ class ImageCard extends PureComponent {
     return (
       <div className="card">
         <CardTimeBar elapsed={end - now} />
-        <div className="card-id">
-          <span>#{id}</span>
-        </div>
-        <h3 className="card-title">{title ? title : 'untitled'}</h3>
+        <Link to={`/details/${id}`} replace className="card-id-link">
+          <div className="card-id">
+            <span>#{id}</span>
+          </div>
+        </Link>
+        <Link to={`/details/${id}`} replace className="card-title-link">
+          <h3 className="card-title">{title ? title : 'untitled'}</h3>
+        </Link>
         {isVideo ? (
           <div className="card-video">
             <ReactPlayer url={link} width="100%" controls={true} />

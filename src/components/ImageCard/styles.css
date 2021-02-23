@@ -34,7 +34,7 @@
   min-width: 100%;
   width: 100%;
   height: auto;
-  max-height: 800px;
+  max-height: 740px;
   cursor: pointer;
   object-fit: contain;
   object-position: top;
@@ -75,14 +75,23 @@
   font-weight: 700;
 }
 
-.card-title {
+.card-title-link {
   width: 100%;
   margin: 0 0 24px;
+  text-decoration: none;
+  display: block;
+}
+
+.card-title {
+  width: 100%;
+  margin: 0;
   font-weight: 700;
   font-size: 28px;
   line-height: 33px;
   text-transform: uppercase;
   word-wrap: break-word;
+  text-decoration: none;
+  display: block;
 }
 
 .card-logo-title {
@@ -98,7 +107,7 @@
 @media (min-width: 1409px) {
   .card {
     width: calc(33% - 20px);
-    max-height: 600px;
+    max-height: 670px;
   }
 
   .card-image,
@@ -115,6 +124,6 @@
 
   .card-image,
   .card-video {
-    max-height: 630px;
+    max-height: 600px;
   }
 }

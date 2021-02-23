@@ -48,22 +48,22 @@ class Header extends PureComponent {
     const token = store.getYFLToken()
     const balance = getDisplayableAmountFromMinUnit(token.balance, token.decimals, 1)
     const stakedBalance = getDisplayableAmountFromMinUnit(token.stakedBalance, token.decimals, 1)
-    const { now } = this.state
-    const { currentCampaignEndBlock, currentCampaignStartBlock } = campaignConfig
     return (
       <div className="header">
-        <div className="submit-button">
-          <Button className="button-main" href="/#/create">
-            submit your meme
-          </Button>
-        </div>
         {token && account && account.address ? (
-          <div className="account">
-            <div className="balance">
-              YFL: {balance}, {stakedBalance} staked
+          <>
+            <div className="submit-button">
+              <Button className="button-main" href="/#/create">
+                submit your meme
+              </Button>
             </div>
-            <div className="address">{wallet}</div>
-          </div>
+            <div className="account">
+              <div className="balance">
+                YFL: {balance}, {stakedBalance} staked
+              </div>
+              <div className="address">{wallet}</div>
+            </div>
+          </>
         ) : (
           <div className="account connect">
             <Unlock redirectUrl="/" title="Unconnected" />

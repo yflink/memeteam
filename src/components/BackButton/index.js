@@ -1,24 +1,22 @@
-import React from "react";
-import { Link, withRouter } from "react-router-dom";
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import Button from '@material-ui/core/Button';
-
-import './styles.css';
+import React from 'react'
+import { withRouter } from 'react-router-dom'
+import Button from '@material-ui/core/Button'
+import { ChevronLeft } from 'react-feather'
 
 function BackButton({ history, shouldGoHome }) {
   const handleGoBack = () => {
     if (shouldGoHome) {
-      history.replace('/');
+      history.replace('/')
     } else {
-      history.goBack();
+      history.goBack()
     }
-  };
+  }
 
   return (
-    <Button className='arrow-back' onClick={handleGoBack}>
-      <ArrowBackIcon/>
+    <Button className="button-back" onClick={handleGoBack}>
+      <ChevronLeft /> Back to Campaign
     </Button>
-  );
+  )
 }
 
-export default withRouter(BackButton);
+export default withRouter(BackButton)

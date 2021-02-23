@@ -22,8 +22,16 @@
   margin-right: 5px;
   width: 24px;
   height: 24px;
-  line-height: 26px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rate-icon svg {
+  height: 20px;
+  width: auto;
+  fill: var(--black);
+  stroke: none;
 }
 
 .rating {
@@ -42,18 +50,8 @@
   font-weight: 900;
 }
 
-
 @media (min-width: 900px) {
-  .rating-container {
-    flex-wrap: nowrap;
-  }
-
   .posted p {
     color: var(--grey500);
-  }
-
-  .rating {
-    flex: 0 0 120px;
-    margin: 0;
   }
 }

@@ -1,6 +1,4 @@
 import React, { PureComponent } from 'react'
-import Typography from '@material-ui/core/Typography'
-
 import ImageCard from '../ImageCard'
 import './styles.css'
 import Store from '../../stores'
@@ -136,7 +134,7 @@ class ContentSection extends PureComponent {
     let contentheight
 
     if (this.state.width > 1424) {
-      contentheight = `${filteredMemes.length * 210 + 40}px`
+      contentheight = `${filteredMemes.length * 230 + 40}px`
     } else if (this.state.width <= 1424 && this.state.width > 915) {
       contentheight = `${filteredMemes.length * 400 + 40}px`
     } else {
@@ -144,18 +142,21 @@ class ContentSection extends PureComponent {
     }
 
     return (
-      <div style={{ width: '100%', marginTop: 18 }}>
-        <div className="card-container" style={{ height: contentheight }}>
-          {(isFromDetail ? [...filteredMemes, { isForBrowseMore: true }] : filteredMemes).map((meme) => {
-            const leaderboardItem = leaderboard.find((item) => item.id === meme.id)
-            if (leaderboardItem) {
-              return <ImageCard {...meme} leaderboardItem={leaderboardItem} key={meme.id} />
-            } else {
-              return null
-            }
-          })}
+      <section className="content-body">
+        {isFromDetail && filteredMemes.length > 0 && <h2 className="content-section-head">Also in this campaign</h2>}
+        <div style={{ width: '100%', marginTop: 18 }}>
+          <div className="card-container" style={{ height: contentheight }}>
+            {(isFromDetail ? [...filteredMemes, { isForBrowseMore: true }] : filteredMemes).map((meme) => {
+              const leaderboardItem = leaderboard.find((item) => item.id === meme.id)
+              if (leaderboardItem) {
+                return <ImageCard {...meme} leaderboardItem={leaderboardItem} key={meme.id} />
+              } else {
+                return null
+              }
+            })}
+          </div>
         </div>
-      </div>
+      </section>
     )
   }
 }

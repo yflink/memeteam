@@ -2,6 +2,13 @@
   width: 100%;
   display: flex;
   padding: 0;
+  flex-wrap: wrap;
+}
+
+.content-body {
+  width: 100%;
+  padding: 0;
+  display: block;
 }
 
 .overlay {
@@ -15,6 +22,16 @@
   align-content: space-between;
   width: 100%;
   flex: 0 0 100%;
+}
+
+.content-section-head {
+  margin: 0 0 40px;
+  width: 100%;
+  font-size: 32px;
+  line-height: 38px;
+  text-align: center;
+  text-transform: uppercase;
+  display: block;
 }
 
 @media (min-width: 1409px) {
