@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import Menu from '../../components/Menu'
 import { ContentSection } from '../../components/Sections'
 import { SORTS, MEME_FILTERS } from '../../Utils/filters'
-import Unlock from '../Unlock'
+import Unlock from '../Create/Unlock'
 import Store from '../../stores'
 const store = Store.store
 

@@ -1,0 +1,126 @@
+.guidance {
+  display: flex;
+  flex: 0 0 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 80px 0;
+}
+
+.guidance-body-spinner {
+  width: 50px;
+  height: 50px;
+  margin: 16px auto;
+}
+
+.guidance-image {
+  width: 100%;
+  max-width: 230px;
+  margin: 0 auto 32px;
+}
+
+.guidance-container {
+  display: flex;
+  width: 100%;
+  padding: 32px;
+  background-color: var(--white);
+  border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+  min-height: 600px;
+  position: relative;
+}
+
+.guidance-wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  max-width: 600px;
+}
+
+.guidance-title {
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 33px;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+}
+
+.guidance-copy {
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  margin: 0 0 32px;
+}
+
+.guidance-buttons {
+  display: flex;
+  flex: 0 0 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.guidance-balance {
+  margin: 0 0 4px;
+  font-size: 14px;
+  color: var(--grey500);
+}
+
+.guidance-row {
+  display: flex;
+  justify-content: center;
+  flex: 0 0 100%;
+}
+
+.guidance-input-wrapper {
+  position: relative;
+  margin: 0 0 16px;
+}
+
+.guidance-staking {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.guidance .button-main {
+  margin: 0 0 16px;
+  min-width: 210px;
+}
+
+.guidance .button-max {
+  position: absolute;
+  top: 9px;
+  right: 5px;
+}
+
+.guidance .button-back {
+  box-shadow: none;
+  top: 32px;
+  left: 32px;
+}
+
+.guidance-input .MuiOutlinedInput-input {
+  font-size: 16px;
+  color: var(--black);
+  line-height: 16px;
+  padding: 10px 8px 9px;
+}
+
+@media (min-width: 900px) {
+  .guidance-buttons {
+    flex-wrap: nowrap;
+  }
+
+  .guidance-buttons > .button-main {
+    margin: 0;
+  }
+
+  .guidance-buttons .button-white {
+    margin: 0 0 0 16px;
+  }
+
+  .guidance-input-wrapper {
+    margin: 0 16px 0 0;
+  }
+}

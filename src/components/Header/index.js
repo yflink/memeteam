@@ -7,7 +7,7 @@ import { abbreviateAddress, getDisplayableAmountFromMinUnit } from '../../web3/u
 
 import './styles.css'
 import Button from '@material-ui/core/Button'
-import Unlock from '../../containers/Unlock'
+import Unlock from '../../containers/Create/Unlock'
 
 const store = Store.store
 const emitter = Store.emitter
@@ -44,8 +44,8 @@ class Header extends PureComponent {
     const wallet = abbreviateAddress(account.address)
 
     const token = store.getYFLToken()
-    const balance = getDisplayableAmountFromMinUnit(token.balance, token.decimals, 1)
-    const stakedBalance = getDisplayableAmountFromMinUnit(token.stakedBalance, token.decimals, 1)
+    const balance = getDisplayableAmountFromMinUnit(token.balance, token.decimals, 2)
+    const stakedBalance = getDisplayableAmountFromMinUnit(token.stakedBalance, token.decimals, 2)
     return (
       <div className="header">
         {token && account && account.address ? (

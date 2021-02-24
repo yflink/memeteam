@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 
-import { GET_BALANCES_RETURNED } from '../web3/constants'
+import { GET_BALANCES_RETURNED } from '../../web3/constants'
 
-import Store from '../stores'
-import { getDisplayableAmountFromMinUnit } from '../web3/utils'
+import Store from '../../stores'
+import { getDisplayableAmountFromMinUnit } from '../../web3/utils'
 
-const kittyImg = require('../assets/images/200824_kittieWaffles.png')
+const kittyImg = require('../../assets/images/200824_kittieWaffles.png')
 const store = Store.store
 const emitter = Store.emitter
 

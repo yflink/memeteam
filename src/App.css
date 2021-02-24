@@ -3,8 +3,8 @@
   --black: #08001a;
   --red: #ee0004;
   --green: #12c26a;
-  --blue: #1797d2;
-  --blue-light: #2b98cb;
+  --blue: #2a5bdb;
+  --blue-light: #cad7f5;
   --blue-dark: #31326c;
   --blue-gradient: linear-gradient(180deg, #2a5bdb 0%, #1f4ab8 100%);
   --blue-gradient-invert: linear-gradient(180deg, #1f4ab8 0%, #2a5bdb 100%);
@@ -312,6 +312,29 @@ header {
   margin: 0 0 0 10px;
   height: 15px;
   width: auto;
+}
+
+.app .button-max {
+  background: var(--blue-light);
+  padding: 4px 8px;
+  min-width: 0;
+  margin: 0;
+}
+
+.app .button-max .MuiButton-label {
+  color: var(--blue);
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.app .button-max:hover .MuiButton-label {
+  color: var(--blue-light);
+}
+
+.app .button-max:hover {
+  background: var(--blue);
 }
 
 .app .button-secondary {

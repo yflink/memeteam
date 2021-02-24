@@ -1,71 +1,20 @@
 import React, { PureComponent } from 'react'
-import { withStyles } from '@material-ui/core/styles'
 import bigInt from 'big-integer'
 import { TextField, Typography, Snackbar } from '@material-ui/core'
-import Spinner from '../components/Spinner'
+import Spinner from '../../components/Spinner'
 
-import Store from '../stores'
-import { ERROR, STAKE, STAKE_CONFIRMED, GET_BALANCES_RETURNED } from '../web3/constants'
-import { toFixed } from '../web3/utils'
+import Store from '../../stores'
+import { ERROR, STAKE, STAKE_CONFIRMED, GET_BALANCES_RETURNED } from '../../web3/constants'
+import { toFixed } from '../../web3/utils'
+import './styles.css'
+import BackButton from '../../components/BackButton'
+import Button from '@material-ui/core/Button'
 
 const emitter = Store.emitter
 const dispatcher = Store.dispatcher
 const store = Store.store
 
-const sergeyImg = require('../assets/images/200824_sergey.png')
-
-const styles = () => ({
-  root: {
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  container: {
-    flex: 1,
-    display: 'flex',
-    flexWrap: 'wrap',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '32px 0',
-  },
-  sergeyImg: {
-    width: '260px',
-    height: '160px',
-  },
-  bigTitle: {
-    fontSize: '40px',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  title: {
-    fontSize: '22px',
-    fontWeight: '500',
-    textAlign: 'center',
-  },
-  stakeContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    alignSelf: 'stretch',
-    padding: '0 64px',
-  },
-  max: {
-    cursor: 'pointer',
-    paddingBottom: '8px',
-  },
-  inputContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    alignSelf: 'stretch',
-  },
-  input: {
-    flex: 1,
-    paddingRight: '16px',
-  },
-})
-
-class Stake extends PureComponent {
+class Staking extends PureComponent {
   state = {}
 
   componentDidMount() {
@@ -143,7 +92,8 @@ class Stake extends PureComponent {
 
   handleChange = (event) => {
     let val = []
-    val[event.target.id] = event.target.value
+    val[event.target.id] = event.target.value.replace(/[^0-9.]/g, '')
+
     this.setState(val)
   }
 
@@ -155,7 +105,6 @@ class Stake extends PureComponent {
   }
 
   renderStake = () => {
-    const { classes } = this.props
     const { snackbarMessage, loading } = this.state
     const asset = store.getYFLToken()
     const type = 'stake'
@@ -163,34 +112,36 @@ class Stake extends PureComponent {
     const amountError = this.state[asset.id + '_' + type + '_error']
 
     return (
-      <div className={classes.stakeContainer}>
-        <Typography
-          variant="h5"
-          onClick={() => {
-            this.setAmount(asset.id, type, asset ? asset.balance : bigInt())
-          }}
-          className={classes.max}
-          noWrap
-        >
-          {'Max: ' + (asset && asset.balance ? toFixed(asset.balance, asset.decimals, 6) : '0')}{' '}
-          {asset ? asset.symbol : ''}
-        </Typography>
-        <div className={classes.inputContainer}>
-          <TextField
-            fullWidth
-            disabled={loading}
-            className={classes.input}
-            id={'' + asset.id + '_' + type}
-            value={amount}
-            error={amountError}
-            onChange={this.handleChange}
-            placeholder="0.00"
-            variant="outlined"
-            type="number"
-          />
-          <button className="round-button" onClick={this.handleStake}>
-            <div className="round-button-text">Stake!</div>
-          </button>
+      <div className="guidance-staking">
+        <p className="guidance-balance">
+          {'Balance: ' + (asset && asset.balance ? toFixed(asset.balance, asset.decimals, 6) : '0') + ' $YFL'}
+        </p>
+        <div className="guidance-row">
+          <div className="guidance-input-wrapper">
+            <TextField
+              fullWidth
+              className="guidance-input"
+              disabled={loading}
+              id={'' + asset.id + '_' + type}
+              value={amount}
+              error={amountError}
+              onChange={this.handleChange}
+              placeholder="Min 0.12"
+              variant="outlined"
+              type="text"
+            />
+            <Button
+              className="button-max"
+              onClick={() => {
+                this.setAmount(asset.id, type, asset ? asset.balance : bigInt())
+              }}
+            >
+              Max
+            </Button>
+          </div>
+          <Button className="button-main" onClick={this.handleStake}>
+            Stake
+          </Button>
         </div>
         {snackbarMessage && this.renderSnackbar()}
       </div>
@@ -203,27 +154,38 @@ class Stake extends PureComponent {
   }
 
   render() {
-    const { classes } = this.props
     const { loading } = this.state
     return (
-      <div className={classes.root}>
-        {loading ? (
-          <Spinner />
-        ) : (
-          <div className={classes.container}>
-            <div className={classes.bigTitle}>Stake At Least 0.12 YFL To Continue</div>
-            <div className={classes.title}>
-              If you vote or submit a meme, you can take your $YFL out after 3 days
-              <br />
-              Otherwise, you can take them out at any time
+      <section className="guidance">
+        <div className="guidance-container">
+          <BackButton />
+          {loading ? (
+            <div className="guidance-wrapper">
+              <div className="guidance-body-spinner">
+                <Spinner />
+              </div>
+              <div className="guidance-title">Approve & Stake</div>
+              <div className="guidance-copy">
+                Your MetaMask should require you to approve your YFL now. Please follow the instructions on the screen
+                to get started as quickly as possible.
+                <br />
+                If you already approved your YFL, MetaMask should require you to send your transaction.
+              </div>
             </div>
-            <img className={classes.sergeyImg} src={sergeyImg} alt="Waffles" />
-            {this.renderStake()}
-          </div>
-        )}
-      </div>
+          ) : (
+            <div className="guidance-wrapper">
+              <div className="guidance-title">How Many $YFL do you want to stake?</div>
+              <div className="guidance-copy">
+                You can take them out of the contract at any time. Except when you vote for or submit a meme, you have
+                to wait 3 days before taking out your precious $YFL.
+              </div>
+              {this.renderStake()}
+            </div>
+          )}
+        </div>
+      </section>
     )
   }
 }
 
-export default withStyles(styles)(Stake)
+export default Staking

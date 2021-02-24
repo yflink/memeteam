@@ -14,7 +14,7 @@ function BackButton({ history, shouldGoHome }) {
 
   return (
     <Button className="button-back" onClick={handleGoBack}>
-      <ChevronLeft /> Back to Campaign
+      <ChevronLeft /> {shouldGoHome ? 'Back to Campaign' : 'Back'}
     </Button>
   )
 }

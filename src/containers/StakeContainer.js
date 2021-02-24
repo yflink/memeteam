@@ -3,8 +3,8 @@ import Grid from '@material-ui/core/Grid'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
 import BackButton from '../components/BackButton'
-import Stake from './Stake'
-import AllSet from './AllSet'
+import Stake from './Create/Stake'
+import AllSet from './Create/AllSet'
 
 class StakeContainer extends PureComponent {
   render() {

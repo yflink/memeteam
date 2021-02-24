@@ -1,15 +1,15 @@
 import React, { PureComponent } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 
-import { ERROR, APPROVE, APPROVE_RETURNED } from '../web3/constants'
-import Store from '../stores'
-import Spinner from '../components/Spinner'
+import { ERROR, APPROVE, APPROVE_RETURNED } from '../../web3/constants'
+import Store from '../../stores'
+import Spinner from '../../components/Spinner'
 
 const emitter = Store.emitter
 const dispatcher = Store.dispatcher
 const store = Store.store
 
-const waffleImg = require('../assets/images/200824_wafflesEmoji.svg')
+const waffleImg = require('../../assets/images/200824_wafflesEmoji.svg')
 
 const styles = () => ({
   root: {

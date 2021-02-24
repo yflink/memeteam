@@ -1,15 +1,22 @@
-import React, { PureComponent } from "react";
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import { abbreviateAddress } from "../web3/utils";
-import Unlock from './Unlock';
+import React, { PureComponent } from 'react'
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
+import { withStyles } from '@material-ui/core/styles'
+import { abbreviateAddress } from '../web3/utils'
+import Unlock from './Create/Unlock'
 
-import Store from "../stores";
-import { ERROR, GET_PROPOSALS, GET_PROPOSALS_RETURNED, GET_LEADERBOARD_RETURNED, GET_LEADERBOARD, CONNECTION_CONNECTED } from "../web3/constants";
-import Spinner from "../components/Spinner";
+import Store from '../stores'
+import {
+  ERROR,
+  GET_PROPOSALS,
+  GET_PROPOSALS_RETURNED,
+  GET_LEADERBOARD_RETURNED,
+  GET_LEADERBOARD,
+  CONNECTION_CONNECTED,
+} from '../web3/constants'
+import Spinner from '../components/Spinner'
 
-const { store, emitter, dispatcher } = Store;
+const { store, emitter, dispatcher } = Store
 
 const styles = () => ({
   root: {
@@ -18,13 +25,13 @@ const styles = () => ({
     justifyContent: 'center',
     marginTop: 200,
   },
-});
+})
 
 class Leaderboards extends PureComponent {
   componentDidMount() {
     const account = store.getStore('account')
 
-    emitter.on(ERROR, this.errorReturned);
+    emitter.on(ERROR, this.errorReturned)
     emitter.on(GET_PROPOSALS_RETURNED, this.proposalsReturned)
     emitter.on(CONNECTION_CONNECTED, this.connectionConnected)
 
@@ -34,10 +41,10 @@ class Leaderboards extends PureComponent {
   }
 
   componentWillUnmount() {
-    emitter.removeListener(ERROR, this.errorReturned);
+    emitter.removeListener(ERROR, this.errorReturned)
     emitter.removeListener(GET_PROPOSALS_RETURNED, this.proposalsReturned)
     emitter.removeListener(CONNECTION_CONNECTED, this.connectionConnected)
-  };
+  }
 
   connectionConnected = () => {
     emitter.removeListener(CONNECTION_CONNECTED, this.connectionConnected)
@@ -47,14 +54,14 @@ class Leaderboards extends PureComponent {
       dispatcher.dispatch({ type: GET_PROPOSALS, content: {} })
     }
   }
-  
+
   errorReturned = () => {
     this.setState({ loading: false })
-  };
+  }
 
   leaderboardReturned = () => {
     emitter.removeListener(GET_LEADERBOARD_RETURNED, this.leaderboardReturned)
-    this.setState({ redraw: true });
+    this.setState({ redraw: true })
   }
 
   proposalsReturned = () => {
@@ -63,26 +70,26 @@ class Leaderboards extends PureComponent {
     dispatcher.dispatch({ type: GET_LEADERBOARD, content: {} })
   }
 
-  render () {
-    const { classes } = this.props;
+  render() {
+    const { classes } = this.props
 
-    const account = store.getStore('account');
-    const connected = account && account.address;
+    const account = store.getStore('account')
+    const connected = account && account.address
     if (!connected) {
       return (
         <div style={{ width: '100%', height: '480px' }}>
-          <Unlock redirectUrl="/leaderboards" title='Welcome to Leaderboard!' />
+          <Unlock redirectUrl="/leaderboards" title="Welcome to Leaderboard!" />
         </div>
-      );
+      )
     }
-    
+
     const leaderboard = store.getStore('leaderboard') || []
     if (!leaderboard.length) {
       return (
-        <div className={ classes.root }>
+        <div className={classes.root}>
           <Spinner />
         </div>
-      );
+      )
     }
 
     return (
@@ -103,9 +110,13 @@ class Leaderboards extends PureComponent {
               <td>{index}</td>
               <td>{item.id}</td>
               <td>
-                <Typography 
-                  variant="subtitle1" 
-                  dangerouslySetInnerHTML={{ __html: `<a target="_blank" href="https://etherscan.io/address/${item.poster}">${abbreviateAddress(item.poster)}</a>`}} 
+                <Typography
+                  variant="subtitle1"
+                  dangerouslySetInnerHTML={{
+                    __html: `<a target="_blank" href="https://etherscan.io/address/${item.poster}">${abbreviateAddress(
+                      item.poster
+                    )}</a>`,
+                  }}
                 />
               </td>
               <td>{parseFloat(item.votesFor || '0').toFixed(2)}</td>
@@ -117,8 +128,8 @@ class Leaderboards extends PureComponent {
           ))}
         </table>
       </Grid>
-    );
+    )
   }
 }
 
-export default withStyles(styles)(Leaderboards);
+export default withStyles(styles)(Leaderboards)
