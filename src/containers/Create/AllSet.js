@@ -1,10 +1,8 @@
 import React, { PureComponent } from 'react'
-import { withStyles } from '@material-ui/core/styles'
 
 import { ERROR, VOTE_FOR_CONFIRMED, VOTE_FOR } from '../../web3/constants'
 import Store from '../../stores'
 import Spinner from '../../components/Spinner'
-import BackButton from '../../components/BackButton'
 import Button from '@material-ui/core/Button'
 import { getDisplayableAmountFromMinUnit } from '../../web3/utils'
 
@@ -71,7 +69,6 @@ class AllSet extends PureComponent {
     return (
       <section className="guidance">
         <div className="guidance-container">
-          <BackButton />
           {loading ? (
             <div className="guidance-body-spinner">
               <Spinner />

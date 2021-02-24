@@ -394,7 +394,7 @@ class Store {
     return currentPool.tokens[0]
   }
 
-  MIN_YFL_TO_STAKE = 0.1
+  MIN_YFL_TO_STAKE = 0.12
 
   getParsedMeme = (proposal, index) => {
     const { url, proposer, totalForVotes, totalAgainstVotes, start, end, displayName } = proposal

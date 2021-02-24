@@ -8,7 +8,7 @@ import BackButton from '../components/BackButton'
 import Approve from './Create/Approve'
 import Details from './Details'
 import Buy from './Create/Buy'
-import Register from './Create/Register'
+import Welcome from './Create/Welcome'
 import Unlock from './Create/Unlock'
 import Stake from './Create/Stake'
 import AllSet from './Create/AllSet'
@@ -34,7 +34,7 @@ const DetailsContainer = () => {
         <Route path="/details/:id" component={UnlockDetailsWithMemeStatusCB(Details)} exact />
         <Route path="/details/:id/unlock" component={UnlockWrapperForDetail(Unlock)} />
         <Route path="/details/:id/buy" component={Buy} />
-        <Route path="/details/:id/register" component={Register} />
+        <Route path="/details/:id/welcome" component={Welcome} />
         <Route path="/details/:id/approve" component={Approve} />
         <Route path="/details/:id/stake" component={WrapperForDetail(Stake)} />
         <Route path="/details/:id/allset" component={WrapperForDetail(AllSet)} />

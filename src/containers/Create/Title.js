@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import { withStyles } from '@material-ui/core/styles'
 import { TextField } from '@material-ui/core'
 import * as _ from 'lodash'
 
@@ -14,43 +13,11 @@ import {
 } from '../../web3/constants'
 import Spinner from '../../components/Spinner'
 import Meme from '../../components/Meme'
-
-const pepeAmazeImg = require('../../assets/images/200824_pepeAmaze.png')
-
+import BackButton from '../../components/BackButton'
+import Button from '@material-ui/core/Button'
 const store = Store.store
 const emitter = Store.emitter
 const dispatcher = Store.dispatcher
-
-const styles = () => ({
-  root: {
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  container: {
-    flex: 1,
-    display: 'flex',
-    flexWrap: 'wrap',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '16px 64px',
-  },
-  imgurImg: {
-    width: '280px',
-    objectFit: 'contain',
-    objectPosition: 'top',
-  },
-  pepeAmazeImg: {
-    width: '160px',
-    height: '160px',
-  },
-  bigTitle: {
-    fontSize: '32px',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-})
 
 class Title extends PureComponent {
   state = {}
@@ -114,41 +81,48 @@ class Title extends PureComponent {
   }
 
   render() {
-    const { classes } = this.props
     const { title, loading } = this.state
     const creatingMemeLink = store.getStore('creatingMemeLink')
 
     return (
-      <div className={classes.root}>
-        {loading ? (
-          <Spinner />
-        ) : (
-          <>
-            <Meme link={creatingMemeLink} memeClass={classes.imgurImg} />
-            <div className={classes.container}>
-              <div className={classes.bigTitle}>Meme Ready To Upload</div>
-              <img className={classes.pepeAmazeImg} src={pepeAmazeImg} alt="Amaze" />
-              <div className={classes.bigTitle}>
-                Give your meme a title
-                <br />
-                (Optional)
+      <section className="guidance">
+        <div className="guidance-container">
+          <BackButton />
+          {loading ? (
+            <div className="guidance-wrapper">
+              <div className="guidance-body-spinner">
+                <Spinner />
               </div>
-              <TextField
-                fullWidth
-                className={classes.input}
-                value={title}
-                onChange={this.handleTitleChange}
-                variant="outlined"
-              />
-              <button className="round-button" onClick={this.handlePropose}>
-                <div className="round-button-text">Upload Meme</div>
-              </button>
+              <div className="guidance-title">Confirm & Wait</div>
+              <div className="guidance-copy">
+                Confirm the transaction in your Meta Mask to upload your Meme! And wait until the transaction is
+                confirmed.
+              </div>
             </div>
-          </>
-        )}
-      </div>
+          ) : (
+            <div className="guidance-wrapper">
+              <div className="guidance-title">Name your Artpiece</div>
+              <Meme link={creatingMemeLink} memeClass="guidance-meme" />
+              <div className="guidance-title-wrapper">
+                <TextField
+                  fullWidth
+                  className="guidance-input"
+                  value={title}
+                  onChange={this.handleTitleChange}
+                  variant="outlined"
+                />
+              </div>
+              <div className="guidance-buttons">
+                <Button className="button-main" onClick={this.handlePropose}>
+                  Submit
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
     )
   }
 }
 
-export default withStyles(styles)(Title)
+export default Title

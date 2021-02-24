@@ -5,7 +5,6 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import BackButton from '../components/BackButton'
 import Approve from './Create/Approve'
 import Buy from './Create/Buy'
-import Register from './Create/Register'
 import Unlock from './Create/Unlock'
 import Stake from './Create/Stake'
 import Staking from './Create/Staking'
@@ -27,7 +26,6 @@ class CreateContainer extends PureComponent {
           <Route path="/create" component={Create} exact />
           <Route path="/create/unlock" component={UnlockWrapperForCreate(Unlock)} />
           <Route path="/create/buy" component={WrapperForCreate(Buy)} />
-          <Route path="/create/register" component={WrapperForCreate(Register)} />
           <Route path="/create/approve" component={WrapperForCreate(Approve)} />
           <Route path="/create/stake" component={WrapperForCreate(Stake)} />
           <Route path="/create/staking" component={WrapperForCreate(Staking)} />

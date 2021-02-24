@@ -1,42 +1,16 @@
 import React, { PureComponent } from 'react'
 import { Redirect } from 'react-router-dom'
-import { withStyles } from '@material-ui/core/styles'
 
 import Store from '../../stores'
 import { GET_BALANCES, GET_BALANCES_RETURNED } from '../../web3/constants'
-import Spinner from '../../components/Spinner'
+import Button from '@material-ui/core/Button'
+import BackButton from '../../components/BackButton'
+
+const yflToken = require('../../assets/images/yfl-token.png')
 
 const emitter = Store.emitter
 const dispatcher = Store.dispatcher
 const store = Store.store
-
-const donkeyWafflesImg = require('../../assets/images/200824_donkeyWaffles.png')
-
-const styles = () => ({
-  root: {
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  container: {
-    flex: 1,
-    display: 'flex',
-    flexWrap: 'wrap',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '32px 0',
-  },
-  donkeyImg: {
-    width: '448px',
-    height: '272px',
-  },
-  title: {
-    fontSize: '28px',
-    fontWeight: '500',
-    textAlign: 'center',
-  },
-})
 
 class Buy extends PureComponent {
   state = {}
@@ -66,7 +40,7 @@ class Buy extends PureComponent {
   }
 
   handleGoToBuy = () => {
-    window.open('https://1inch.exchange/#/r/0xE69A81b96FBF5Cb6CAe95d2cE5323Eff2bA0EAE4/ETH/YFL', '_blank')
+    window.open('https://linkswap.app/#/swap?outputCurrency=0x28cb7e841ee97947a86b06fa4090c8451f64c0be', '_blank')
   }
 
   getMemeId = () => {
@@ -75,33 +49,35 @@ class Buy extends PureComponent {
   }
 
   render() {
-    const { classes, isForCreate } = this.props
-    const token = store.getYFLToken()
+    const { isForCreate } = this.props
 
     if (store.hasEnoughYFL()) {
-      return <Redirect to={isForCreate ? '/create/register' : `/details/${this.getMemeId()}/register`} />
+      return <Redirect to={isForCreate ? '/create/welcome' : `/details/${this.getMemeId()}/welcome`} />
     }
-
     return (
-      <div className={classes.root}>
-        {!token ? (
-          <Spinner />
-        ) : (
-          <div className={classes.container}>
-            <img className={classes.donkeyImg} src={donkeyWafflesImg} alt="Donkey Waffles" />
-            <div className={classes.title}>
-              You need at least {store.MIN_YFL_TO_STAKE} $YFL (Waffles 😛)
-              <br />
-              to Submit a Meme or Vote for a Meme
+      <section className="guidance">
+        <div className="guidance-container">
+          <BackButton />
+          <div className="guidance-wrapper">
+            <img className="guidance-image" src={yflToken} alt="Buy YFL!" />
+            <div className="guidance-title">Buy $YFL</div>
+            <div className="guidance-copy">
+              You need at least {store.MIN_YFL_TO_STAKE} $YFL to Submit a Meme or Vote for a Meme
             </div>
-            <button className="round-button" onClick={this.handleGoToBuy}>
-              <div className="round-button-text">Buy $YFL on 1inch</div>
-            </button>
+            <div className="guidance-buttons">
+              <Button
+                className="button-main"
+                target="_blank"
+                href="https://linkswap.app/#/swap?outputCurrency=0x28cb7e841ee97947a86b06fa4090c8451f64c0be"
+              >
+                Buy $YFL
+              </Button>
+            </div>
           </div>
-        )}
-      </div>
+        </div>
+      </section>
     )
   }
 }
 
-export default withStyles(styles)(Buy)
+export default Buy

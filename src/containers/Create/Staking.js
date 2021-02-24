@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import bigInt from 'big-integer'
-import { TextField, Typography, Snackbar } from '@material-ui/core'
+import { TextField, Snackbar } from '@material-ui/core'
 import Spinner from '../../components/Spinner'
 
 import Store from '../../stores'

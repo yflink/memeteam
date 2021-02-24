@@ -314,6 +314,14 @@ header {
   width: auto;
 }
 
+.app .button-main.upload .MuiButton-label svg {
+  fill: transparent;
+  stroke: var(--white);
+  display: inline-block;
+  margin: -2px 10px 0 0;
+  height: 16px;
+}
+
 .app .button-max {
   background: var(--blue-light);
   padding: 4px 8px;

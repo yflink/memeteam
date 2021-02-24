@@ -1,43 +1,15 @@
-import React, { useEffect, useCallback, useState } from 'react'
+import React, { useEffect, useCallback, useState, useRef } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { withStyles } from '@material-ui/core/styles'
 import qs from 'query-string'
 import ipfsClient from 'ipfs-http-client'
 
 import Store from '../stores'
 import Spinner from '../components/Spinner'
+import BackButton from '../components/BackButton'
+import Button from '@material-ui/core/Button'
+import { Image } from 'react-feather'
 
 const store = Store.store
-
-export const SLIDER_SETTINGS = {
-  dots: false,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-}
-
-const styles = () => ({
-  container: {
-    height: '100%',
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  zone: {
-    height: '60%',
-    width: '60%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    border: '1px dashed black',
-    fontSize: '30px',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-  },
-})
 
 function Create({ location, history, classes }) {
   const [uploading, setUploading] = useState(false)
@@ -51,7 +23,7 @@ function Create({ location, history, classes }) {
     }
 
     if (store.hasEnoughYFL()) {
-      history.push('/create/stake')
+      history.push('/create/welcome')
     } else if (account && account.address) {
       history.push('/create/buy')
     } else {
@@ -94,24 +66,47 @@ function Create({ location, history, classes }) {
     [uploadImage]
   )
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+  const handleFileUpload = useCallback(
+    async (event) => {
+      uploadImage(event.target.files[0])
+    },
+    [uploadImage]
+  )
 
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+  const inputEl = useRef(null)
   return (
-    <div className={classes.container}>
-      <div {...getRootProps()} className={classes.zone}>
-        <input {...getInputProps()} />
-        {uploading ? (
-          <Spinner />
-        ) : isDragActive ? (
-          <div>Drop an image here...</div>
-        ) : (
-          <div>
-            Drop an image here, <br></br>or click to upload from your computer
+    <section className="guidance">
+      <div className="guidance-container">
+        <BackButton />
+        <div className="guidance-wrapper">
+          <div className="guidance-title">Meme Upload</div>
+          <div className="guidance-copy">
+            Glad to see you participating, Marine! Pick your artpiece and share it with the community:
           </div>
-        )}
+          <div {...getRootProps()} className="guidance-upload">
+            <input {...getInputProps()} />
+            {uploading ? (
+              <div className="guidance-body-spinner">
+                <Spinner />
+              </div>
+            ) : isDragActive ? (
+              <div>Drop an image here!</div>
+            ) : (
+              <div>Drop an image here</div>
+            )}
+          </div>
+          <div className="guidance-or">or</div>
+          <div className="guidance-buttons">
+            <input onChange={handleFileUpload} type="file" ref={inputEl} style={{ display: 'none' }} />
+            <Button className="button-main upload" onClick={() => inputEl.current.click()}>
+              <Image /> Upload
+            </Button>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   )
 }
 
-export default withStyles(styles)(Create)
+export default Create

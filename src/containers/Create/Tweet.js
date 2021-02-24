@@ -1,51 +1,13 @@
 import React, { PureComponent } from 'react'
-import { withStyles } from '@material-ui/core/styles'
 
 import Store from '../../stores'
 import { getFileFromLink, openTweet } from '../../Utils'
-import { campaignConfig } from '../../campaign.config'
-import Meme from '../../components/Meme'
+import Button from '@material-ui/core/Button'
+import { Twitter } from '@material-ui/icons'
 
 const pepeBrainImg = require('../../assets/images/200824_pepeBrain.png')
 
 const store = Store.store
-
-const styles = () => ({
-  root: {
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  container: {
-    flex: 1,
-    display: 'flex',
-    flexWrap: 'wrap',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '16px 16px 16px 64px',
-  },
-  imgurImg: {
-    width: '280px',
-    objectFit: 'contain',
-    objectPosition: 'top',
-  },
-  pepeBrainImg: {
-    width: '200px',
-    height: '200px',
-  },
-  bigTitle: {
-    fontSize: '24px',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  tweetContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    alignSelf: 'stretch',
-  },
-})
 
 class Tweet extends PureComponent {
   state = {}
@@ -67,36 +29,29 @@ class Tweet extends PureComponent {
   }
 
   render() {
-    const { classes } = this.props
-    const creatingMemeLink = store.getStore('creatingMemeLink')
-
     return (
-      <div className={classes.root}>
-        <Meme link={creatingMemeLink} memeClass={classes.imgurImg} />
-        <div className={classes.container}>
-          <div className={classes.bigTitle}>
-            Meme Submitted
-            <br />
-            To Operation {campaignConfig.currentCampaign}!
-          </div>
-          <img className={classes.pepeBrainImg} src={pepeBrainImg} alt="Brain" />
-          <div className={classes.bigTitle}>
-            Big Brain Time – Click Tweet
-            <br />
-            To Farm Some Votes from Twitter
-          </div>
-          <div className={classes.tweetContainer}>
-            <button className="skip-button" onClick={this.handleGoToHome}>
-              <div className="skip-button-text">Skip</div>
-            </button>
-            <button className="round-button" onClick={this.handleTweet}>
-              <div className="round-button-text">Tweet</div>
-            </button>
+      <section className="guidance">
+        <div className="guidance-container">
+          <div className="guidance-wrapper">
+            <img className="guidance-image" src={pepeBrainImg} alt="Meme submitted!" />
+            <div className="guidance-title">Meme burned into the blockchain!</div>
+            <div className="guidance-copy">
+              You’ve put your Meme on the holy wall for everyone to see. Now get the buzz going and share your art on
+              Twitter!
+            </div>
+            <div className="guidance-buttons">
+              <Button className="button-main" onClick={this.handleTweet}>
+                Tweet <Twitter />
+              </Button>
+              <Button className="button-white" onClick={this.handleGoToHome}>
+                Skip
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     )
   }
 }
 
-export default withStyles(styles)(Tweet)
+export default Tweet

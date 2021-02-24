@@ -1,46 +1,12 @@
 import React, { PureComponent } from 'react'
-import { withStyles } from '@material-ui/core/styles'
-
 import { ERROR, APPROVE, APPROVE_RETURNED } from '../../web3/constants'
 import Store from '../../stores'
-import Spinner from '../../components/Spinner'
+import Button from '@material-ui/core/Button'
+import BackButton from '../../components/BackButton'
 
 const emitter = Store.emitter
 const dispatcher = Store.dispatcher
 const store = Store.store
-
-const waffleImg = require('../../assets/images/200824_wafflesEmoji.svg')
-
-const styles = () => ({
-  root: {
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  container: {
-    flex: 1,
-    display: 'flex',
-    flexWrap: 'wrap',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '32px 0',
-  },
-  waffleImg: {
-    width: '160px',
-    height: '160px',
-  },
-  bigTitle: {
-    fontSize: '40px',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  title: {
-    fontSize: '28px',
-    fontWeight: '500',
-    textAlign: 'center',
-  },
-})
 
 class Approve extends PureComponent {
   state = {}
@@ -101,29 +67,23 @@ class Approve extends PureComponent {
   }
 
   render() {
-    const { classes } = this.props
-    const { loading } = this.state
     return (
-      <div className={classes.root}>
-        {loading ? (
-          <Spinner />
-        ) : (
-          <div className={classes.container}>
-            <div className={classes.bigTitle}>Approve them Waffles</div>
-            <div className={classes.title}>
-              We need your approval so we can put
-              <br />
-              your $YFL into the Ballot Box
+      <section className="guidance">
+        <div className="guidance-container">
+          <BackButton />
+          <div className="guidance-wrapper">
+            <div className="guidance-title">Approve $YFL</div>
+            <div className="guidance-copy">We need your approval so we can put your $YFL into the Ballot Box</div>
+            <div className="guidance-buttons">
+              <Button className="button-main" onClick={this.handleApprove}>
+                Approve $YFL
+              </Button>
             </div>
-            <img className={classes.waffleImg} src={waffleImg} alt="Waffles" />
-            <button className="round-button" onClick={this.handleApprove}>
-              <div className="round-button-text">Approve $YFL</div>
-            </button>
           </div>
-        )}
-      </div>
+        </div>
+      </section>
     )
   }
 }
 
-export default withStyles(styles)(Approve)
+export default Approve
