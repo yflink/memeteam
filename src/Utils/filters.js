@@ -45,10 +45,10 @@ const refillWithLeaderboard = (memes, leaderboard) => {
 }
 
 export const getFilteredMemes = ({ memes, filters, now, myAddress, myVotedProposalIds, leaderboard }) => {
-  const { sort, memeFilter } = filters
+  const { sortFilter, memeFilter } = filters
   let filteredMemes = memes
 
-  switch (sort) {
+  switch (sortFilter) {
     case 'most_recent':
       filteredMemes = _.orderBy(memes, 'start', 'desc')
       break

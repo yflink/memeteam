@@ -16,6 +16,7 @@ import {
 import { getFilteredMemes } from '../../Utils/filters'
 import { NOW_TIMESTAMP_UPDATED } from '../../web3/constants'
 import { getMyVotedProposalIds } from '../../web3/etherscan'
+import Spinner from '../Spinner'
 
 const emitter = Store.emitter
 const dispatcher = Store.dispatcher
@@ -73,6 +74,7 @@ class ContentSection extends PureComponent {
 
     const { memes = [], now, myVotedProposalIds, filtered } = this.state
     const leaderboard = store.getStore('leaderboard') || []
+
     const filteredMemes = filters
       ? getFilteredMemes({
           memes,
@@ -130,34 +132,44 @@ class ContentSection extends PureComponent {
   render() {
     const leaderboard = store.getStore('leaderboard') || []
     const { isFromDetail } = this.props
-    const { filteredMemes } = this.state
+    const { filteredMemes, width } = this.state
     let contentheight
 
-    if (this.state.width > 1424) {
+    if (width > 1424) {
       contentheight = `${filteredMemes.length * 230 + 40}px`
-    } else if (this.state.width <= 1424 && this.state.width > 915) {
+    } else if (width <= 1424 && width > 915) {
       contentheight = `${filteredMemes.length * 400 + 40}px`
     } else {
       contentheight = 'auto'
     }
 
-    return (
-      <section className="content-body">
-        {isFromDetail && filteredMemes.length > 0 && <h2 className="content-section-head">Also in this campaign</h2>}
-        <div style={{ width: '100%', marginTop: 18 }}>
-          <div className="card-container" style={{ height: contentheight }}>
-            {(isFromDetail ? [...filteredMemes, { isForBrowseMore: true }] : filteredMemes).map((meme) => {
-              const leaderboardItem = leaderboard.find((item) => item.id === meme.id)
-              if (leaderboardItem) {
-                return <ImageCard {...meme} leaderboardItem={leaderboardItem} key={meme.id} />
-              } else {
-                return null
-              }
-            })}
+    if (filteredMemes.length > 0) {
+      return (
+        <section className="content-body">
+          {isFromDetail && filteredMemes.length > 0 && <h2 className="content-section-head">Also in this campaign</h2>}
+          <div style={{ width: '100%', marginTop: 18 }}>
+            <div className="card-container" style={{ height: contentheight }}>
+              {(isFromDetail ? [...filteredMemes, { isForBrowseMore: true }] : filteredMemes).map((meme) => {
+                const leaderboardItem = leaderboard.find((item) => item.id === meme.id)
+                if (leaderboardItem) {
+                  return <ImageCard {...meme} leaderboardItem={leaderboardItem} key={meme.id} />
+                } else {
+                  return null
+                }
+              })}
+            </div>
           </div>
-        </div>
-      </section>
-    )
+        </section>
+      )
+    } else {
+      return (
+        <section className="content-body">
+          <div className="content-body-spinner">
+            <Spinner />
+          </div>
+        </section>
+      )
+    }
   }
 }
 

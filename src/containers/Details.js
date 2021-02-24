@@ -26,7 +26,8 @@ const dispatcher = Store.dispatcher
 
 class Details extends PureComponent {
   state = {
-    loading: false,
+    meme: [],
+    leaderboard: [],
   }
 
   getMemeId = (props) => {
@@ -68,6 +69,7 @@ class Details extends PureComponent {
 
   componentDidUpdate(prevProps, prevState) {
     const prevMemeId = this.getMemeId(prevProps)
+    this.setState({ leaderboard: store.getStore('leaderboard') })
     const { now } = this.state
     if (prevMemeId !== this.getMemeId() || (now && !prevState.now)) {
     }
@@ -91,7 +93,6 @@ class Details extends PureComponent {
 
   proposalsReturned = () => {
     this.setState({ redraw: true })
-
     emitter.on(GET_LEADERBOARD_RETURNED, this.leaderboardReturned)
     dispatcher.dispatch({ type: GET_LEADERBOARD, content: {} })
   }
@@ -100,6 +101,7 @@ class Details extends PureComponent {
     emitter.removeListener(GET_LEADERBOARD_RETURNED, this.leaderboardReturned)
     this.setState({ redraw: true })
     this.setState({ leaderboard: store.getStore('leaderboard') })
+    this.setState({ maxIndex: store.getStore('leaderboard').length - 1 })
   }
 
   voteForConfirmed = ({ proposal }) => {
@@ -126,9 +128,12 @@ class Details extends PureComponent {
 
   changeToIndex = async (newIndex) => {
     const memes = this.state.leaderboard
-    const leaderBordItem = memes[newIndex]
-    const meme = store.getMemeForId(leaderBordItem.id)
+    const leaderBordItem = typeof memes[newIndex] !== 'undefined' ? memes[newIndex] : memes[memes.length]
+    if (!leaderBordItem) {
+      return
+    }
     const memeId = leaderBordItem.id
+    const meme = store.getMemeForId(memeId)
     this.setState({ meme: meme, currentIndex: newIndex, leaderBordItem: leaderBordItem })
     window.history.replaceState(null, 'Meme Team', `/#/details/${memeId}`)
   }
@@ -168,15 +173,15 @@ class Details extends PureComponent {
   }
 
   render() {
-    const { leaderboard, meme, currentIndex, leaderBordItem } = this.state
-    const maxIndex = leaderboard ? leaderboard.length - 1 : 0
+    const { leaderboard, meme, currentIndex, leaderBordItem, maxIndex } = this.state
+
     return (
       <>
         {this.renderHelmet()}
 
         {leaderboard ? (
           <>
-            {meme && currentIndex ? (
+            {meme && typeof currentIndex !== 'undefined' ? (
               <MemeDetail
                 {...meme}
                 onVote={this.handleVote}

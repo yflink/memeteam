@@ -38,7 +38,7 @@ class MemeDetail extends PureComponent {
   handleNav = (direction) => {
     const { currentIndex, maxIndex, changeToIndex } = this.props
     if (direction === 'next') {
-      if (currentIndex + 1 > maxIndex) {
+      if (currentIndex === maxIndex) {
         changeToIndex(0)
       } else {
         changeToIndex(currentIndex + 1)
@@ -46,6 +46,8 @@ class MemeDetail extends PureComponent {
     } else {
       if (currentIndex === 0) {
         changeToIndex(maxIndex)
+      } else if (currentIndex === 1) {
+        changeToIndex(0)
       } else {
         changeToIndex(currentIndex - 1)
       }

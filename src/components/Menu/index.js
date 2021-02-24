@@ -13,10 +13,10 @@ class Menu extends PureComponent {
     const { filters, changeHandlers, memes } = this.props
 
     const { sort, memeFilter } = filters
-    const { setSort, setMemeFilter } = changeHandlers
+    const { setSortFilter, setMemeFilter } = changeHandlers
 
     const handleSortChange = (event) => {
-      setSort(event.target.value)
+      setSortFilter(event.target.value)
     }
 
     const handleMemeFilterChange = (event) => {
