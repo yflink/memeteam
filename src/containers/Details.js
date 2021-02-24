@@ -128,7 +128,7 @@ class Details extends PureComponent {
 
   changeToIndex = async (newIndex) => {
     const memes = this.state.leaderboard
-    const leaderBordItem = typeof memes[newIndex] !== 'undefined' ? memes[newIndex] : memes[memes.length]
+    const leaderBordItem = typeof memes[newIndex] !== 'undefined' ? memes[newIndex] : memes[0]
     if (!leaderBordItem) {
       return
     }

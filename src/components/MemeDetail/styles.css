@@ -198,8 +198,7 @@
 
   .meme-detail-controls .button-control {
     bottom: unset;
-    top: calc(50% - 10px);
-    transform: translateY(-50%);
+    top: 0;
   }
 
   .meme-detail-controls .button-control.left {
