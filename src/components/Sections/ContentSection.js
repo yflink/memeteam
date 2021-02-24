@@ -63,7 +63,7 @@ class ContentSection extends PureComponent {
 
   async componentDidUpdate(prevProps) {
     const account = store.getStore('account')
-    const { filters, updateMemes } = this.props
+    const { filters } = this.props
 
     if (prevProps.filters && filters) {
       if (prevProps.filters.memeFilter !== 'my_votes' && filters.memeFilter === 'my_votes') {
@@ -72,7 +72,17 @@ class ContentSection extends PureComponent {
       }
     }
 
-    const { memes = [], now, myVotedProposalIds, filtered } = this.state
+    this.updateFilteredMemes()
+  }
+
+  updateFilteredMemes = () => {
+    const memes = store.getMemes()
+    if (typeof this.state.memes === 'undefined' || this.state.memes.length !== memes.length) {
+      this.setState({ memes })
+    }
+    const account = store.getStore('account')
+    const { filters, updateMemes } = this.props
+    const { now, myVotedProposalIds, filtered } = this.state
     const leaderboard = store.getStore('leaderboard') || []
 
     const filteredMemes = filters
@@ -98,6 +108,9 @@ class ContentSection extends PureComponent {
   updateNow = () => {
     let now = store.getStore('now')
     this.setState({ now })
+    if (this.state.memes.length === 0) {
+      this.updateFilteredMemes()
+    }
   }
 
   errorReturned = (error) => {
