@@ -46,8 +46,6 @@ class MemeDetail extends PureComponent {
     } else {
       if (currentIndex === 0) {
         changeToIndex(maxIndex)
-      } else if (currentIndex === 1) {
-        changeToIndex(0)
       } else {
         changeToIndex(currentIndex - 1)
       }

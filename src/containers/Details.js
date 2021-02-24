@@ -134,7 +134,7 @@ class Details extends PureComponent {
     }
     const memeId = leaderBordItem.id
     const meme = store.getMemeForId(memeId)
-    this.setState({ meme: meme, currentIndex: newIndex, leaderBordItem: leaderBordItem })
+    this.setState({ meme: meme, currentIndex: newIndex, leaderBordItem: leaderBordItem, maxIndex: memes.length - 1 })
     window.history.replaceState(null, 'Meme Team', `/#/details/${memeId}`)
   }
 
