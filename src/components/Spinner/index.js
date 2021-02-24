@@ -1,13 +1,10 @@
-import React from 'react';
+import React from 'react'
 
-import './styles.css';
-import { logo } from '../../assets';
+import './styles.css'
+import { logo } from '../../assets'
 
-function Spinner({}) {
-
-  return (
-    <img className="spinner" src={logo} alt='logo' />
-  )
+function Spinner() {
+  return <img className="spinner" src={logo} alt="logo" />
 }
 
-export default Spinner;
+export default Spinner

@@ -4,10 +4,8 @@ import { withRouter } from 'react-router-dom'
 import { GET_BALANCES_RETURNED, NOW_TIMESTAMP_UPDATED } from '../../web3/constants'
 import Store from '../../stores'
 import { abbreviateAddress, getDisplayableAmountFromMinUnit } from '../../web3/utils'
-import { campaignConfig } from '../../campaign.config'
 
 import './styles.css'
-import { Link } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
 import Unlock from '../../containers/Unlock'
 

@@ -5,10 +5,6 @@ import './styles.css'
 import { SORTS, MEME_FILTERS } from '../../Utils/filters'
 
 class Menu extends PureComponent {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     const { filters, changeHandlers, memes } = this.props
 

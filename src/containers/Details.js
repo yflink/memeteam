@@ -159,13 +159,11 @@ class Details extends PureComponent {
 
   renderHelmet = () => {
     let params = qs.parse(this.props.location.search)
-    const { title, image } = params || {}
+    const { title } = params || {}
     return (
       <Helmet>
         <title>{title}</title>
         <meta name="twitter:title" content={title} />
-        {/** commenting as its not used anywhere
-        <meta name="twitter:image" content={getImgurLinkFromFile(image)} />*/}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="og:type" content="website" />
       </Helmet>

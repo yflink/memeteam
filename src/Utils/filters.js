@@ -49,9 +49,6 @@ export const getFilteredMemes = ({ memes, filters, now, myAddress, myVotedPropos
   let filteredMemes = memes
 
   switch (sortFilter) {
-    case 'most_recent':
-      filteredMemes = _.orderBy(memes, 'start', 'desc')
-      break
     case 'oldest_to_newest':
       filteredMemes = _.orderBy(memes, 'start', 'asc')
       break
@@ -62,6 +59,8 @@ export const getFilteredMemes = ({ memes, filters, now, myAddress, myVotedPropos
         filteredMemes = _.orderBy(memes, (meme) => getRoundedWei(meme.totalForVotes), 'desc')
       }
       break
+    default:
+      filteredMemes = _.orderBy(memes, 'start', 'desc')
   }
 
   switch (memeFilter) {
@@ -77,6 +76,7 @@ export const getFilteredMemes = ({ memes, filters, now, myAddress, myVotedPropos
     case 'my_votes':
       filteredMemes = filteredMemes.filter((meme) => myVotedProposalIds && myVotedProposalIds.includes('' + meme.id))
       break
+    default:
   }
 
   return filteredMemes

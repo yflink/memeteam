@@ -47,7 +47,6 @@ import {
   GET_LEADERBOARD,
   GET_LEADERBOARD_RETURNED,
 } from '../web3/constants'
-import { getTransactionsForContract } from '../web3/etherscan'
 
 import {
   authereum,

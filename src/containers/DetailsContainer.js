@@ -1,6 +1,6 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
-import { Route, Switch, Redirect, useRouteMatch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 
 import { ContentSection } from '../components/Sections'
 

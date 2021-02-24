@@ -10,7 +10,7 @@ export default function CardRatingBar({ rating, proposer }) {
     <div className="rating-container">
       <div className="posted">
         <p>Posted by</p>
-        <a href={`https://etherscan.io/address/${proposer}`} target="_blank">
+        <a href={`https://etherscan.io/address/${proposer}`} rel="noopener noreferrer" target="_blank">
           {proposerShorthand.toUpperCase()}
         </a>
       </div>

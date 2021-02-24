@@ -1,4 +1,4 @@
-import React, { PureComponent, useState } from 'react'
+import React, { PureComponent } from 'react'
 import Menu from '../../components/Menu'
 import { ContentSection } from '../../components/Sections'
 import { SORTS, MEME_FILTERS } from '../../Utils/filters'

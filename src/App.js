@@ -16,9 +16,7 @@ import CreateContainer from './containers/CreateContainer'
 import Header from './components/Header'
 import StakeContainer from './containers/StakeContainer'
 import Leaderboards from './containers/Leaderboards'
-import Content from './containers/Content'
 import Footer from './components/Footer'
-import Grid from '@material-ui/core/Grid'
 
 const dispatcher = Store.dispatcher
 const emitter = Store.emitter

@@ -83,7 +83,7 @@ class MemeDetail extends PureComponent {
           <div className="meme-detail-footer">
             <div className="meme-detail-proposer">
               <div className="meme-detail-display-name">{displayName ? displayName : `Unknown Artist`}</div>
-              <a href={`https://etherscan.io/address/${proposer}`} target="_blank">
+              <a href={`https://etherscan.io/address/${proposer}`} rel="noopener noreferrer" target="_blank">
                 {abbreviateAddress(proposer).toUpperCase()}
               </a>
             </div>

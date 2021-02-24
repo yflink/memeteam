@@ -2,10 +2,6 @@ import React, { PureComponent } from 'react'
 import './styles.css'
 
 class Hero extends PureComponent {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     const { intro, headline, subline } = this.props
     return (

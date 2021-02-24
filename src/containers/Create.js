@@ -57,36 +57,42 @@ function Create({ location, history, classes }) {
     } else {
       history.push('/create/unlock')
     }
-  }, [])
+  }, [history, isFromStake])
 
-  const uploadImage = useCallback(async (image) => {
-    setUploading(true)
-    const ipfs = ipfsClient('https://ipfs.infura.io:5001')
+  const uploadImage = useCallback(
+    async (image) => {
+      setUploading(true)
+      const ipfs = ipfsClient('https://ipfs.infura.io:5001')
 
-    const fileDetails = {
-      path: image.name,
-      content: image,
-    }
-    const options = {
-      wrapWithDirectory: true,
-      progress: (prog) => console.log(`received: ${prog}`),
-    }
+      const fileDetails = {
+        path: image.name,
+        content: image,
+      }
+      const options = {
+        wrapWithDirectory: true,
+        progress: (prog) => console.log(`received: ${prog}`),
+      }
 
-    try {
-      const res = await ipfs.add(fileDetails, options)
-      setUploading(false)
-      const memeLink = `https://ipfs.io/ipfs/${res.cid.toString()}/${image.name}`
-      store.setStore({ creatingMemeLink: memeLink })
-      history.push('/create/title')
-    } catch (err) {
-      setUploading(false)
-      console.log(err)
-    }
-  }, [])
+      try {
+        const res = await ipfs.add(fileDetails, options)
+        setUploading(false)
+        const memeLink = `https://ipfs.io/ipfs/${res.cid.toString()}/${image.name}`
+        store.setStore({ creatingMemeLink: memeLink })
+        history.push('/create/title')
+      } catch (err) {
+        setUploading(false)
+        console.log(err)
+      }
+    },
+    [history]
+  )
 
-  const onDrop = useCallback((files) => {
-    uploadImage(files[0])
-  }, [])
+  const onDrop = useCallback(
+    (files) => {
+      uploadImage(files[0])
+    },
+    [uploadImage]
+  )
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
