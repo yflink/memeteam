@@ -3,11 +3,13 @@ import { useDropzone } from 'react-dropzone'
 import qs from 'query-string'
 import ipfsClient from 'ipfs-http-client'
 
-import Store from '../stores'
-import Spinner from '../components/Spinner'
-import BackButton from '../components/BackButton'
+import Store from '../../stores'
+import Spinner from '../../components/Spinner'
+import BackButton from '../../components/BackButton'
 import Button from '@material-ui/core/Button'
 import { Image } from 'react-feather'
+import { getDisplayableAmountFromMinUnit } from '../../web3/utils'
+import { Redirect } from 'react-router-dom'
 
 const store = Store.store
 
@@ -27,7 +29,7 @@ function Create({ location, history, classes }) {
     } else if (account && account.address) {
       history.push('/create/buy')
     } else {
-      history.push('/create/unlock')
+      history.push('/')
     }
   }, [history, isFromStake])
 
@@ -75,6 +77,18 @@ function Create({ location, history, classes }) {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
   const inputEl = useRef(null)
+  const token = store.getYFLToken()
+  const balance = getDisplayableAmountFromMinUnit(token.balance, token.decimals, 2)
+  const stakedBalance = getDisplayableAmountFromMinUnit(token.stakedBalance, token.decimals, 2)
+
+  if (Number(balance) === 0) {
+    return <Redirect to={'/create/buy'} />
+  }
+
+  if (Number(stakedBalance) < store.MIN_YFL_TO_STAKE) {
+    return <Redirect to={'/create/stake'} />
+  }
+
   return (
     <section className="guidance">
       <div className="guidance-container">
@@ -82,7 +96,9 @@ function Create({ location, history, classes }) {
         <div className="guidance-wrapper">
           <div className="guidance-title">Meme Upload</div>
           <div className="guidance-copy">
-            Glad to see you participating, Marine! Pick your artpiece and share it with the community:
+            Glad to see you participating, Marine!
+            <br />
+            Pick your artpiece and share it with the community:
           </div>
           <div {...getRootProps()} className="guidance-upload">
             <input {...getInputProps()} />

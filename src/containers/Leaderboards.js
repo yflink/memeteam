@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import { abbreviateAddress } from '../web3/utils'
-import Unlock from './Create/Unlock'
+import Unlock from './Unlock'
 
 import Store from '../stores'
 import {

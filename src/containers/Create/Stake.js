@@ -29,6 +29,7 @@ class Stake extends PureComponent {
     const token = store.getYFLToken()
     const balance = getDisplayableAmountFromMinUnit(token.balance, token.decimals, 2)
     const stakedBalance = getDisplayableAmountFromMinUnit(token.stakedBalance, token.decimals, 2)
+
     return (
       <section className="guidance">
         <div className="guidance-container">
@@ -51,7 +52,7 @@ class Stake extends PureComponent {
                 </Button>
               ) : (
                 <Button className="button-main" href="/#/create/staking">
-                  Stake YFL
+                  Stake $YFL
                 </Button>
               )}
               {Number(stakedBalance) >= store.MIN_YFL_TO_STAKE && (

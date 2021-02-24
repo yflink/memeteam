@@ -22,12 +22,12 @@
 .guidance-container {
   display: flex;
   width: 100%;
-  padding: 100px 32px 32px;
+  padding: 60px 32px 32px;
   background-color: var(--white);
   border-radius: 4px;
   justify-content: center;
   align-items: center;
-  min-height: 600px;
+  min-height: 400px;
   position: relative;
   box-sizing: border-box;
 }
@@ -72,11 +72,13 @@
   display: flex;
   justify-content: center;
   flex: 0 0 100%;
+  flex-wrap: wrap;
 }
 
 .guidance-input-wrapper {
   position: relative;
   margin: 0 0 16px;
+  width: 100%;
 }
 
 .guidance-title-wrapper {
@@ -142,7 +144,7 @@
 
 .guidance .button-main {
   margin: 0 0 16px;
-  min-width: 210px;
+  min-width: 236px;
 }
 
 .guidance .button-max {
@@ -153,13 +155,18 @@
 
 .guidance .button-back {
   box-shadow: none;
-  top: 32px;
-  left: 32px;
+  top: 10px;
+  left: 10px;
 }
 
 @media (min-width: 900px) {
   .guidance-buttons {
     flex-wrap: nowrap;
+  }
+
+  .guidance-container {
+    padding: 100px 32px 32px;
+    min-height: 600px;
   }
 
   .guidance-buttons > .button-main {
@@ -172,6 +179,15 @@
 
   .guidance-input-wrapper {
     margin: 0 16px 0 0;
+  }
+
+  .guidance .button-back {
+    top: 32px;
+    left: 32px;
+  }
+
+  .guidance-row {
+    flex-wrap: nowrap;
   }
 
 }

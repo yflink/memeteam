@@ -7,7 +7,7 @@ import { abbreviateAddress, getDisplayableAmountFromMinUnit } from '../../web3/u
 
 import './styles.css'
 import Button from '@material-ui/core/Button'
-import Unlock from '../../containers/Create/Unlock'
+import Unlock from '../../containers/Unlock'
 
 const store = Store.store
 const emitter = Store.emitter
