@@ -63,6 +63,7 @@ import {
 } from '../web3/connectors'
 import { campaignConfig } from '../campaign.config'
 import { getRoundedWei } from '../web3/utils'
+import moment from 'moment'
 
 const rp = require('request-promise')
 
@@ -529,7 +530,7 @@ class Store {
   }
 
   resetTimer = () => {
-    let now = store.getStore('currentBlock')
+    let now = moment().unix()
     store.setStore({ now })
 
     if (this.timer) {
@@ -540,8 +541,8 @@ class Store {
   }
 
   updateNow = () => {
-    let now = store.getStore('now')
-    store.setStore({ now: now + 1 / 13.8 })
+    let now = moment().unix()
+    store.setStore({ now: now })
     emitter.emit(NOW_TIMESTAMP_UPDATED)
   }
 
@@ -603,7 +604,6 @@ class Store {
         }
         store.setStore({ rewardPools: poolData })
         emitter.emit(GET_BALANCES_RETURNED)
-        store.resetTimer()
       }
     )
   }

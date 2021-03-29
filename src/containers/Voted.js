@@ -56,8 +56,9 @@ class Voted extends PureComponent {
           <BackButton />
           <div className="guidance-wrapper">
             <div className="guidance-title">
-              You Voted with {getDisplayableAmountFromMinUnit(asset.stakedBalance, asset.decimals, 6)} Staked YFL For
-              Meme {memeId}
+              You Voted with {getDisplayableAmountFromMinUnit(asset.stakedBalance, asset.decimals, 6)} Staked $YFL
+              <br />
+              For Meme #{memeId}
             </div>
             <div className="guidance-copy">
               If this meme wins, 50% of the prize will be

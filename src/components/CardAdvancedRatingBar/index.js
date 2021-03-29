@@ -11,12 +11,14 @@ export default function CardAdvancedRatingBar({ score, shares }) {
         </div>
         <p>Score: {typeof score === 'undefined' || score === null ? 0 : parseFloat(score).toFixed(0)}</p>
       </div>
+      {/*
       <div className="element">
         <div className="icon">
           <Twitter />
         </div>
         <p>{typeof shares === 'undefined' || shares === null ? 0 : shares} Shares</p>
       </div>
+      */}
     </div>
   )
 }
