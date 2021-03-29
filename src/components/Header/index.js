@@ -1,19 +1,18 @@
 import React, { PureComponent } from 'react'
 import { withRouter } from 'react-router-dom'
-
 import { GET_BALANCES_RETURNED, NOW_TIMESTAMP_UPDATED } from '../../web3/constants'
 import Store from '../../stores'
 import { abbreviateAddress, getDisplayableAmountFromMinUnit } from '../../web3/utils'
-
 import './styles.css'
 import Button from '@material-ui/core/Button'
 import Unlock from '../../containers/Unlock'
+import { CloseSVG, InfoSVG, SettingsSVG, ToolsSVG, YFLSVG } from '../SVG'
 
 const store = Store.store
 const emitter = Store.emitter
 
 class Header extends PureComponent {
-  state = {}
+  state = { menu: false }
 
   componentDidMount() {
     emitter.on(GET_BALANCES_RETURNED, this.balancesReturned)
@@ -37,6 +36,10 @@ class Header extends PureComponent {
   handleGoToStake = () => {
     const { history } = this.props
     history.replace('/stake')
+  }
+
+  handleToggle = () => {
+    this.setState({ menu: !this.state.menu })
   }
 
   render() {
@@ -67,6 +70,37 @@ class Header extends PureComponent {
             <Unlock redirectUrl="/" title="Unconnected" />
           </div>
         )}
+        <div className="menu">
+          <span className="menu-toggle" onClick={this.handleToggle}>
+            <SettingsSVG />
+          </span>
+          {this.state.menu && (
+            <nav className="menu-container">
+              <ul className="menu-list">
+                <li className="menu-item">
+                  <a href="/about" title="About">
+                    <InfoSVG /> About
+                  </a>
+                </li>
+                <li className="menu-item">
+                  <a href="/tutorial" title="Tutorial">
+                    <ToolsSVG /> Tutorial
+                  </a>
+                </li>
+                <li className="menu-item">
+                  <a href="/unstake" title="Unstake">
+                    <CloseSVG /> Unstake
+                  </a>
+                </li>
+                <li className="menu-item">
+                  <a href="https://linkswap.app" target="_blank" rel="noopener noreferrer" title="LINKSWAP">
+                    <YFLSVG /> Linkswap
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          )}
+        </div>
       </div>
     )
   }

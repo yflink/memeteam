@@ -20,9 +20,11 @@
   --grey600: #818181;
   --grey700: #686868;
   --grey800: #575757;
+  --grey900: #353535;
   --light: #efefef;
   --white-alpha2: rgba(255, 255, 255, 0.2);
   --black-alpha1: rgba(0, 0, 0, 0.1);
+  --black-alpha4: rgba(0, 0, 0, 0.4);
   --box-shadow: 0 6px 12px rgba(0, 0, 0, 0.16);
   --button-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
   --font-size-default: 18px;
@@ -90,6 +92,8 @@ a:active {
 .app {
   width: 100%;
   min-height: calc(100vh - 115px);
+  position: relative;
+  z-index: 5;
 }
 
 .app-body {
@@ -99,6 +103,8 @@ a:active {
   padding: 10px 10px 30px;
   box-sizing: border-box;
   min-height: calc(100vh - 184px);
+  position: relative;
+  z-index: 4;
 }
 
 .app-logo-container {
@@ -142,6 +148,7 @@ header {
   width: 100%;
   flex-wrap: wrap;
   flex: 0 0 auto;
+  position: relative;
 }
 
 /* size */
@@ -249,6 +256,7 @@ header {
   padding: 10px 16px;
   box-shadow: var(--box-shadow);
   position: absolute;
+  z-index: 3;
 }
 
 .app .button-back:hover {
@@ -407,17 +415,17 @@ header {
 }
 
 .app .button-control {
-  background: var(--grey100);
+  background: var(--black);
   padding: 16px 10px;
   box-shadow: var(--box-shadow);
 }
 
 .app .button-control:hover {
-  background: var(--grey800);
+  background: var(--white);
 }
 
 .app .button-control .MuiButton-label svg {
-  stroke: var(--grey800);
+  stroke: var(--white);
   display: inline-block;
   margin: 0;
   height: 30px;
@@ -426,7 +434,7 @@ header {
 }
 
 .app .button-control:hover .MuiButton-label svg {
-  stroke: var(--grey100);
+  stroke: var(--black);
 }
 
 @media (min-width: 1409px) {

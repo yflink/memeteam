@@ -5,6 +5,7 @@ import Store from '../../stores'
 import { GET_BALANCES, GET_BALANCES_RETURNED } from '../../web3/constants'
 import Button from '@material-ui/core/Button'
 import BackButton from '../../components/BackButton'
+import { getDisplayableAmountFromMinUnit } from '../../web3/utils'
 
 const yflToken = require('../../assets/images/yfl-token.png')
 
@@ -49,7 +50,9 @@ class Buy extends PureComponent {
   }
 
   render() {
+    const token = store.getYFLToken()
     const { isForCreate } = this.props
+    const stakedBalance = getDisplayableAmountFromMinUnit(token.stakedBalance, token.decimals, 2)
 
     if (store.hasEnoughYFL()) {
       return <Redirect to={isForCreate ? '/create/welcome' : `/details/${this.getMemeId()}/welcome`} />
@@ -62,7 +65,8 @@ class Buy extends PureComponent {
             <img className="guidance-image" src={yflToken} alt="Buy YFL!" />
             <div className="guidance-title">Buy $YFL</div>
             <div className="guidance-copy">
-              You need at least {store.MIN_YFL_TO_STAKE} $YFL to Submit a Meme or Vote for a Meme
+              To participate in this, you have to have at least {store.MIN_YFL_TO_STAKE} $YFL staked in the smart
+              contract.
             </div>
             <div className="guidance-buttons">
               <Button
@@ -72,6 +76,11 @@ class Buy extends PureComponent {
               >
                 Buy $YFL
               </Button>
+              {Number(stakedBalance) >= store.MIN_YFL_TO_STAKE && (
+                <Button className="button-white" href="/#/create/allset">
+                  Already staked
+                </Button>
+              )}
             </div>
           </div>
         </div>

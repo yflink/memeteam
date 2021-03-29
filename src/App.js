@@ -74,7 +74,7 @@ class App extends PureComponent {
                 <div className="app-logo-container">
                   <Link className="app-logo-link" to="/">
                     <div className="app-logo">
-                      <img className="img" src={logo} alt="logo" />
+                      <img height={40} width={40} className="img" src={logo} alt="logo" />
                     </div>
                     <div className="app-name">memeteam.io</div>
                   </Link>

@@ -47,6 +47,10 @@ class Tweet extends PureComponent {
                 Skip
               </Button>
             </div>
+            <div className="guidance-pagination">
+              <span className="guidance-step is-done" />
+              <span className="guidance-step is-done" />
+            </div>
           </div>
         </div>
       </section>

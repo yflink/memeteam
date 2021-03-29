@@ -81,7 +81,7 @@ function Create({ location, history, classes }) {
   const balance = getDisplayableAmountFromMinUnit(token.balance, token.decimals, 2)
   const stakedBalance = getDisplayableAmountFromMinUnit(token.stakedBalance, token.decimals, 2)
 
-  if (Number(balance) === 0) {
+  if (Number(stakedBalance) < store.MIN_YFL_TO_STAKE && Number(balance) === 0) {
     return <Redirect to={'/create/buy'} />
   }
 
@@ -118,6 +118,10 @@ function Create({ location, history, classes }) {
             <Button className="button-main upload" onClick={() => inputEl.current.click()}>
               <Image /> Upload
             </Button>
+          </div>
+          <div className="guidance-pagination">
+            <span className="guidance-step is-active" />
+            <span className="guidance-step" />
           </div>
         </div>
       </div>

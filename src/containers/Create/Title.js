@@ -117,6 +117,10 @@ class Title extends PureComponent {
                   Submit
                 </Button>
               </div>
+              <div className="guidance-pagination">
+                <span className="guidance-step is-done" />
+                <span className="guidance-step is-active" />
+              </div>
             </div>
           )}
         </div>

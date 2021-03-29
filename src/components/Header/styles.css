@@ -35,8 +35,82 @@
 .submit-button {
   margin: 16px 0 0;
   order: 2;
+  white-space: nowrap;
 }
 
+.menu {
+  order: 3;
+  margin: 0 0 0 16px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.menu-toggle {
+  background-color: var(--grey900);
+  padding: 8px;
+  width: 32px;
+  height: 32px;
+  box-shadow: var(--box-shadow);
+  box-sizing: border-box;
+  display: flex;
+  border-radius: 4px;
+}
+
+.menu-toggle:hover {
+  background-color: var(--black);
+  cursor: pointer;
+}
+
+.menu-toggle svg {
+  height: 16px;
+  width: 16px;
+  fill: var(--white);
+}
+
+.menu-container {
+  position: absolute;
+  background-color: var(--grey900);
+  padding: 10px 0;
+  box-shadow: var(--box-shadow);
+  border-radius: 4px;
+  top: 40px;
+  right: 0;
+}
+
+.menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-item {
+  margin: 4px 0;
+}
+
+.menu-item a {
+  font-size: 16px;
+  line-height: 16px;
+  padding: 8px 16px;
+  color: var(--white);
+  display: flex;
+  flex: 0 0 100%;
+  flex-wrap: nowrap;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.menu-item a:hover {
+  background-color: var(--black);
+}
+
+.menu-item a svg {
+  margin: 0 12px 0 0;
+  height: 16px;
+  width: 16px;
+  fill: var(--white);
+  display: inline-block;
+}
 
 @media (min-width: 900px) {
   .header {
