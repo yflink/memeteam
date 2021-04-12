@@ -39,11 +39,10 @@
 }
 
 .menu {
-  order: 3;
-  margin: 0 0 0 16px;
-  display: flex;
-  align-items: center;
-  position: relative;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: auto;
 }
 
 .menu-toggle {
@@ -132,5 +131,15 @@
   .submit-button {
     margin: 0 16px 0 0;
     order: 1;
+  }
+
+  .menu {
+    order: 3;
+    margin: 0 0 0 16px;
+    align-items: center;
+    display: flex;
+    position: relative;
+    right: unset;
+    top: unset;
   }
 }
