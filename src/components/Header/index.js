@@ -86,21 +86,6 @@ class Header extends PureComponent {
             <nav className="menu-container">
               <ul className="menu-list">
                 <li className="menu-item">
-                  <a href="/about" title="About">
-                    <InfoSVG /> About
-                  </a>
-                </li>
-                <li className="menu-item">
-                  <a href="/tutorial" title="Tutorial">
-                    <ToolsSVG /> Tutorial
-                  </a>
-                </li>
-                <li className="menu-item">
-                  <a href="/unstake" title="Unstake">
-                    <CloseSVG /> Unstake
-                  </a>
-                </li>
-                <li className="menu-item">
                   <a href="https://linkswap.app" target="_blank" rel="noopener noreferrer" title="LINKSWAP">
                     <YFLSVG /> Linkswap
                   </a>
